@@ -33,7 +33,7 @@ export const Navbar = () => (
                         <Link to={"/"}><SvgSent></SvgSent>Entregues</Link>
                     </li>
                     <li className="nav-item">
-                        <Link to={"/"}><SvgStudent></SvgStudent>Alunos</Link>
+                        <Link to={"students"}><SvgStudent></SvgStudent>Alunos</Link>
                     </li>
                 </ul>
             </div>
