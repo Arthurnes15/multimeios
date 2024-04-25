@@ -1,0 +1,60 @@
+.book {
+    position: relative;
+}
+
+.over-book {
+    width: 200px;
+    height: 440px;
+    padding: 15px;
+    font-weight: 400;
+    background: rgb(94,75,166);
+    background: linear-gradient(53deg, rgba(94,75,166,1) 0%, rgba(107,84,191,1) 50%, rgba(159,75,242,1) 100%);
+    position: absolute;
+    animation: transition 0.4s;
+}
+
+
+.name_book {
+    text-transform: uppercase;
+}
+
+.name_book, .name_author, .isbn, .publisher, .gender, .amount, .cdd, .publication {
+    color: white
+}
+
+.name_book:hover, .name_author:hover, .isbn:hover, .publisher:hover, .gender:hover, .amount:hover, .cdd:hover, .publication:hover {
+    text-decoration: none;
+}
+
+.events-svg {
+    padding-top: 10px;
+}
+
+.book .book__img-title .image-book {
+    width: 200px;
+    height: 330px;
+}
+
+.book .book__img-title .image-book .img {
+    width: 100%;
+    height: 100%;
+}
+
+.book__img-title {
+    width: 180px;
+}
+
+.main_name-book {
+    padding-top: 10px;
+}
+
+.main_author-book {
+    color: var(--light-black);
+    font-weight: 200;
+}
+
+@keyframes transition {
+    from {
+        opacity: 0.3;
+    }
+}

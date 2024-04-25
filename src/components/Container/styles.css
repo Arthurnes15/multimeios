@@ -1,0 +1,52 @@
+.presentation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 450px;
+    width: 100%;
+    background-color: var(--light-cian);
+    margin-bottom: 30px;
+}
+
+.actions {
+    margin: 100px;
+}
+
+.title, .paragraph {
+    color: var(--middle-purple);
+}
+
+.title {
+    font-size: 50px;
+}
+
+.paragraph {
+    font-size: 20px;
+}
+
+.link {
+    text-decoration: none;
+    color: var(--middle-purple);
+    padding-left: 20px;
+}
+
+.paragraph:hover {
+    text-decoration: none;
+}
+
+.presentation .actions .buttons-actions {
+    display: flex;
+    align-items: center;
+    padding-top: 20px;
+}
+
+.btn-register {
+    background-color: var(--middle-purple);
+    color: white;
+    width: 240px;
+    height: 55px;
+    font-size: 20px;
+    font-weight: 500;
+    border-radius: 27px;
+    padding: 10px;
+}

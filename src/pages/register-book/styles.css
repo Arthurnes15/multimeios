@@ -1,0 +1,16 @@
+#register-pub {
+    align-items: center;
+}
+
+.container-button {
+    margin-top: 30px;
+    padding-left: 40px;
+}
+
+.btn-registerBook {
+    background-color: var(--middle-purple);
+    color: white;
+    padding: 8px;
+    border-radius: 8px;
+}
+

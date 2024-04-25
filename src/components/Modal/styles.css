@@ -1,0 +1,29 @@
+dialog {
+    border: none;
+    width: 500px;
+    border-radius: 8px;
+    border: 1px solid black;
+    padding: 30px;
+    z-index: 5;
+    animation: transition 0.3s;
+}
+
+.modal-header-edit {
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal-footer-edit {
+    display: flex;
+    justify-content: space-between;
+}
+
+@keyframes transition {
+    from {
+        opacity: 0.3;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

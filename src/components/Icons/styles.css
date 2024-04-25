@@ -1,0 +1,17 @@
+button {
+    background-color: transparent;
+    border: none;
+}
+
+svg {
+    cursor: pointer;
+    padding-right: 8px;
+}
+
+.bi.bi-arrow-right-circle-fill {
+    padding: 0;
+}
+
+.bi.bi-instagram {
+    color: var(--light-purple);
+}

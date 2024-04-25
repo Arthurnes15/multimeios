@@ -1,0 +1,23 @@
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--light-cian);
+    margin-top: 2px;
+    padding: 50px;
+}
+
+.text-copyright:hover {
+    cursor: auto;
+    text-decoration: none;
+}   
+
+.icons {
+    display: flex;
+    align-items: center;
+}
+
+.link-footer {
+    text-decoration: none;
+    color: var(--middle-purple);
+}

@@ -1,0 +1,15 @@
+.navbar-nav .nav-item {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-nav .nav-item a{
+    padding-right: 40px;
+    color: var(--light-purple);
+    text-decoration: none;
+}
+
+.logo {
+    width: 140px;
+    height: auto;
+}

@@ -1,0 +1,13 @@
+@font-face {
+    font-family: 'Nunito';
+    src: url(../assets/fonts/Nunito_Sans/NunitoSans-VariableFont_YTLC\,opsz\,wdth\,wght.ttf);
+}
+
+:root {
+    --light-purple : #9F4BF2;
+    --middle-purple : #6B54BF;
+    --dark-purple : #5E4BA6;
+    --light-cian: #BBEAEF;
+    --cian : #4ECBD9;
+    --light-black : #0D0D0D;
+}

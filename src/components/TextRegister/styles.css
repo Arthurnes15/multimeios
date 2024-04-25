@@ -1,0 +1,10 @@
+p {
+    color: var(--light-purple);
+    text-decoration: none;
+    cursor: pointer;
+    margin-bottom: 3px;
+} 
+
+p:hover {
+    text-decoration: underline;
+}
