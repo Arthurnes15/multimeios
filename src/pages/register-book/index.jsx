@@ -9,9 +9,9 @@ import { Label } from '../../components/Label';
 import { Input } from '../../components/Input';
 import { Select } from '../../components/Select';
 import { TextRegister } from '../../components/TextRegister';
-import { Button } from '../../components/Button/index'
+import { Button } from '../../components/Button/index';
 import { Option } from '../../components/Option';
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { ref, uploadBytesResumable, getDownloadURL} from 'firebase/storage';
 import { storage } from '../../firebase';
 
 export function RegisterBook() {
