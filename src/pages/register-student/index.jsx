@@ -30,8 +30,7 @@ export function RegisterStudent() {
     Axios.get("http://localhost:3001/getGroups")
     .then((response) => {
       setListGroups(response.data)}
-    )}
-  )
+    )}, [])
 
   return (
     <>
