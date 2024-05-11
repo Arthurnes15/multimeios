@@ -13,7 +13,7 @@ export const Students = () => {
         .then((response) => {
             setListStudents(response.data)}
         )
-    }, [])
+    }, []);
 
     return (
         <>

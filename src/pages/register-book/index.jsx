@@ -101,17 +101,17 @@ export function RegisterBook() {
     Axios.get("http://localhost:3001/getAuthors")
     .then((response) => {
       setListAuthors(response.data)}
-    )
+    );
 
     Axios.get("http://localhost:3001/getGenders")
     .then((response) => {
       setListGenders(response.data)}
-    )
+    );
 
     Axios.get("http://localhost:3001/getPublishers")
     .then((response) => {
       setListPubli(response.data)}
-    )
+    );
   }, []);
 
   return (

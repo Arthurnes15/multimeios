@@ -2,7 +2,7 @@ import * as React from "react"
 
 export function SvgRent(props) {
   return (
-    <button type="button">
+    <button type="button" onClick={props.onClick}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width={30}

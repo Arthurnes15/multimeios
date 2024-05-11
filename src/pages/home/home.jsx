@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef} from 'react';
 import Axios from 'axios';
 import { Navbar } from '../../components/Navbar/index';
 import { Container } from '../../components/Container';
+import { Modal } from '../../components/Modal';
 import { Book } from '../../components/Book';
 import { Footer } from '../../components/Footer';
 import leftArrow from '../../assets/img/left-arrow.png';
@@ -16,12 +17,12 @@ export const Home = () => {
     const handleLeftClick = (e) => {
         e.preventDefault();
         carousel.current.scrollLeft -= carousel.current.offsetWidth;
-    }
+    };
 
     const handleRightClick = (e) => {
         e.preventDefault();
         carousel.current.scrollLeft += carousel.current.offsetWidth;
-    }
+    };
 
     useEffect(() => {
         Axios.get("http://localhost:3001/getBooks")
@@ -69,11 +70,11 @@ export const Home = () => {
                                     img={value.url_imagem}
                                     alt={value.nome_livro}
                                     />
+                                    
                                 )
                             })}
                         </div>
                     </section>
-
             <Footer/>
         </>
 

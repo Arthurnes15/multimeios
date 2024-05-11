@@ -1,30 +1,38 @@
 import '../../vars/vars.css'
 import './styles.css';
 import React, { useState } from 'react';
-import { Modal } from '../Modal';
 import { SvgEdit } from '../../components/Icons/edit';
 import { SvgTrash } from '../../components/Icons/trash';
 import { SvgBook } from '../Icons/book';
 import { SvgRent } from '../Icons/rent';
+import { Link } from 'react-router-dom';
+import { FormEdit } from '../FormEdit';
 import  Axios  from 'axios';
+import { Modal } from '../Modal';
 
-export const Book = ({ id, nameBook, nameAuthor, publisher, img, alt, gender, isbn, amount, cdd, publication, listBook, setListBook }) => {
-    const [showInfoBook, setShowInfo] = useState(false); 
-    const [showModal, setShowModal] = useState(false);
+export const Book = ({ id, nameBook, nameAuthor, publisher, img, alt, gender, isbn, amount, cdd, publication}) => {
+    const [openModal, setOpenModal] = useState(false);
+    const [showInfoBook, setShowInfoBook] = useState(false); 
 
     const handleDeleteBook = () => {
         const question = window.confirm("Você tem certeza que deseja apagar esse livro?");
-        if(question === true ) {
+        if(question === true) {
             Axios.delete(`http://localhost:3001/delete/${id}`)
             .then(() => {
-            document.location.reload();
-            })    
+                document.location.reload();
+            });    
         }
     }
 
     return (
         <>
-        <div className="book" onMouseEnter={() => setShowInfo(true)} onMouseLeave={() => setShowInfo(false)}>
+        <Modal
+        open={openModal}
+        close={() => {setOpenModal(false)}}
+        id_book={id}
+        status={1}
+        />
+        <div className="book" onMouseEnter={() => setShowInfoBook(true)} onMouseLeave={() => setShowInfoBook(false)}>
                     {showInfoBook && <div className="over-book">
                         <div className="book-details">
                             <p className="name_book"><SvgBook></SvgBook><strong>{ nameBook }</strong></p>
@@ -37,9 +45,9 @@ export const Book = ({ id, nameBook, nameAuthor, publisher, img, alt, gender, is
                             <p className="amount"><strong>Quantidade:</strong> { amount }</p>
                             <p className="d-lg-none id">Nº do livro: <strong>{id}</strong></p>
                             <div className="events-svg">
-                                <SvgEdit onClick={() => {setShowModal(true)}}></SvgEdit>
+                                <SvgEdit></SvgEdit>
                                 <SvgTrash onClick={() => {handleDeleteBook()}}></SvgTrash>
-                                <SvgRent></SvgRent>
+                                <SvgRent onClick={() => setOpenModal(true)}></SvgRent>
                             </div>                          
                         </div>
                     </div>}
@@ -50,23 +58,7 @@ export const Book = ({ id, nameBook, nameAuthor, publisher, img, alt, gender, is
                     <h5 className='main_name-book'> { nameBook } </h5>
                     <p className="main_author-book">{ nameAuthor }</p>
                 </div>
-                
         </div>
-
-        {showModal && <Modal openModal={"open"}
-        id={id}
-        name={nameBook}
-        author={nameAuthor}
-        publisher={publisher}
-        gender={gender}
-        isbn={isbn}
-        amount={amount}
-        cdd={cdd}
-        listBook={listBook}
-        setListBook={setListBook}
-        onClick={() => {setShowModal(false)}}
-        ></Modal>}
-
     </>
     )
 }
