@@ -15,6 +15,16 @@ export const Students = () => {
         )
     }, []);
 
+    const handleDeleteStudent = (id) => {
+        const question = window.confirm("Você tem certeza que deseja excluir esse aluno?");
+        if(question === true) {
+            Axios.delete(`http://localhost:3001/deleteStudent/${id}`)
+            .then(() => {
+                document.location.reload();
+            });    
+        }
+    }
+
     return (
         <>
             <Navbar/>
@@ -38,7 +48,7 @@ export const Students = () => {
                                 <td>{student.email_aluno}</td>
                                 <td>{student.nome_turma}</td>
                                 <td><SvgEdit></SvgEdit></td>
-                                <td><SvgTrash></SvgTrash></td>
+                                <td><SvgTrash onClick={() => {handleDeleteStudent(student.id_aluno)}}></SvgTrash></td>
                             </tr>
                         )
                     })}

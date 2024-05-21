@@ -15,7 +15,7 @@ export const Login = () => {
             password: values.password,
         }).then((response) => {
             if (response.data.msg === "Usuário logado") {
-                navigate("/home");
+                navigate("home");
             } else {
                 alert("Você não tem permissão para acessar a página")
             }

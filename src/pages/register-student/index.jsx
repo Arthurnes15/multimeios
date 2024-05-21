@@ -15,22 +15,27 @@ export function RegisterStudent() {
       ...prevValue,
       [value.target.name] : value.target.value,
     }))
-  }
+  };
 
   const handleClickButton = () => {
-    Axios.post("http://localhost:3001/register-student", {
-      name : values.name_student,
-      email : values.email,
-      group : values.group,
-    })
-    .then(response => console.log(response))
+    const question = window.confirm("Você tem certeza que deseja cadastrar esse aluno?");
+    if (question === true) {
+      Axios.post("http://localhost:3001/register-student", {
+        name : values.name_student,
+        email : values.email,
+        group : values.group,
+      })
+      .then(() => {
+        document.location.reload();
+      });
+    }; 
   }
 
   useEffect(() => {
     Axios.get("http://localhost:3001/getGroups")
     .then((response) => {
       setListGroups(response.data)}
-    )}, [])
+    )}, []);
 
   return (
     <>
@@ -57,7 +62,7 @@ export function RegisterStudent() {
 
       <br/>
       
-      <button type="button" className="btn btn-primary" onClick={() => handleClickButton()}>Cadastrar aluno</button>
+      <button type="button" className="btn btn-primary" onClick={() => {handleClickButton()}}>Cadastrar aluno</button>
     </div>
     </>
   );

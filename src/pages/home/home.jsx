@@ -1,18 +1,24 @@
-import React, { useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Axios from 'axios';
 import { Navbar } from '../../components/Navbar/index';
 import { Container } from '../../components/Container';
-import { Modal } from '../../components/Modal';
-import { Book } from '../../components/Book';
 import { Footer } from '../../components/Footer';
+import { Input } from '../../components/Input';
 import leftArrow from '../../assets/img/left-arrow.png';
-
 import './styles.css';
+import { Books } from '../../components/Books';
 
 export const Home = () => {
-    const [listBooks, setListBooks] = useState();
-
+    const [listBooks, setListBooks] = useState([]);
+    const [searchValue, setSearchValue] = useState('');
     const carousel = useRef();
+
+    useEffect(() => {
+        Axios.get("http://localhost:3001/getBooks")
+        .then((response) => {
+            setListBooks(response.data)
+        })
+    }, []);
 
     const handleLeftClick = (e) => {
         e.preventDefault();
@@ -24,58 +30,46 @@ export const Home = () => {
         carousel.current.scrollLeft += carousel.current.offsetWidth;
     };
 
-    useEffect(() => {
-        Axios.get("http://localhost:3001/getBooks")
-        .then((response) => {
-            setListBooks(response.data)}
-        )
-    }, [])
+    const filteredBooks = !!searchValue ? listBooks.filter(book => {
+        return book.nome_livro.toLowerCase().includes(searchValue.toLowerCase())
+    }) : listBooks;
+
+    const handleChangeSearch = (e) => {
+        const { value } = e.target;
+        setSearchValue(value);
+    }
 
     return (
         <>
-            <Navbar/>
-                <Container/>
-                <div className="header-carousel">
-                    <div className="title">
-                        <h1>Catálogo de Livros</h1>
-                    </div>
-                    <div className="buttons">
-                        <button className="left-arrow" onClick={handleLeftClick}>
-                            <img src={leftArrow} alt="left-arrow"/>
-                        </button>
-                        <button className="right-arrow" onClick={handleRightClick}>
-                            <img src={leftArrow} alt="right-arrow" />
-                        </button>
-                    </div>
-
+            <Navbar />
+            <Container />
+            <div className="header-carousel">
+                <div className="title">
+                    <h1>Catálogo de Livros</h1>
                 </div>
 
-                    <section className="container-books">
-                        <div className="books" ref={carousel}>
-                            {typeof listBooks !== "undefined" &&
-                            listBooks.map((value) => {
-                                return (
-                                    <Book key={value.id_livro}
-                                    id={value.id_livro}
-                                    listBook={listBooks}
-                                    setListBook={setListBooks}
-                                    nameBook={value.nome_livro}
-                                    nameAuthor={value.nome_autor}
-                                    publisher={value.editora}
-                                    publication={value.data_publicacao}
-                                    gender={value.genero}
-                                    isbn={value.ISBN}
-                                    cdd={value.CDD}
-                                    amount={value.n_exemplares}
-                                    img={value.url_imagem}
-                                    alt={value.nome_livro}
-                                    />
-                                    
-                                )
-                            })}
-                        </div>
-                    </section>
-            <Footer/>
+                <div className="search-buttons">
+                    <div className="input-search">
+                        <Input placeholder={"Buscar um livro"}
+                        type={"search"}
+                        value={searchValue}
+                        onChange={handleChangeSearch}
+                        />
+                    </div>
+                    <button className="left-arrow" onClick={handleLeftClick}>
+                        <img src={leftArrow} alt="left-arrow" />
+                    </button>
+                    <button className="right-arrow" onClick={handleRightClick}>
+                        <img src={leftArrow} alt="right-arrow" />
+                    </button>
+                </div>
+            </div>
+
+            <div className="books" ref={carousel}>
+                {filteredBooks.length > 0 && <Books books={filteredBooks}></Books>}
+            </div>
+
+            <Footer />
         </>
 
     )

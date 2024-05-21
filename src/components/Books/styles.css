@@ -1,0 +1,12 @@
+.books {
+    display: flex;
+    gap: 70px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 20px;
+    margin-right: 20px;
+}
+
+.books::-webkit-scrollbar {
+    display: none;
+}

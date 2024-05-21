@@ -1,0 +1,53 @@
+.book-rented {
+    display: flex;
+    justify-content: center;
+    background-color: rgba(182, 181, 181, 0.226);
+    padding: 0 50px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px; 
+}
+
+.book-rented img {
+    width: 200px;
+    height: 330px;
+}
+
+.details-rent {
+    padding: 10px;
+}
+
+.title-book h4 {
+    font-size: 16px;
+    font-weight: 700;
+    padding-bottom: 5px;
+}
+
+.texts-rent .text-rent {
+    color: black;
+    padding-bottom: 3px;
+}
+
+.texts-rent .text-rent:hover {
+    text-decoration: none;
+    cursor: auto
+}
+
+.status-renew {
+    flex-direction: column;
+}
+
+.status-renew .status-rent #select-status {
+    width: 120px;
+    margin-right: 10px;
+}
+
+.status-renew .status-rent, .renew-book{
+    display: flex;
+    justify-content: center;
+}
+
+.renew-book .text-renew {
+    padding: 10px 0 5px 0;
+    font-weight: 700;
+    cursor: pointer;
+}

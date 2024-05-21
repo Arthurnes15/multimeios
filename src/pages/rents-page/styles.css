@@ -1,0 +1,11 @@
+.container.rents {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 80px;
+    padding-bottom: 20px;
+}
+
+.rent {
+    border-radius: 8px;
+    box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.158);
+}

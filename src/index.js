@@ -1,12 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Login } from './pages/login';
 import { Home } from './pages/home/home';
+import { Rents } from './pages/rents-page';
 import { RegisterBook } from './pages/register-book';
 import { RegisterStudent } from './pages/register-student';
 import { Students } from './pages/students/index';
-import { Login } from './pages/login';
 import './index.css';
+import { Error } from './pages/not-found';
+import { RentsPending } from './pages/rents-pending';
+import { RentsReturned } from './pages/rents-returned';
 
 const router = createBrowserRouter([
   {
@@ -18,16 +22,32 @@ const router = createBrowserRouter([
     element: <Home/>
   },
   {
-    path: "home/registerBook",
+    path: "/rents",
+    element: <Rents/>
+  },
+  {
+    path: "/rents-pending",
+    element: <RentsPending/>
+  },
+  {
+    path: "/rents-returned",
+    element: <RentsReturned/>
+  },  
+  {
+    path: "/registerBook",
     element: <RegisterBook/>
   },
   {
-    path: "home/registerStudent",
+    path: "/registerStudent",
     element: <RegisterStudent/>
   },
   {
-    path: "home/students",
+    path: "/students",
     element: <Students/>
+  },
+  {
+    path: "*",
+    element: <Error/>
   },
 ]);
 const root = ReactDOM.createRoot(document.getElementById('root'));

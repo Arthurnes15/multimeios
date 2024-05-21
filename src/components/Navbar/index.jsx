@@ -23,17 +23,17 @@ export const Navbar = () => (
                         <Link to={"/home"}><SvgHome></SvgHome>Tela Inicial</Link>
                     </li>
                     <li className="nav-item">
-                        <Link to={"/"}><SvgExclamation></SvgExclamation>Pendências</Link>
+                        <Link to={"/rents-pending"}><SvgExclamation></SvgExclamation>Pendências</Link>
                     </li>
                     <li className="nav-item">
-                        <Link to={"/"}><SvgRented></SvgRented>Alugados</Link>
+                        <Link to={"/rents"}><SvgRented></SvgRented>Alugados</Link>
                         
                     </li>
                     <li className="nav-item">
-                        <Link to={"/"}><SvgSent></SvgSent>Entregues</Link>
+                        <Link to={"/rents-returned"}><SvgSent></SvgSent>Entregues</Link>
                     </li>
                     <li className="nav-item">
-                        <Link to={"students"}><SvgStudent></SvgStudent>Alunos</Link>
+                        <Link to={"/students"}><SvgStudent></SvgStudent>Alunos</Link>
                     </li>
                 </ul>
             </div>

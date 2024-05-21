@@ -66,21 +66,24 @@ export function RegisterBook() {
   }
 
   const handleClickButton = () => {
-    Axios.post("http://localhost:3001/register-book", {
-      book : values.book,
-      author_book : values.author,
-      gender : values.gender,
-      publisher : values.publisher,
-      isbn : values.isbn,
-      amount : values.amount,
-      volume: values.volume,
-      cdd : values.cdd,
-      publication : values.publication,
-      image : imgURL,
-    })
-    .then(() => {
-      document.location.reload();
-    })
+    const question = window.confirm("Você tem certeza que deseja cadastrar esse aluno?");
+    if(question === true) {
+      Axios.post("http://localhost:3001/register-book", {
+        book : values.book,
+        author_book : values.author,
+        gender : values.gender,
+        publisher : values.publisher,
+        isbn : values.isbn,
+        amount : values.amount,
+        volume: values.volume,
+        cdd : values.cdd,
+        publication : values.publication,
+        image : imgURL,
+      })
+      .then(() => {
+        document.location.reload();
+      })
+    }
   }
 
   const handleClickButtonAut = () => {
@@ -137,7 +140,7 @@ export function RegisterBook() {
       <Select name={"author"} onChange={handleChangeValues} firstOption={"Escolha o autor"}
         render={typeof listAuthors !== "undefined" && listAuthors.map((valueAuthor) => {
             return(
-              <Option key={valueAuthor.id_autor} value={valueAuthor.id_autor} text=   {valueAuthor.nome_autor}
+              <Option key={valueAuthor.id_autor} value={valueAuthor.id_autor} text={valueAuthor.nome_autor}
               ></Option>
             )
         })}
@@ -248,7 +251,7 @@ export function RegisterBook() {
       <br/>
       
       <Button type={"button"} className={"btn-registerBook"} onClick={() => handleClickButton()} text={"Cadastrar Livro"}></Button>
-    
+
     </div>
     </>
   );

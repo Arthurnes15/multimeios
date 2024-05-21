@@ -8,7 +8,7 @@ import './styles.css';
 import { useEffect, useState } from "react";
 import Axios from "axios";
 
-export const Modal = ({ id_book, responsible, status, open, close }) => {
+export const Modal = ({ id_book, responsible, status, open, close, dateReturn }) => {
     const [values, setValues] = useState();
     const [listStudents, setListStudents] = useState();
 
@@ -25,7 +25,7 @@ export const Modal = ({ id_book, responsible, status, open, close }) => {
           ...prevValue,
           [value.target.name] : value.target.value,
         }));
-    }
+    };
 
     const handleClickRent = () => {
         Axios.post("http://localhost:3001/rent", {
@@ -33,6 +33,7 @@ export const Modal = ({ id_book, responsible, status, open, close }) => {
             responsible_rent: values.responsible,
             student: values.student,
             status_rent: status,
+            date_return: values.date_return
         });
     }
 
@@ -49,16 +50,17 @@ export const Modal = ({ id_book, responsible, status, open, close }) => {
                     onChange={handleChangeValues}
                     />
 
-                    <Input name={id_book}
-                    type={"hidden"}
+                    <Label text={"Responsável pelo aluguel: "}></Label>
+                    <Input name={"responsible"}
                     onChange={handleChangeValues}
                     />
 
-                    <Label text={"Responsável pelo aluguel: "}></Label>
-                    <Input name={"responsible"}
-                    defaultValue={responsible}
+                    <Label text={"Data de devolução:"}/>
+                    <Input name={"date_return"}
+                    type={"date"}
                     onChange={handleChangeValues}
                     />
+
 
                     <Label text={"Aluno: "}></Label>
                     <Select name={"student"}
@@ -67,7 +69,7 @@ export const Modal = ({ id_book, responsible, status, open, close }) => {
                     render={typeof listStudents !== "undefined" && listStudents.map((valueStu) => {
                         return (
                             <Option key={valueStu.id_aluno} value={valueStu.id_aluno} 
-                            text={`${valueStu.nome_aluno} - ${valueStu.id_aluno}`}
+                            text={valueStu.nome_aluno}
                             ></Option>
                         )
                     })}
@@ -76,7 +78,8 @@ export const Modal = ({ id_book, responsible, status, open, close }) => {
                     <Input name={status}
                     type={"hidden"}
                     onChange={handleChangeValues}
-                    ></Input>
+                    />
+
 
                     <br />
                     <Button text={"Alugar"}
