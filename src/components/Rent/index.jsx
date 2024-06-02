@@ -3,10 +3,10 @@ import { Select } from '../Select';
 import { useEffect, useState } from 'react';
 import { Option } from '../Option';
 import { SvgUpdate } from '../Icons/update';
-import { dateFormatter } from '../../utils';
+import { SvgTrash } from '../Icons/trash';
 import Axios from 'axios';  
 
-export const Rent = ({idRent, classRent, nameBook, nameStudent, imgRented, groupStudent, dateRent, dateReturn, statusRent }) => {
+export const Rent = ({idRent, classRent, nameBook, nameStudent, imgRented, groupStudent, dateRent, dateReturn, statusRent, responsible }) => {
     const [values, setValues] = useState();
     const [listStatus, setListStatus] = useState([]);
 
@@ -21,7 +21,7 @@ export const Rent = ({idRent, classRent, nameBook, nameStudent, imgRented, group
         setValues(prevValue => ({
           ...prevValue,
           [value.target.name] : value.target.value,
-        }))
+        }));
     };
 
     const handleUpdateStatus = () => {
@@ -30,6 +30,15 @@ export const Rent = ({idRent, classRent, nameBook, nameStudent, imgRented, group
             rent_id: idRent,
         });
     };
+
+    const handleDeleteRent = () => {
+        const question = window.confirm("Você tem certeza que deseja excluir esse aluguel?");
+        if (question) {
+            Axios.delete(`http://localhost:3001/deleteRent/${idRent}`)
+            .then(() => document.location.reload());
+            
+        }
+    }
 
     return (
         <div className={classRent}>
@@ -41,13 +50,13 @@ export const Rent = ({idRent, classRent, nameBook, nameStudent, imgRented, group
                         <h4>{nameBook}</h4>
                     </div>
                     <div className="texts-rent">
-                        <p className="text-rent">Alugatório: {nameStudent}</p>
-                        <p className="text-rent">Turma: {groupStudent}</p>
-                        <p className="text-rent">Distribuição: {dateRent}</p>
-                        <p className="text-rent">Devolução: {dateReturn}</p>
+                        <p>Alugatório: {nameStudent}</p>
+                        <p>Turma: {groupStudent}</p>
+                        <p>Distribuição: {dateRent}</p>
+                        <p>Devolução: {dateReturn}</p>
+                        <p>Responsável: {responsible}</p>
                     </div>
                             
-                    
                     <div className="status-renew">
                         <div className="status-rent">
                             <Select id={"select-status"} name={"status"} firstOption={"Status "} onChange={handleChangeValues} render={typeof listStatus !== "undefined" && listStatus.map(status => {
@@ -59,6 +68,7 @@ export const Rent = ({idRent, classRent, nameBook, nameStudent, imgRented, group
                                 )
                             })}></Select>
                             <SvgUpdate onClick={handleUpdateStatus}/>
+                            <SvgTrash onClick={handleDeleteRent}/>
                         </div>
                         <div className="renew-book">
                             <span className="text-renew">Renovar livro</span>

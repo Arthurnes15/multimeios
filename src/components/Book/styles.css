@@ -3,8 +3,8 @@
 }
 
 .over-book {
-    width: 200px;
-    height: 440px;
+    width: 100%;
+    height: 100%;
     padding: 15px;
     font-weight: 400;
     background: rgb(94,75,166);
@@ -13,43 +13,44 @@
     animation: transition 0.4s;
 }
 
-.name_book {
-    text-transform: uppercase;
-}
-
-.name_book, .name_author, .isbn, .publisher, .gender, .amount, .cdd, .publication {
-    color: white
-}
-
-.name_book:hover, .name_author:hover, .isbn:hover, .publisher:hover, .gender:hover, .amount:hover, .cdd:hover, .publication:hover {
-    text-decoration: none;
-}
-
 .events-svg {
     padding-top: 10px;
 }
 
-.book .book__img-title .image-book {
+.book__img-title {
     width: 200px;
+    height: 480px;
+}
+
+.image-book {
+    width: 100%;
     height: 330px;
 }
 
-.book .book__img-title .image-book .img {
+.image-book > img {
     width: 100%;
     height: 100%;
 }
 
-.book__img-title {
-    width: 180px;
+.book__img-title > h5 {
+    padding-top: 10px; 
 }
 
-.main_name-book {
-    padding-top: 10px;
-}
-
-.main_author-book {
+.book__img-title > p {
     color: var(--light-black);
     font-weight: 200;
+}
+
+.name_book {
+    text-transform: uppercase;
+}
+
+.book-details > p {
+    color: white
+}
+
+.book-details > p:hover {
+    text-decoration: none;
 }
 
 @keyframes transition {

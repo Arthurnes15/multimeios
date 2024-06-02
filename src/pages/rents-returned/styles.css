@@ -1,3 +1,7 @@
+.container.rents {
+    padding-top: 20px;
+}
+
 .rent-checked {
     border-radius: 8px;
     box-shadow: 0px 0px 12px 0px #2ecf2e;

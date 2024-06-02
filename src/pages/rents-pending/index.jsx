@@ -19,8 +19,7 @@ export const RentsPending = () => {
     return(
         <>
             <Navbar />
-            <h1>Aluguéis Pendentes</h1>
-            <div className="container rents">
+            <article className="container rents">
                 {typeof listRentsPending !== "undefined" && 
                     listRentsPending.map((value) => {
                         return(
@@ -36,7 +35,7 @@ export const RentsPending = () => {
                         )
                     })
                 }
-            </div>
+            </article>
             <Footer />
         </>
     );

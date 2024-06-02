@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min';
 import { Navbar } from '../../components/Navbar';
+import { Label } from '../../components/Label/index';
+import { Input }  from '../../components/Input/index';
+import { Button } from '../../components/Button/index'
 import { Select } from '../../components/Select/index';
 import { Option } from '../../components/Option';
 import Axios from 'axios';
@@ -19,17 +22,15 @@ export function RegisterStudent() {
 
   const handleClickButton = () => {
     const question = window.confirm("Você tem certeza que deseja cadastrar esse aluno?");
-    if (question === true) {
+    if (question) {
       Axios.post("http://localhost:3001/register-student", {
         name : values.name_student,
         email : values.email,
         group : values.group,
       })
-      .then(() => {
-        document.location.reload();
-      });
+      document.location.reload();
     }; 
-  }
+  };
 
   useEffect(() => {
     Axios.get("http://localhost:3001/getGroups")
@@ -39,31 +40,50 @@ export function RegisterStudent() {
 
   return (
     <>
-    <Navbar/>
-    <div className="container">
-      <h1>Cadastro de alunos</h1>
-      <label htmlFor="book-name" className="form-label">Nome do aluno: </label>
+      <Navbar/>
+      <article className="container">
+        <h1>Cadastro de alunos</h1>
 
-      <input className="form-control" name="name_student" type="text" placeholder="Nome do aluno" aria-label="default input example" onChange={handleChangeValues}></input>
+        <Label htmlFor={"book-name"}
+        text={"Nome do aluno:"}
+        />
 
-      <label htmlFor="author-name" className="form-label">E-mail: </label>
-      <input className="form-control" name="email" type="email" placeholder="Email do aluno" aria-label="default input example" onChange={handleChangeValues}></input>
+        <Input name={"name_student"}
+        placeholder={"Nome do aluno"}
+        onChange={handleChangeValues}
+        />
 
-      <label htmlFor="gender" className="form-label">Turma: </label>
-      
-      <Select name={"group"} onChange={handleChangeValues} firstOption={"Escolha a turma"}
-        render={typeof listGroups !== "undefined" && listGroups.map((valueGroup) => {
-          return(
-            <Option key={valueGroup.id_turma} value={valueGroup.id_turma} text={valueGroup.nome_turma}
-            ></Option>
-          )
-        })}
-      ></Select>
+        <Label htmlFor={"author-name"}
+        text={"E-mail:"}
+        />
 
-      <br/>
-      
-      <button type="button" className="btn btn-primary" onClick={() => {handleClickButton()}}>Cadastrar aluno</button>
-    </div>
+        <Input name={"email"}
+        type={"email"}
+        placeholder={"Email do aluno"}
+        onChange={handleChangeValues}
+        />
+
+        <Label htmlFor={"group"}
+        text={"Turma:"}
+        />
+        
+        <Select name={"group"} onChange={handleChangeValues} firstOption={"Escolha a turma"}
+          render={typeof listGroups !== "undefined" && listGroups.map((valueGroup) => {
+            return(
+              <Option key={valueGroup.id_turma} value={valueGroup.id_turma} text={valueGroup.nome_turma}
+              ></Option>
+            )
+          })}
+        ></Select>
+
+        <br/>
+        <Button text={"Cadastrar aluno"}
+        type={"button"}
+        className={"btn btn-primary"}
+        onClick={() => {handleClickButton()}}
+        ></Button>
+
+      </article>
     </>
   );
 }

@@ -1,0 +1,19 @@
+.container.table {
+    margin-top: 40px;
+}
+
+.table > thead > tr > th {
+    color: var(--dark-purple);
+}
+
+.header-students{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-students > h1 {
+    text-align: left;
+    color: var(--dark-purple);
+    padding-top: 20px;
+}

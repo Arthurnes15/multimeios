@@ -5,8 +5,10 @@ import { Container } from '../../components/Container';
 import { Footer } from '../../components/Footer';
 import { Input } from '../../components/Input';
 import leftArrow from '../../assets/img/left-arrow.png';
-import './styles.css';
 import { Books } from '../../components/Books';
+import { Button } from '../../components/Button';
+import './styles.css';
+import { Link } from 'react-router-dom';
 
 export const Home = () => {
     const [listBooks, setListBooks] = useState([]);
@@ -43,9 +45,11 @@ export const Home = () => {
         <>
             <Navbar />
             <Container />
-            <div className="header-carousel">
+            <header className="header-carousel">
                 <div className="title">
-                    <h1>Catálogo de Livros</h1>
+                    <Link to={"/books"}>
+                        <h1>Catálogo de Livros</h1>
+                    </Link>
                 </div>
 
                 <div className="search-buttons">
@@ -56,21 +60,21 @@ export const Home = () => {
                         onChange={handleChangeSearch}
                         />
                     </div>
-                    <button className="left-arrow" onClick={handleLeftClick}>
-                        <img src={leftArrow} alt="left-arrow" />
-                    </button>
-                    <button className="right-arrow" onClick={handleRightClick}>
-                        <img src={leftArrow} alt="right-arrow" />
-                    </button>
+
+                    <Button className={"left-arrow"} onClick={handleLeftClick}
+                    text={<img src={leftArrow} alt="left-arrow" />}
+                    />
+
+                    <Button className={"right-arrow"} onClick={handleRightClick}
+                    text={<img src={leftArrow} alt="right-arrow" />}
+                    />
                 </div>
-            </div>
+            </header>
 
-            <div className="books" ref={carousel}>
+            <section className="books" ref={carousel}>
                 {filteredBooks.length > 0 && <Books books={filteredBooks}></Books>}
-            </div>
-
+            </section>
             <Footer />
         </>
-
     )
 }

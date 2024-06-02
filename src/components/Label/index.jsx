@@ -1,4 +1,4 @@
-export const Label = ({text, htmlFor, className}) => {
+export const Label = ({text, htmlFor}) => {
     return(
        <label htmlFor={htmlFor} className={"form-label"}>
             {text}

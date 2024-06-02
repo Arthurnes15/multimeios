@@ -66,8 +66,8 @@ export function RegisterBook() {
   }
 
   const handleClickButton = () => {
-    const question = window.confirm("Você tem certeza que deseja cadastrar esse aluno?");
-    if(question === true) {
+    const question = window.confirm("Você tem certeza que quer cadastrar esse livro?");
+    if (question) {
       Axios.post("http://localhost:3001/register-book", {
         book : values.book,
         author_book : values.author,
@@ -80,10 +80,9 @@ export function RegisterBook() {
         publication : values.publication,
         image : imgURL,
       })
-      .then(() => {
-        document.location.reload();
-      })
+      document.location.reload();
     }
+      
   }
 
   const handleClickButtonAut = () => {
@@ -216,7 +215,6 @@ export function RegisterBook() {
       ></Input>
 
       <Label htmlFor={"volume"} text={"Volume:"} />
-
       <Input name={"volume"}
       type={"number"}
       placeholder={"Volume do livro"}
@@ -224,7 +222,6 @@ export function RegisterBook() {
       ></Input>
 
       <Label htmlFor={"cdd"} text={"Código do Livro:"} />
-
       <Input name={"cdd"}
       type={"text"}
       placeholder={"CDD"}
@@ -232,7 +229,6 @@ export function RegisterBook() {
       ></Input>
 
       <Label htmlFor={"date"} text={"Data de publicação:"} />
-
       <Input name={"publication"}
       type={"date"}
       placeholder={"Data de publicação"}
@@ -241,10 +237,10 @@ export function RegisterBook() {
 
       <Label htmlFor={"image_book"} text={"Imagem do livro"}></Label>
       <form onSubmit={handleUploadImg}>
-      <Input type={"file"}></Input>
-      <br />
-      <Button type={"submit"} className={"btn-registerBook"} text={"Enviar Foto"}></Button>
-      {!imgURL && <div className="progress" role="progressbar" aria-label="Basic example" aria-valuenow={progress} aria-valuemin="0" aria-valuemax="1000">
+        <Input type={"file"}></Input>
+        <br />
+        <Button type={"submit"} className={"btn-registerBook"} text={"Enviar Foto"}></Button>
+        {!imgURL && <div className="progress" role="progressbar" aria-label="Basic example" aria-valuenow={progress} aria-valuemin="0" aria-valuemax="1000">
         <div className="progress-bar" style={{width: progress}}></div>
       </div>}
       </form>

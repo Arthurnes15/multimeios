@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { Book } from "../Book"
-import book_placeholder from '../../assets/img/book-placeholder.png'
+import book_placeholder from '../../assets/img/book-placeholder.png';
 import './styles.css';
 
-export const Books = ({ books = [] }) => {
+export const AllBooks = ({books = []}) => {
     const [listBooks, setListBooks] = useState([]);
 
     return(
-        <section className="container-books">
-            <div className="books">
+        <>
+            <div className="container all-books">
                 {books.map(book => (
                     <Book key={book.id_livro}
                     id={book.id_livro}
@@ -24,10 +24,9 @@ export const Books = ({ books = [] }) => {
                     amount={book.n_exemplares}
                     volume={book.volume_livro}
                     img={book.url_imagem || book_placeholder}
-                    alt={book.nome_livro}
-                    />
-                ))}     
+                    alt={book.nome_livro} />
+                ))}
             </div>
-        </section>
-    )
-}
+        </>
+    );
+};

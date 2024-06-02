@@ -1,0 +1,11 @@
+.container.header-allBooks {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.container.header-allBooks > h1 {
+    color: var(--light-purple);
+}
+

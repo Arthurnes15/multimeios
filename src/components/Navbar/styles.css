@@ -1,3 +1,7 @@
+.navbar.navbar-expand-lg.bg-light {
+    box-shadow: 0px 3px 6px #00000045;
+}
+
 .navbar-nav .nav-item {
     display: flex;
     align-items: center;

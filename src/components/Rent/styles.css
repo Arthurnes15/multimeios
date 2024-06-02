@@ -7,7 +7,7 @@
     border-top-right-radius: 8px; 
 }
 
-.book-rented img {
+.book-rented > img {
     width: 200px;
     height: 330px;
 }
@@ -16,18 +16,18 @@
     padding: 10px;
 }
 
-.title-book h4 {
+.title-book > h4 {
     font-size: 16px;
     font-weight: 700;
     padding-bottom: 5px;
 }
 
-.texts-rent .text-rent {
+.texts-rent > p {
     color: black;
     padding-bottom: 3px;
 }
 
-.texts-rent .text-rent:hover {
+.texts-rent > p:hover {
     text-decoration: none;
     cursor: auto
 }
@@ -36,7 +36,7 @@
     flex-direction: column;
 }
 
-.status-renew .status-rent #select-status {
+#select-status {
     width: 120px;
     margin-right: 10px;
 }

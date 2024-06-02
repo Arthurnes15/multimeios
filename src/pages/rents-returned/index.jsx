@@ -19,8 +19,7 @@ export const RentsReturned = () => {
     return(
         <>
             <Navbar />
-            <h1>Aluguéis Pendentes</h1>
-            <div className="container rents">
+            <article className="container rents">
                 {typeof listRentsReturned !== "undefined" && 
                     listRentsReturned.map((value) => {
                         return(
@@ -36,7 +35,7 @@ export const RentsReturned = () => {
                         )
                     })
                 }
-            </div>
+            </article>
             <Footer />
         </>
     )

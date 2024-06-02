@@ -2,8 +2,9 @@ import './styles.css';
 import {Formik, Form, Field, ErrorMessage} from "formik";
 import * as yup from "yup";
 import Axios from 'axios';
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import imgwomen from '../../assets/img/woman-reading-bro.png';
+import logo from '../../assets/img/Multimeios-Logo.png'
 
 export const Login = () => {
     const navigate = useNavigate();
@@ -29,54 +30,43 @@ export const Login = () => {
     });
 
     return(
-        <div className="container">
-            <h1>Login</h1>
-            <Formik
-            initialValues={{}}
-            validationSchema={validationLogin}
-            onSubmit={handleClickLogin}
-            >
-                <Form className="login-form">
-                    <div className="login-form-group">
-                        <label htmlFor="email">Nome de usuário</label>
-                        <Field name="name" className="form-control"
-                        placeholder="Nome"/>
-
-                        <ErrorMessage 
-                        component="span"
-                        name="name"
-                        className="form-error"
-                        />
-                    </div>
-
-                    <div className="login-form-group">
-                        <label htmlFor="email">Email</label>
-                        <Field name="email" className="form-control"
-                        placeholder="Em@il"/>
-
-                        <ErrorMessage 
-                        component="span"
-                        name="email"
-                        className="form-error"
-                        />
-                    </div>
-
-                    <div className="login-form-group">
-                        <label htmlFor="password">Senha:</label>
-                        <Field name="password" className="form-control"
-                        placeholder="Senha"/>
-
-                        <ErrorMessage 
-                        component="span"
-                        name="password"
-                        className="form-error"
-                        />
-                    </div>
-                    <br />
-                    <button type="submit" className="btn btn-primary">Entrar</button>
-                </Form>
-            </Formik>
-
+        <div className="container-login">
+        <div className="left">
+            <img src={imgwomen} alt="Illustration" className="illustration" />
         </div>
+        <div className="right">
+            <div className="form-container">
+                <img src={logo} alt="Logo" className="logo" />
+                <h1>Login</h1>
+                <Formik
+                    initialValues={{}}
+                    validationSchema={validationLogin}
+                    onSubmit={handleClickLogin}
+                >
+                    <Form className="login-form">
+                        <div className="login-form-group">
+                            <label htmlFor="name">Nome de usuário</label>
+                            <Field name="name" className="form-control" placeholder="Nome" />
+                            <ErrorMessage component="span" name="name" className="form-error" />
+                        </div>
+
+                        <div className="login-form-group">
+                            <label htmlFor="email">Email</label>
+                            <Field name="email" className="form-control" placeholder="Em@il" />
+                            <ErrorMessage component="span" name="email" className="form-error" />
+                        </div>
+
+                        <div className="login-form-group">
+                            <label htmlFor="password">Senha:</label>
+                            <Field name="password" type="password" className="form-control" placeholder="Senha" />
+                            <ErrorMessage component="span" name="password" className="form-error" />
+                        </div>
+
+                        <button type="submit" className="btn btn-primary">Entrar</button>
+                    </Form>
+                </Formik>
+            </div>
+        </div>
+    </div>
     )
 } 

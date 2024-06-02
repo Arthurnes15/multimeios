@@ -19,8 +19,7 @@ export const Rents = () => {
     return(
         <>
             <Navbar />
-            <h1>Aluguéis</h1>
-            <div className="container rents">
+            <article className="container rents">
                 {typeof listRents !== "undefined" && 
                     listRents.map((value) => {
                         return(
@@ -37,7 +36,7 @@ export const Rents = () => {
                         )
                     })
                 }
-            </div>
+            </article>
             <Footer />
         </>
     );

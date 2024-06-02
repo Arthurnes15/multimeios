@@ -6,11 +6,12 @@ import { Home } from './pages/home/home';
 import { Rents } from './pages/rents-page';
 import { RegisterBook } from './pages/register-book';
 import { RegisterStudent } from './pages/register-student';
-import { Students } from './pages/students/index';
-import './index.css';
+import { StudentsPage } from './pages/students-page';
 import { Error } from './pages/not-found';
 import { RentsPending } from './pages/rents-pending';
 import { RentsReturned } from './pages/rents-returned';
+import { BooksCatalog } from './pages/books-catalog';
+import './index.css';
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
   {
     path: "/home",
     element: <Home/>
+  },
+  {
+    path: "/books",
+    element: <BooksCatalog />
   },
   {
     path: "/rents",
@@ -43,7 +48,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/students",
-    element: <Students/>
+    element: <StudentsPage/>
   },
   {
     path: "*",
