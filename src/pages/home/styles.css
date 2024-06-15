@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "Dm Serif";
+    src: url(../../assets/fonts/DMSerif/DMSerifText-Regular.ttf);
+}
+
 .header-carousel {
     display: flex;
     justify-content: space-between;
@@ -6,6 +11,9 @@
 }
 
 .title > a {
+    font-family: "Dm Serif";
+    font-size: 40px;
+    letter-spacing: 1px;
     color: var(--light-purple);
 }
 
@@ -16,6 +24,11 @@
 
 .input-search {
     padding-right: 8px;
+}
+
+.input-search > input {
+    width: 300px;
+    box-shadow: 0px 2px 10px #00000054;
 }
 
 .search-buttons .right-arrow{

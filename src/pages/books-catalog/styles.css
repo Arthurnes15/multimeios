@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "Dm Serif";
+    src: url(../../assets/fonts/DMSerif/DMSerifText-Regular.ttf);
+}
+
 .container.header-allBooks {
     display: flex;
     justify-content: space-between;
@@ -5,7 +10,15 @@
     margin-top: 20px;
 }
 
-.container.header-allBooks > h1 {
+.input-search-book > input {
+    width: 300px;
+    box-shadow: 1px 4px 10px #0000007a;
+}
+
+.header-allBooks > h1 {
+    font-family: "Dm Serif";
+    font-size: 50px;
     color: var(--light-purple);
+    letter-spacing: 1px;
 }
 

@@ -31,6 +31,7 @@ export const RentsReturned = () => {
                                 nameStudent={value.nome_aluno}
                                 groupStudent={value.nome_turma}
                                 dateRent={dateFormatter(value.data_aluguel)}
+                                dateReturn={dateFormatter(value.data_devolucao)}
                                 />
                         )
                     })

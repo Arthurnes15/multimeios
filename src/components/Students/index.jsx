@@ -20,7 +20,7 @@ export const Students = ({ students = [] }) => {
                     <tbody>
                         {students.map(student => (
                             <Student key={student.id_aluno}
-                            id={student.id_aluno}
+                            id_student={student.id_aluno}
                             nameStudent={student.nome_aluno}
                             email={student.email_aluno}
                             group={student.nome_turma}

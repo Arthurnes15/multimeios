@@ -1,0 +1,45 @@
+.member {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 600px;
+    margin-bottom: 70px;
+    padding: 20px;
+    border-radius: 15px;
+    color: white;
+    box-shadow: 7px 4px 14px #000000a8;
+}
+
+
+.photo {
+    width: 200px;
+    height: 200px;
+}
+
+.photo > img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.info {
+    width: 50%;
+}
+
+.info > .name > h3 {
+    margin-bottom: 30px;
+    font-weight: 800;
+}
+
+.info > .job-insta {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding-left: 30px;
+}
+
+.job-insta > span {
+    font-size: 20px;
+    padding-bottom: 10px;
+}

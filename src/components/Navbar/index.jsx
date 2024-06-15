@@ -8,6 +8,7 @@ import { SvgRented } from '../Icons/rented';
 import { SvgSent } from '../Icons/sent';
 import { SvgStudent } from '../Icons/student';
 import { Link } from 'react-router-dom';
+import { SvgCredit } from '../Icons/credits';
 
 
 export const Navbar = () => (
@@ -34,6 +35,9 @@ export const Navbar = () => (
                     </li>
                     <li className="nav-item">
                         <Link to={"/students"}><SvgStudent></SvgStudent>Alunos</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link to={"/credits"}><SvgCredit></SvgCredit>Créditos</Link>
                     </li>
                 </ul>
             </div>

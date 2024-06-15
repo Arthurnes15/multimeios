@@ -1,4 +1,4 @@
-.background {
+.background, .background-student {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -8,7 +8,7 @@
     z-index: 4;
 }
 
-#modal {
+#modal, #modal-student {
     position: fixed;
     width: 400px;
     top: 30%;
@@ -19,7 +19,7 @@
     border-radius: 9px;
 } 
 
-.header {
+.header, .header-student {
     display: flex;
     justify-content: space-between;
     gap: 20px;

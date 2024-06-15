@@ -5,17 +5,30 @@ import { Option } from '../Option';
 import { SvgUpdate } from '../Icons/update';
 import { SvgTrash } from '../Icons/trash';
 import Axios from 'axios';  
+import { dateFormatter } from '../../utils';
+import { getDayDate } from '../../utils';
 
-export const Rent = ({idRent, classRent, nameBook, nameStudent, imgRented, groupStudent, dateRent, dateReturn, statusRent, responsible }) => {
+export const Rent = ({ idRent, classRent, nameBook, nameStudent, imgRented, groupStudent, dateRent, dateReturn, statusRent, responsible }) => {
     const [values, setValues] = useState();
     const [listStatus, setListStatus] = useState([]);
-
+    const date = new Date();
+    const dayCurrent = date.getDate();
+    
     useEffect(() => {
         Axios.get("http://localhost:3001/getStatus")
         .then((response) => {
             setListStatus(response.data)
         });
     }, []);
+
+    useEffect(() => {
+        if (dayCurrent > getDayDate(dateReturn)) {
+            Axios.put("http://localhost:3001/editStatus", {
+                status_id: 2,
+                rent_id: idRent
+            });
+        }
+    });
 
     const handleChangeValues = (value) => {
         setValues(prevValue => ({
@@ -25,9 +38,10 @@ export const Rent = ({idRent, classRent, nameBook, nameStudent, imgRented, group
     };
 
     const handleUpdateStatus = () => {
+    
         Axios.put("http://localhost:3001/editStatus", {
             status_id: values.status,
-            rent_id: idRent,
+            rent_id: idRent
         });
     };
 
@@ -36,7 +50,6 @@ export const Rent = ({idRent, classRent, nameBook, nameStudent, imgRented, group
         if (question) {
             Axios.delete(`http://localhost:3001/deleteRent/${idRent}`)
             .then(() => document.location.reload());
-            
         }
     }
 
@@ -50,10 +63,10 @@ export const Rent = ({idRent, classRent, nameBook, nameStudent, imgRented, group
                         <h4>{nameBook}</h4>
                     </div>
                     <div className="texts-rent">
-                        <p>Alugatório: {nameStudent}</p>
-                        <p>Turma: {groupStudent}</p>
-                        <p>Distribuição: {dateRent}</p>
-                        <p>Devolução: {dateReturn}</p>
+                        <p>Alugatório: { nameStudent }</p>
+                        <p>Turma: { groupStudent }</p>
+                        <p>Distribuição: { dateRent }</p>
+                        <p>Devolução: { dateReturn }</p>
                         <p>Responsável: {responsible}</p>
                     </div>
                             

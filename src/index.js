@@ -12,6 +12,7 @@ import { RentsPending } from './pages/rents-pending';
 import { RentsReturned } from './pages/rents-returned';
 import { BooksCatalog } from './pages/books-catalog';
 import './index.css';
+import { Credits } from './pages/credits';
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
   {
     path: "/students",
     element: <StudentsPage/>
+  },
+  {
+    path: "/credits",
+    element: <Credits />
   },
   {
     path: "*",

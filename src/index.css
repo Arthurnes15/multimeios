@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "Dm Serif";
+    src: url(./assets/fonts/DMSerif/DMSerifText-Regular.ttf);
+}
+
 * {
     margin: 0;
     padding: 0;

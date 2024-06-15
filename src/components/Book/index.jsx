@@ -35,7 +35,7 @@ export const Book = ({ id, nameBook, nameAuthor, publisher, img, alt, gender, is
 
         <Modal 
         openEdit={openModalEdit}
-        closeEdit={() => {setOpenModalEdit(false)}}
+        close={() => {setOpenModalEdit(false)}}
         id_book={id}
         defaultName={nameBook}
         defaultAuthor={nameAuthor}

@@ -1,9 +1,14 @@
+@font-face {
+    font-family: "Dm Serif";
+    src: url(../../assets/fonts/DMSerif/DMSerifText-Regular.ttf);
+}
+
 .container.table {
     margin-top: 40px;
 }
 
 .table > thead > tr > th {
-    color: var(--dark-purple);
+    color: var(--light-purple);
 }
 
 .header-students{
@@ -13,7 +18,15 @@
 }
 
 .header-students > h1 {
+    font-family: "Dm Serif";
+    font-size: 40px;
     text-align: left;
-    color: var(--dark-purple);
+    letter-spacing: 1px;
+    color: var(--light-purple);
     padding-top: 20px;
+}
+
+.input-search-student > input {
+    width: 300px;
+    box-shadow: 0px 2px 10px #00000054;
 }
