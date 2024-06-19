@@ -1,6 +1,7 @@
+import { Link } from 'react-router-dom';
 import './styles.css';
 
-export const Member = ({ color, photo, name, job, insta }) => {
+export const Member = ({ color, photo, name, job, insta, url }) => {
     return(
         <div className="member" style={{backgroundColor: color}}>
             <div className="photo">
@@ -12,7 +13,9 @@ export const Member = ({ color, photo, name, job, insta }) => {
                 </div>
                 <div className="job-insta">
                     <span>{ job }</span>
-                    <span>{ insta }</span>
+                    <span className="insta">
+                        <Link to={url} target="_blank"> {insta} </Link>
+                    </span>
                 </div>
             </div>
         </div>

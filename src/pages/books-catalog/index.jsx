@@ -11,7 +11,7 @@ export const BooksCatalog = () => {
     const [searchValue, setSearchValue] = useState('');
 
     useEffect(() => {
-        Axios.get("http://localhost:3001/getBooks")
+        Axios.get("http://localhost:3001/getAllBooks")
         .then((response) => {
             setListBooks(response.data)
         })

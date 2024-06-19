@@ -5,6 +5,10 @@
     justify-content: center;
 }
 
+.collaborators {
+    width: 65%;
+}
+
 .members > h2 {
     margin-bottom: 40px;
     font-size: 40px;

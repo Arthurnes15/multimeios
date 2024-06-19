@@ -31,7 +31,8 @@ export const members = [
     job: "Gerente da Equipe",
     insta: "@tk.s__._",
     photo: kaua,
-    color: "#64A6DC"
+    color: "#64A6DC",
+    url: "https://www.instagram.com/tk.s__._/"
   },
   {
     id: 2,
@@ -39,7 +40,8 @@ export const members = [
     job: "Analista",
     insta: "@andrelz0",
     photo: andre,
-    color: "#64A6DC"
+    color: "#64A6DC",
+    url: "https://www.instagram.com/andrelz0/"
   },
   {
     id: 3,
@@ -47,7 +49,8 @@ export const members = [
     job: "Desenvolvedora Front-End",
     insta: "@amanda_araujo84",
     photo: amanda,
-    color: "#64A6DC"
+    color: "#64A6DC",
+    url: "https://www.instagram.com/amanda_araujo84/"
   },
   {
     id: 4,
@@ -55,7 +58,8 @@ export const members = [
     job: "Desenvolvedor FullStack",
     insta: "@amanda_araujo84",
     photo: italo,
-    color: "#64A6DC"
+    color: "#64A6DC",
+    url: "https://www.instagram.com/amanda_araujo84/"
   },
   {
     id: 5,
@@ -63,7 +67,8 @@ export const members = [
     job: "Desenvolvedor Back-End",
     insta: "@victorguedes__",
     photo: joaovictor,
-    color: "#64A6DC"
+    color: "#64A6DC",
+    url: "https://www.instagram.com/victorguedes__/"
   },
   {
     id: 6,
@@ -71,20 +76,20 @@ export const members = [
     job: "Desenvolvedor FullStack",
     insta: "@arthurlk__",
     photo: arthur,
-    color: "#64A6DC"
+    color: "#64A6DC",
+    url: "https://www.instagram.com/arthurlk__/"
   }
 ];
-
-
 
 export const collaborators = [
   {
     id: 1,
     name: "Maria Geisane Nobre",
     job: "Gerente da Rentex",
-    insta: "@geibele",
+    insta: "@geibelle",
     photo: geisane,
-    color: "#8265EA"
+    color: "#8265EA",
+    url: "https://www.instagram.com/geibelle/"
   },
   {
     id: 2,
@@ -92,7 +97,8 @@ export const collaborators = [
     job: "Desenvolvedor Back-End da Rentex",
     insta: "@dav.lima4653",
     photo: davi,
-    color: "#8265EA"
+    color: "#8265EA",
+    url: "https://www.instagram.com/dav.lima4653/"
   },
   {
     id: 3,
@@ -100,7 +106,8 @@ export const collaborators = [
     job: "Desenvolvedor Fullstack da Rentex",
     insta: "@Pedro.guilherme85",
     photo: pedro,
-    color: "#8265EA"
+    color: "#8265EA",
+    url: "https://www.instagram.com/Pedro.guilherme85/"
   },
   {
     id: 4,
@@ -108,7 +115,8 @@ export const collaborators = [
     job: "Analista da Rentex",
     insta: "@jp.bsk",
     photo: joao,
-    color: "#8265EA"
+    color: "#8265EA",
+    url: "https://www.instagram.com/jp.bsk/"
   },
   {
     id: 5,
@@ -116,7 +124,8 @@ export const collaborators = [
     job: "Desenvolvedora Front-End da Rentex",
     insta: "@le_lepizza",
     photo: leticia,
-    color: "#8265EA"
+    color: "#8265EA",
+    url: "https://www.instagram.com/le_lepizza/"
   },
   {
     id: 6,
@@ -124,7 +133,8 @@ export const collaborators = [
     job: "Gerente do Planejamento 2.0",
     insta: "@rony.e_7",
     photo: rony,
-    color: "#8265EA"
+    color: "#8265EA",
+    url: "https://www.instagram.com/rony.e_7/"
   },
   {
     id: 7,
@@ -132,7 +142,8 @@ export const collaborators = [
     job: "Desenvolvedora Front-End do Planejamento 2.0",
     insta: "@gabyy.cst",
     photo: gabriela,
-    color: "#8265EA"
+    color: "#8265EA",
+    url: "https://www.instagram.com/gabyy.cst/"
   },
   {
     id: 8,
@@ -140,7 +151,8 @@ export const collaborators = [
     job: "Analista do Planejamento 2.0",
     insta: "@gi.who.lee",
     photo: gisele,
-    color: "#8265EA"
+    color: "#8265EA",
+    url: "https://www.instagram.com/gi.who.lee/"
   },
   {
     id: 9,
@@ -148,7 +160,8 @@ export const collaborators = [
     job: "Gerente do Vitalis(Hospital)",
     insta: "@lynkaaaa_aa",
     photo: lynka,
-    color: "#8265EA"
+    color: "#8265EA",
+    url: "https://www.instagram.com/lynkaaaa_aa/"
   },
   {
     id: 10,
@@ -156,7 +169,8 @@ export const collaborators = [
     job: "Analista do Vitalis(Hospital)",
     insta: "@djislane.oliveira",
     photo: djislane,
-    color: "#8265EA"
+    color: "#8265EA",
+    url: "https://www.instagram.com/djislane.oliveira/"
   },
   {
     id: 11,
@@ -164,7 +178,8 @@ export const collaborators = [
     job: "Desenvolvedor Back-End do Vitalis",
     insta: "@dhiego_v",
     photo: dhiego,
-    color: "#8265EA"
+    color: "#8265EA",
+    url: "https://www.instagram.com/dhiego_v/"
   },
   {
     id: 12,
@@ -172,15 +187,17 @@ export const collaborators = [
     job: "Analista do Vitalis(Hospital)",
     insta: "@jnaando_",
     photo: fernando,
-    color: "#8265EA"
+    color: "#8265EA",
+    url: "https://www.instagram.com/jnaando_/"
   },
   {
     id: 13,
     name: "Pedro Ricardo Alves",
     job: "Desenvolvedor Back-End do Banco de Questões de Matemática",
-    insta: "@assign.alves",
+    insta: "@assig.alves",
     photo: pedroricardo,
-    color: "#8265EA"
+    color: "#8265EA",
+    url: "https://www.instagram.com/assig.alves/"
   },
   {
     id: 14,
@@ -188,7 +205,8 @@ export const collaborators = [
     job: "Analista do Banco de Questões de Matemática",
     insta: "@guizin_no",
     photo: guilherme,
-    color: "#8265EA"
+    color: "#8265EA",
+    url: "https://www.instagram.com/guizin_no/"
   },
   {
     id: 15,
@@ -196,7 +214,8 @@ export const collaborators = [
     job: "Analista do Banco de Questões de Matemática",
     insta: "@beto31r",
     photo: joaoalberto,
-    color: "#8265EA"
+    color: "#8265EA",
+    url: "https://www.instagram.com/beto31r/"
   },
   {
     id: 16,
@@ -204,7 +223,8 @@ export const collaborators = [
     job: "Analista do Banco de Questões de Matemática",
     insta: "@gabyycstro",
     photo: camily,
-    color: "#8265EA"
+    color: "#8265EA",
+    url: "https://www.instagram.com/gabyycstro/"
   },
   {
     id: 17,
@@ -212,6 +232,8 @@ export const collaborators = [
     job: "Analista do Banco de Questões",
     insta: "@faelz085",
     photo: rafael,
-    color: "#8265EA"
+    color: "#8265EA",
+    url: "https://www.instagram.com/faelz085/"
   }
 ];
+

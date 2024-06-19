@@ -9,6 +9,7 @@ export const MembersCards = ({ members = [] }) => {
                 name={member.name}
                 job={member.job}
                 insta={member.insta}
+                url={member.url}
                 color={member.color}
                 />
             ))}

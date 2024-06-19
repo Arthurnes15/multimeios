@@ -45,6 +45,7 @@ export const Home = () => {
         <>
             <Navbar />
             <Container />
+            
             <header className="header-carousel">
                 <div className="title">
                     <Link to={"/books"}>

@@ -43,3 +43,7 @@
     font-size: 20px;
     padding-bottom: 10px;
 }
+
+.insta > a {
+    color: white;
+}

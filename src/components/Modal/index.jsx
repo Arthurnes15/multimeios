@@ -171,6 +171,7 @@ export const Modal = ({ id_book, id_student, defaultName, defaultISBN, defaultCD
                         <h2>Edição do Livro</h2>
                         <SvgClose onClick={close} />
                     </div>
+                    <span className="modal-alert text-danger">Atenção: Nas opções para escolher, não esqueça de selecionar o dado atual caso não for alterá-lo.</span>
 
                     <Input id={id_book}
                         type={"hidden"}
@@ -253,6 +254,7 @@ export const Modal = ({ id_book, id_student, defaultName, defaultISBN, defaultCD
                         <h2>Editar Aluno: </h2>
                         <SvgClose onClick={close}/>
                     </div>
+                    <span className="modal-alert text-danger">Atenção: Nas opções para escolher, não esqueça de selecionar o dado atual caso não for alterá-lo.</span><br />
                     <Input id={id_student}
                         type={"hidden"}
                         onChange={handleChangeValues}
