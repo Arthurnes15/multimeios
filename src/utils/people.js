@@ -56,10 +56,10 @@ export const members = [
     id: 4,
     name: "Ítalo Galdino",
     job: "Desenvolvedor FullStack",
-    insta: "@amanda_araujo84",
+    insta: "@rpzzh9",
     photo: italo,
     color: "#64A6DC",
-    url: "https://www.instagram.com/amanda_araujo84/"
+    url: "https://www.instagram.com/rpzzh9/"
   },
   {
     id: 5,

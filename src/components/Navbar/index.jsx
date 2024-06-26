@@ -9,6 +9,7 @@ import { SvgSent } from '../Icons/sent';
 import { SvgStudent } from '../Icons/student';
 import { Link } from 'react-router-dom';
 import { SvgCredit } from '../Icons/credits';
+import { SvgGroup } from '../Icons/groups';
 
 
 export const Navbar = () => (
@@ -28,10 +29,12 @@ export const Navbar = () => (
                     </li>
                     <li className="nav-item">
                         <Link to={"/rents"}><SvgRented></SvgRented>Alugados</Link>
-                        
                     </li>
                     <li className="nav-item">
                         <Link to={"/rents-returned"}><SvgSent></SvgSent>Entregues</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link to={"/groups"}><SvgGroup></SvgGroup>Turmas</Link>
                     </li>
                     <li className="nav-item">
                         <Link to={"/students"}><SvgStudent></SvgStudent>Alunos</Link>

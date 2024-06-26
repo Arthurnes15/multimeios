@@ -7,11 +7,14 @@ import { Input }  from '../../components/Input/index';
 import { Button } from '../../components/Button/index'
 import { Select } from '../../components/Select/index';
 import { Option } from '../../components/Option';
+import { TextRegister } from '../../components/TextRegister';
 import Axios from 'axios';
+import students from '../../assets/img/students.gif';
+import './styles.css';
 
 export function RegisterStudent() {
   const [values, setValues] = useState();
-  const [listGroups, setListGroups] = useState();
+  const [listGroups, setListGroups] = useState([]);
 
   const handleChangeValues = (value) => {
     setValues(prevValue => ({
@@ -41,48 +44,62 @@ export function RegisterStudent() {
   return (
     <>
       <Navbar/>
-      <article className="container">
-        <h1>Cadastro de alunos</h1>
+      <article className="container registerStudents">
+        <div className="formRegisterStudent">
+          <h1>Cadastro de alunos</h1>
 
-        <Label htmlFor={"book-name"}
-        text={"Nome do aluno:"}
-        />
+          <div className="text-field">
+            <Label htmlFor={"book-name"}
+            text={"Nome do aluno:"}
+            />
+            <Input name={"name_student"}
+            placeholder={"Nome do aluno"}
+            onChange={handleChangeValues}
+            />
+          </div>
 
-        <Input name={"name_student"}
-        placeholder={"Nome do aluno"}
-        onChange={handleChangeValues}
-        />
+          <div className="text-field">
+            <Label htmlFor={"author-name"}
+            text={"E-mail:"}
+            />
+            <Input name={"email"}
+            type={"email"}
+            placeholder={"Email do aluno"}
+            onChange={handleChangeValues}
+            />
+          </div>
 
-        <Label htmlFor={"author-name"}
-        text={"E-mail:"}
-        />
+          <div className="text-field">
+            <Label htmlFor={"group"}
+            text={"Turma:"}
+            />
+            
+            <Select name={"group"} onChange={handleChangeValues} firstOption={"Escolha a turma"}
+              render={typeof listGroups !== "undefined" && listGroups.map((valueGroup) => {
+                return(
+                  <Option key={valueGroup.id_turma} value={valueGroup.id_turma} text={valueGroup.nome_turma}
+                  ></Option>
+                )
+              })}
+            ></Select>
+          </div>
 
-        <Input name={"email"}
-        type={"email"}
-        placeholder={"Email do aluno"}
-        onChange={handleChangeValues}
-        />
+          <div className='text-field'>
+            <TextRegister text={"Cadastrar turma"} />
+          </div>
+          
+          <div className="btn-registerStudent">
+            <Button text={"Cadastrar aluno"}
+            type={"button"}
+            onClick={() => {handleClickButton()}}
+            ></Button>
+          </div>
+        </div>
 
-        <Label htmlFor={"group"}
-        text={"Turma:"}
-        />
-        
-        <Select name={"group"} onChange={handleChangeValues} firstOption={"Escolha a turma"}
-          render={typeof listGroups !== "undefined" && listGroups.map((valueGroup) => {
-            return(
-              <Option key={valueGroup.id_turma} value={valueGroup.id_turma} text={valueGroup.nome_turma}
-              ></Option>
-            )
-          })}
-        ></Select>
 
-        <br/>
-        <Button text={"Cadastrar aluno"}
-        type={"button"}
-        className={"btn btn-primary"}
-        onClick={() => {handleClickButton()}}
-        ></Button>
-
+        <section className="students">
+          <img src={students} alt="students"/>
+        </section>
       </article>
     </>
   );
