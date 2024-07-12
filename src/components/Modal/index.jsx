@@ -97,7 +97,7 @@ export const Modal = ({ id_book, id_student, defaultName, defaultISBN, defaultCD
     const handleChangeStudentValues = (value) => {
         setEditStudentValues((prevValue) => ({
             ...prevValue,
-            [value.target.id]: value.target.value
+            [value.target.id] : value.target.value
         }));
     }
 

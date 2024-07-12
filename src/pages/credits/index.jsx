@@ -15,7 +15,7 @@ export const Credits = () => {
 
             <AboutUs team={team}
             text={"Quem somos?"}
-            description={"Lorem, ipsum dolor sit amet consectetur adipisicing elit. Culpa, nulla maxime vitae commodi nisi numquam minima cumque quaerat laudantium nam obcaecati ab enim perspiciatis consequuntur pariatur, nobis sapiente quidem. Quo!"} />
+            description={"Somos uma equipe composta por 6 pessoas, responsáveis por desenvolver um sistema para a biblioteca da EEEP Comendador Miguel Gurgel, denominada Centro de Multimeios. No desenvolvimento desse sistema, utilizamos as tecnologias dos frameworks ReactJS e NodeJS, e o banco de dados MySQL."} />
 
             <section className="members">
                 <h2>Membros da Equipe</h2>

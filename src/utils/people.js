@@ -1,28 +1,29 @@
-// Fotos da Equipe
-import kaua from '../assets/img/kaua.png';
-import andre from '../assets/img/andre.jpg';
-import amanda from '../assets/img/amanda.jpg';
-import italo from '../assets/img/italo.jpg';
-import joaovictor from '../assets/img/joaovictor.png';
-import arthur from '../assets/img/arthur.jpg';
-//Fotos Colaboradores
-import geisane from '../assets/img/geisane.png'
-import davi from '../assets/img/davi.jpg';
-import pedro from '../assets/img/pedro.jpg';
-import joao from '../assets/img/joaopaulo.jpg';
-import leticia from '../assets/img/leticia.jpg';
-import rony from '../assets/img/rony.jpg';
-import gabriela from '../assets/img/gabriela.png';
-import lynka from '../assets/img/lynka.jpg';
-import gisele from '../assets/img/gisele.jpg';
-import dhiego from '../assets/img/dhiego.jpeg';
-import djislane from '../assets/img/djislane.jpg';
-import fernando from '../assets/img/fernando.jpg';
-import pedroricardo from '../assets/img/pedroricardo.jpg';
-import guilherme from '../assets/img/guilherme.jpg';
-import joaoalberto from '../assets/img/alberto.jpg';
-import camily from '../assets/img/camily.jpg';
-import rafael from '../assets/img/rafael.jpg';
+// Team photos
+import kaua from '../assets/img/team/kaua.png';
+import andre from '../assets/img/team/andre.jpg';
+import amanda from '../assets/img/team/amanda.jpg';
+import italo from '../assets/img/team/italo.jpg';
+import joaovictor from '../assets/img/team/joaovictor.png';
+import arthur from '../assets/img/team/arthur.jpg';
+
+// Collaborators photos
+import geisane from '../assets/img/collaborators/geisane.png';
+import davi from '../assets/img/collaborators/davi.jpg';
+import pedro from '../assets/img/collaborators/pedro.jpg';
+import joao from '../assets/img/collaborators/joaopaulo.jpg';
+import leticia from '../assets/img/collaborators/leticia.jpg';
+import rony from '../assets/img/collaborators/rony.jpg';
+import gabriela from '../assets/img/collaborators/gabriela.png';
+import lynka from '../assets/img/collaborators/lynka.jpg';
+import gisele from '../assets/img/collaborators/gisele.jpg';
+import dhiego from '../assets/img/collaborators/dhiego.jpeg';
+import djislane from '../assets/img/collaborators/djislane.jpg';
+import fernando from '../assets/img/collaborators/fernando.jpg';
+import pedroricardo from '../assets/img/collaborators/pedroricardo.jpg';
+import guilherme from '../assets/img/collaborators/guilherme.jpg';
+import joaoalberto from '../assets/img/collaborators/alberto.jpg';
+import camily from '../assets/img/collaborators/camily.jpg';
+import rafael from '../assets/img/collaborators/rafael.jpg';
 
 export const members = [
   {

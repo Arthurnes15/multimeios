@@ -14,12 +14,10 @@ export const Login = () => {
             name: values.name,
             email: values.email,
             password: values.password,
-        }).then((response) => {
-            if (response.data.msg === "Usuário logado") {
-                navigate("home");
-            } else {
-                alert("Você não tem permissão para acessar a página")
-            }
+        }).then(() => {
+            navigate("home");
+        }).catch(() => {
+            alert("Você não tem permissão para acessar a página");
         });
     }
 
