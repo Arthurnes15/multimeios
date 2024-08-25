@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { SvgTrash } from "../Icons/trash";
 import { SvgEdit } from "../Icons/edit";
+import { ModalStudent } from "../ModalEditStudent";
 import Axios from 'axios';
-import { Modal } from "../Modal";
 
 export const Student = ({id_student, nameStudent, email, group }) => {
     const [openModalStudent, setOpenModalStudent] = useState(false);
@@ -19,12 +19,12 @@ export const Student = ({id_student, nameStudent, email, group }) => {
 
     return (
             <>
-                <Modal openEditStudent={openModalStudent}
+                <ModalStudent openEditStudent={openModalStudent}
                 close={() => setOpenModalStudent(false)}
                 id_student={ id_student }
                 defaultNameStudent={ nameStudent }
                 defaultEmail={ email }                
-                ></Modal>
+                />
                 <tr>
                     <th scope="row">{ id_student }</th>
                     <td>{ nameStudent }</td>

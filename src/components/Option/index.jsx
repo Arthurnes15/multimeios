@@ -1,7 +1,7 @@
-export const Option = ({ id, value, text, defaultValue, onClick}) => {
+export const Option = ({ id, value, text, defaultValue }) => {
     return (
-        <option id={id} value={value} defaultValue={defaultValue}>
-              {text}
+        <option id={ id } value={ value }>
+            { text }
         </option>
     )
 }

@@ -4,7 +4,7 @@ import { SvgTrash } from '../../components/Icons/trash';
 import { SvgBook } from '../Icons/book';
 import { SvgRent } from '../Icons/rent';
 import { Modal } from '../Modal';
-import { dateFormatter } from '../../utils';
+import { ModalEdit } from '../ModalEditBook';
 import  Axios  from 'axios';
 import '../../vars/vars.css'
 import './styles.css';
@@ -33,7 +33,7 @@ export const Book = ({ id, nameBook, nameAuthor, publisher, img, alt, gender, is
         status={1}
         />
 
-        <Modal 
+        <ModalEdit 
         openEdit={openModalEdit}
         close={() => {setOpenModalEdit(false)}}
         id_book={id}
@@ -43,7 +43,7 @@ export const Book = ({ id, nameBook, nameAuthor, publisher, img, alt, gender, is
         defaultISBN={isbn}
         defaultPublication={publication}
         defaultCDD={cdd}
-        ></Modal>
+        ></ModalEdit>
         
         <div className="book" onMouseEnter={() => setShowInfoBook(true)} onMouseLeave={() => setShowInfoBook(false)}>
                     {showInfoBook && <div className="over-book">
@@ -57,7 +57,7 @@ export const Book = ({ id, nameBook, nameAuthor, publisher, img, alt, gender, is
                             <p className="volume"><strong>Volume:</strong> { volume }</p>
                             <p className="cdd"><strong>CDD:</strong> { cdd }</p>
                             <p className="amount"><strong>Quantidade:</strong> { amount }</p>
-                            <p className="publication"><strong>Data de Publicação:</strong> { dateFormatter(publication) }</p>
+                            <p className="publication"><strong>Data de Publicação:</strong> { publication }</p>
                             <p className="d-lg-none id">Nº do livro: <strong>{id}</strong></p>
                             <div className="events-svg">
                                 <SvgEdit onClick={() => setOpenModalEdit(true)}></SvgEdit>
@@ -68,7 +68,7 @@ export const Book = ({ id, nameBook, nameAuthor, publisher, img, alt, gender, is
                     </div>}
                 <div className="book__img-title">
                     <div className="image-book">
-                        <img src={img} alt={alt}/>
+                        <img src={ img } alt={ alt }/>
                     </div>
                     <h5> { nameBook } </h5>
                     <p>{ nameAuthor }</p>

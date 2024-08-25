@@ -1,4 +1,4 @@
-.background, .background-student {
+.background-edit {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -8,10 +8,11 @@
     z-index: 4;
 }
 
-#modal, #modal-student {
+#modal-edit {
     position: fixed;
-    width: 400px;
-    top: 30%;
+    width: 500px;
+    max-height: 900px;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: white;
@@ -19,12 +20,12 @@
     border-radius: 9px;
 } 
 
-.header, .header-student {
+.header-edit {
     display: flex;
     justify-content: space-between;
     gap: 20px;
 }
-
-.btn.btn-warning {
+.btn.btn-info {
     width: 100%;
 }
+

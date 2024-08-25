@@ -62,7 +62,7 @@ export function RegisterBook() {
 
   const handleChangeValues = (value) => {
     setValues(prevValue => ({
-      ...prevValue,
+      ...prevValue, 
       [value.target.name]: value.target.value,
     }))
   }
@@ -141,6 +141,7 @@ export function RegisterBook() {
               type={"text"}
               placeholder={"Nome do livro"}
               onChange={handleChangeValues}
+              maxLength={150}
             />
           </div>
           <div className="row">
@@ -150,9 +151,9 @@ export function RegisterBook() {
               <Select name={"author"}
                 onChange={handleChangeValues}
                 firstOption={"Escolha o autor"}
-                render={typeof listAuthors !== "undefined" && listAuthors.map((valueAuthor) => {
+                render={typeof listAuthors !== "undefined" && listAuthors.map((author) => {
                   return (
-                    <Option key={valueAuthor.id_autor} value={valueAuthor.id_autor} text={valueAuthor.nome_autor}
+                    <Option key={author.id_autor} value={author.id_autor} text={author.nome_autor}
                     ></Option>
                   )
                 })}
@@ -177,9 +178,9 @@ export function RegisterBook() {
             <div className="col-sm">
               <Label htmlFor={"gender"} text={"Gênero:"}></Label>
               <Select name={"gender"} onChange={handleChangeValues} firstOption={"Escolha o gênero"}
-                render={typeof listGenders !== "undefined" && listGenders.map((valueGender) => {
+                render={typeof listGenders !== "undefined" && listGenders.map((gender) => {
                   return (
-                    <Option key={valueGender.id_genero} value={valueGender.id_genero} text={valueGender.genero}
+                    <Option key={gender.id_genero} value={gender.id_genero} text={gender.genero}
                     ></Option>
                   )
                 })}
@@ -187,10 +188,12 @@ export function RegisterBook() {
             </div>
             <div className="col-sm">
               <Label htmlFor={"publisher"} text={"Editora:"}></Label>
-              <Select name={"publisher"} onChange={handleChangeValues} firstOption={"Escolha a editora"}
-                render={typeof listPublishers !== "undefined" && listPublishers.map((valuePub) => {
+              <Select name={"publisher"} 
+              onChange={handleChangeValues} 
+              firstOption={"Escolha a editora"}
+                render={typeof listPublishers !== "undefined" && listPublishers.map((pub) => {
                   return (
-                    <Option key={valuePub.id_editora} value={valuePub.id_editora} text={valuePub.editora}
+                    <Option key={pub.id_editora} value={pub.id_editora} text={pub.editora}
                     ></Option>
                   )
                 })}
@@ -217,6 +220,8 @@ export function RegisterBook() {
               type={"text"}
               placeholder={"ISBN"}
               onChange={handleChangeValues}
+              maxLength={13}
+              minLength={10}
             />
           </div>
           <div className="text-field">
@@ -226,6 +231,7 @@ export function RegisterBook() {
               type={"number"}
               placeholder={"Número de exemplares"}
               onChange={handleChangeValues}
+              min={0}
             />
           </div>
           <div className="row">
@@ -235,6 +241,7 @@ export function RegisterBook() {
                 type={"number"}
                 placeholder={"Volume do livro"}
                 onChange={handleChangeValues}
+                min={0}
               />
             </div>
             <div className="col-sm text-field">
@@ -243,14 +250,18 @@ export function RegisterBook() {
                 type={"text"}
                 placeholder={"CDD"}
                 onChange={handleChangeValues}
+                maxLength={7}
               />
             </div>
             <div className="col-sm text-field">
               <Label htmlFor={"date"} text={"Data de publicação:"} />
               <Input name={"publication"}
-                type={"date"}
+                type={"text"}
                 placeholder={"Data de publicação"}
                 onChange={handleChangeValues}
+                maxLength={4}
+                min={0}
+
               />
             </div>
           </div>

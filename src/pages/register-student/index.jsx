@@ -55,6 +55,7 @@ export function RegisterStudent() {
             <Input name={"name_student"}
             placeholder={"Nome do aluno"}
             onChange={handleChangeValues}
+            maxLength={150}
             />
           </div>
 
@@ -66,6 +67,7 @@ export function RegisterStudent() {
             type={"email"}
             placeholder={"Email do aluno"}
             onChange={handleChangeValues}
+            maxLength={150}
             />
           </div>
 
@@ -75,9 +77,9 @@ export function RegisterStudent() {
             />
             
             <Select name={"group"} onChange={handleChangeValues} firstOption={"Escolha a turma"}
-              render={typeof listGroups !== "undefined" && listGroups.map((valueGroup) => {
+              render={typeof listGroups !== "undefined" && listGroups.map((group) => {
                 return(
-                  <Option key={valueGroup.id_turma} value={valueGroup.id_turma} text={valueGroup.nome_turma}
+                  <Option key={group.id_turma} value={group.id_turma} text={group.nome_turma}
                   ></Option>
                 )
               })}
