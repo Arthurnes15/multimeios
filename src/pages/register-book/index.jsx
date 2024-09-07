@@ -1,26 +1,27 @@
 import React, { useState, useEffect } from 'react';
+import Axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.min';
 import '../../vars/vars.css';
 import './styles.css';
-import Axios from 'axios';
 import womanfloat from '../../assets/img/Bibliophile.gif';
 import { Navbar } from '../../components/Navbar';
 import { Footer } from '../../components/Footer';
 import { Label } from '../../components/Label';
 import { Input } from '../../components/Input';
-import { Select } from '../../components/Select';
+import Select from 'react-select'
 import { TextRegister } from '../../components/TextRegister';
 import { Button } from '../../components/Button/index';
-import { Option } from '../../components/Option';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { storage } from '../../firebase';
 
 export function RegisterBook() {
   const [values, setValues] = useState();
-  const [listAuthors, setListAuthors] = useState();
-  const [listGenders, setListGenders] = useState();
-  const [listPublishers, setListPubli] = useState();
+  const [listAuthors, setListAuthors] = useState([]);
+  const [selectedAuthor, setSelectedAuthor] = useState(null);
+  const [selectedGender, setSelectedGender] = useState(null);
+  const [selectedPublisher, setSelectedPublisher] = useState(null);
+  const [listGenders, setListGenders] = useState([]);
+  const [listPublishers, setListPubli] = useState([]);
   const [regDivPubOpen, setPubOpen] = useState(false);
   const [regDivAutOpen, setAutOpen] = useState(false);
   const [imgURL, setImgUpload] = useState("");
@@ -62,7 +63,7 @@ export function RegisterBook() {
 
   const handleChangeValues = (value) => {
     setValues(prevValue => ({
-      ...prevValue, 
+      ...prevValue,
       [value.target.name]: value.target.value,
     }))
   }
@@ -72,9 +73,9 @@ export function RegisterBook() {
     if (question) {
       Axios.post("http://localhost:3001/register-book", {
         book: values.book,
-        author_book: values.author,
-        gender: values.gender,
-        publisher: values.publisher,
+        author_book: selectedAuthor,
+        gender: selectedGender,
+        publisher: selectedPublisher,
         isbn_book: values.isbn,
         amount: values.amount,
         volume: values.volume,
@@ -84,7 +85,6 @@ export function RegisterBook() {
       })
       document.location.reload();
     }
-
   }
 
   const handleClickButtonAut = () => {
@@ -100,6 +100,45 @@ export function RegisterBook() {
     })
       .then(response => console.log(response))
   }
+
+  const authors = typeof listAuthors !== "undefined" && listAuthors.map((author) => ({
+    value: author.id_autor,
+    label: author.nome_autor,
+  }));
+
+  const genders = typeof listGenders !== "undefined" && listGenders.map((gender) => ({
+    value: gender.id_genero,
+    label: gender.genero,
+  }));
+
+  const publishers = typeof listPublishers !== "undefined" && listPublishers.map((publisher) => ({
+    value: publisher.id_editora,
+    label: publisher.editora,
+  }));
+
+  const handleChangeAuthor = (e) => {
+    setSelectedAuthor(e.value);
+  }
+
+  const handleChangeGender = (e) => {
+    setSelectedGender(e.value);
+  }
+
+  const handleChangePublisher = (e) => {
+    setSelectedPublisher(e.value);
+  }
+
+  const selectedOptionAuthor = authors.find(
+    (e) => e.value === selectedAuthor
+  );
+
+  const selectedOptionGender = genders.find(
+    (e) => e.value === selectedGender
+  );
+
+  const selectedOptionPublisher = publishers.find(
+    (e) => e.value === selectedPublisher
+  );
 
   useEffect(() => {
     Axios.get("http://localhost:3001/getAuthors")
@@ -126,10 +165,10 @@ export function RegisterBook() {
       <Navbar />
 
       <article className="container-registerBook">
-        <section className="img-register">
-          <img src={womanfloat} alt="" />
+        <section className="left-register">
+          <img src={womanfloat} className="img-register" alt="" />
         </section>
-        <section className="container formRegister">
+        <section className="formRegister">
           <h1>Cadastro de livros</h1>
           <Input name={imgURL} type={"hidden"}
             onChange={handleChangeValues}
@@ -148,17 +187,13 @@ export function RegisterBook() {
             <div className="col-sm">
               <Label htmlFor={"name_author"}
                 text={'Autor'} />
-              <Select name={"author"}
-                onChange={handleChangeValues}
-                firstOption={"Escolha o autor"}
-                render={typeof listAuthors !== "undefined" && listAuthors.map((author) => {
-                  return (
-                    <Option key={author.id_autor} value={author.id_autor} text={author.nome_autor}
-                    ></Option>
-                  )
-                })}
+              <Select options={authors}
+                value={selectedOptionAuthor}
+                onChange={handleChangeAuthor}
+                placeholder={"Selecione o autor"}
               ></Select>
-              <TextRegister text={'O Autor não listado'}
+
+              <TextRegister text={'Autor não listado'}
                 onClick={() => handleRegisterAut()} />
               <div id="register-author" style={{ display: regDivAutOpen ? "flex" : "none" }}>
                 <div className="col">
@@ -174,31 +209,25 @@ export function RegisterBook() {
                 </div>
               </div>
             </div>
-          
+
             <div className="col-sm">
               <Label htmlFor={"gender"} text={"Gênero:"}></Label>
-              <Select name={"gender"} onChange={handleChangeValues} firstOption={"Escolha o gênero"}
-                render={typeof listGenders !== "undefined" && listGenders.map((gender) => {
-                  return (
-                    <Option key={gender.id_genero} value={gender.id_genero} text={gender.genero}
-                    ></Option>
-                  )
-                })}
+              <Select options={genders}
+                value={selectedOptionGender}
+                onChange={handleChangeGender}
+                placeholder={"Selecione o gênero"}
               ></Select>
+
             </div>
             <div className="col-sm">
               <Label htmlFor={"publisher"} text={"Editora:"}></Label>
-              <Select name={"publisher"} 
-              onChange={handleChangeValues} 
-              firstOption={"Escolha a editora"}
-                render={typeof listPublishers !== "undefined" && listPublishers.map((pub) => {
-                  return (
-                    <Option key={pub.id_editora} value={pub.id_editora} text={pub.editora}
-                    ></Option>
-                  )
-                })}
+              <Select options={publishers}
+                value={selectedOptionPublisher}
+                onChange={handleChangePublisher}
+                placeholder={"Selecione a editora"}
               ></Select>
-              <TextRegister text={'A editora não listada'} onClick={() => handleRegisterPub()}></TextRegister>
+
+              <TextRegister text={'Editora não listada'} onClick={() => handleRegisterPub()}></TextRegister>
               <div id="register-pub" style={{ display: regDivPubOpen ? "flex" : "none" }}>
                 <div className="col">
                   <Label htmlFor={"new-publisher"} text={"Cadastrar Editora:"} />
@@ -234,6 +263,7 @@ export function RegisterBook() {
               min={0}
             />
           </div>
+
           <div className="row">
             <div className="col-sm text-field">
               <Label htmlFor={"volume"} text={"Volume:"} />
@@ -245,7 +275,7 @@ export function RegisterBook() {
               />
             </div>
             <div className="col-sm text-field">
-              <Label htmlFor={"cdd"} text={"Código do Livro:"} />
+              <Label htmlFor={"cdd"} text={"Código: "} />
               <Input name={"cdd"}
                 type={"text"}
                 placeholder={"CDD"}
@@ -254,16 +284,17 @@ export function RegisterBook() {
               />
             </div>
             <div className="col-sm text-field">
-              <Label htmlFor={"date"} text={"Data de publicação:"} />
+              <Label htmlFor={"date"} text={"Data: "} />
               <Input name={"publication"}
                 type={"text"}
-                placeholder={"Data de publicação"}
+                placeholder={"Ano da publicação"}
                 onChange={handleChangeValues}
                 maxLength={4}
                 min={0}
 
               />
             </div>
+
           </div>
           <div className="text-field">
             <Label htmlFor={"image_book"} text={"Imagem do livro"}></Label>
@@ -274,11 +305,11 @@ export function RegisterBook() {
                 </div>
                 <div className="col-3">
                   <Button type={"submit"}
-                   text={"Enviar Foto"} />
+                    text={"Enviar"} />
                 </div>
               </div>
               {!imgURL && <div className="progress" role="progressbar" aria-label="Basic example" aria-valuenow={progress} aria-valuemin="0" aria-valuemax="1000">
-              <div className="progress-bar progress-bar-striped" style={{ width: progress }}></div>
+                <div className="progress-bar progress-bar-striped" style={{ width: progress }}></div>
               </div>}
             </form>
           </div>
@@ -289,7 +320,7 @@ export function RegisterBook() {
             />
           </div>
         </section>
-        
+
       </article>
       <Footer />
     </>

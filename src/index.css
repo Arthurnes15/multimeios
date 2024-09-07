@@ -3,6 +3,7 @@
     src: url(./assets/fonts/DMSerif/DMSerifText-Regular.ttf);
 }
 
+
 * {
     margin: 0;
     padding: 0;
@@ -10,4 +11,18 @@
 
 body {
     font-family: 'Nunito';
+}
+
+@media screen and (max-width: 400px){
+    .footer {
+        justify-content: center;
+    }
+
+    .footer > .text-copyright {
+        display: none;
+    }
+
+    .footer > .icons {
+        display: none;
+    }
 }

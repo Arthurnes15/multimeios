@@ -4,8 +4,8 @@ import 'bootstrap/dist/js/bootstrap.min';
 import { Navbar } from '../../components/Navbar';
 import { Label } from '../../components/Label/index';
 import { Input }  from '../../components/Input/index';
-import { Button } from '../../components/Button/index'
-import { Select } from '../../components/Select/index';
+import { Button } from '../../components/Button/index';
+import Select from 'react-select';
 import { Option } from '../../components/Option';
 import { TextRegister } from '../../components/TextRegister';
 import Axios from 'axios';
@@ -15,6 +15,20 @@ import './styles.css';
 export function RegisterStudent() {
   const [values, setValues] = useState();
   const [listGroups, setListGroups] = useState([]);
+  const [selectedGroup, setSelectedGroup] = useState([]);
+
+  const groups = typeof listGroups !== "undefined" && listGroups.map((group) => ({
+      value: group.id_turma,
+      label: group.nome_turma
+  }));
+
+  const handleChangeGroup = (e) => {
+    setSelectedGroup(e.value);
+  }
+
+  const selectedOptionGroup = groups.find(
+    (e) => e.value === selectedGroup
+  );
 
   const handleChangeValues = (value) => {
     setValues(prevValue => ({
@@ -23,13 +37,14 @@ export function RegisterStudent() {
     }))
   };
 
+
   const handleClickButton = () => {
     const question = window.confirm("Você tem certeza que deseja cadastrar esse aluno?");
     if (question) {
       Axios.post("http://localhost:3001/register-student", {
         name : values.name_student,
         email : values.email,
-        group : values.group,
+        group : selectedGroup,
       })
       document.location.reload();
     }; 
@@ -76,13 +91,11 @@ export function RegisterStudent() {
             text={"Turma:"}
             />
             
-            <Select name={"group"} onChange={handleChangeValues} firstOption={"Escolha a turma"}
-              render={typeof listGroups !== "undefined" && listGroups.map((group) => {
-                return(
-                  <Option key={group.id_turma} value={group.id_turma} text={group.nome_turma}
-                  ></Option>
-                )
-              })}
+            <Select options={groups}
+            value={selectedOptionGroup}
+            placeholder={"Selecione a turma"}
+            l
+            onChange={handleChangeGroup}
             ></Select>
           </div>
 

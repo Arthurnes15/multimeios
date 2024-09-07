@@ -15,7 +15,7 @@ export const Credits = () => {
 
             <AboutUs team={team}
             text={"Responsáveis:"}
-            description={"A equipe responsável pelo desenvolvimento do sistema da biblioteca Multimeios, da  escola EEEP Comendador Miguel Gurgel foi composta por 6 pessoas. No processo de desenvolvimento desse sistema, utilizamos as tecnologias dos frameworks Bootstrap, ReactJS, NodeJS,  e o banco de dados MySQL."} />
+            description={"A equipe responsável pelo desenvolvimento do sistema da biblioteca Multimeios da  escola EEEP Comendador Miguel Gurgel, foi composta por 6 pessoas. No processo de desenvolvimento desse sistema, utilizamos as tecnologias dos frameworks Bootstrap, ReactJS, NodeJS,  e o banco de dados MySQL."} />
 
             <section className="members">
                 <h2>Membros da Equipe</h2>

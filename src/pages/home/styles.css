@@ -4,21 +4,27 @@
 }
 
 .header-carousel {
+    width: 98vw;
     display: flex;
     justify-content: space-between;
     align-items: center;   
     padding: 20px; 
 }
 
+.title {
+    width: 30vw;
+}
+
 .title > a {
     font-family: "Dm Serif";
-    font-size: 40px;
     letter-spacing: 1px;
     color: var(--light-purple);
 }
 
 .search-buttons {
+    width: 30vw;
     display: flex;
+    justify-content: space-between;
     padding: 20px 20px 10px 20px;
 }
 
@@ -27,11 +33,30 @@
 }
 
 .input-search > input {
-    width: 300px;
+    width: 20vw;
     box-shadow: 0px 2px 10px #00000054;
 }
 
 .search-buttons .right-arrow{
     margin-left: 20px;
     transform: rotate(180deg);
+}
+
+.buttons {
+    display: flex;
+    justify-content: right;
+}
+
+@media only screen and (max-width: 1300px ){
+    .search-buttons {
+        width: 40vw;
+        flex-direction: column;
+    }
+    .input-search > input { 
+        width: 35vw;
+    }
+
+    .buttons {
+        padding-top: 20px;
+    }
 }

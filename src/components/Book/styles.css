@@ -60,3 +60,24 @@
         opacity: 0.3;
     }
 }
+
+@media only screen and (max-width: 580px) {
+    .book {
+        height: 350px;
+    }
+    .image-book {
+        width: 160px;
+        height: 250px;
+    }
+
+    .book__img-title {
+        width: 80%;
+        height: 80%;
+    }
+}
+
+@media only screen and (max-width: 770px) {
+    .over-book {
+        display: none;  
+    }
+}

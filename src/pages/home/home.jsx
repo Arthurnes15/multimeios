@@ -62,19 +62,22 @@ export const Home = () => {
                         />
                     </div>
 
-                    <Button className={"left-arrow"} onClick={handleLeftClick}
-                    text={<img src={leftArrow} alt="left-arrow" />}
-                    />
-
-                    <Button className={"right-arrow"} onClick={handleRightClick}
-                    text={<img src={leftArrow} alt="right-arrow" />}
-                    />
+                    <div className="buttons">
+                        <div>
+                            <Button className={"left-arrow"} onClick={handleLeftClick}
+                            text={<img src={leftArrow} alt="left-arrow" />}
+                            />
+                            <Button className={"right-arrow"} onClick={handleRightClick}
+                            text={<img src={leftArrow} alt="right-arrow" />}
+                            />
+                        </div>
+                    </div>
                 </div>
             </header>
 
             <section className="books" ref={carousel}>
                 {filteredBooks.length > 0 && <Books books={filteredBooks}></Books>}
-            </section>
+            </section>  
             <Footer />
         </>
     )

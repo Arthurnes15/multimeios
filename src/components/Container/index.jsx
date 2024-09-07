@@ -10,8 +10,7 @@ export const Container = () => {
                 <h1 className="title">Olá</h1>
                 <p className="paragraph">O que você deseja fazer hoje?</p>
                 <div className="buttons-actions">
-                    <Link to={"/registerStudent"}><button className={" btn-register"}>Cadastrar Aluno <SvgArrow></SvgArrow></button></Link>
-                    
+                    <Link to={"/registerStudent"}><button className={"btn-register"}>Cadastrar Aluno <SvgArrow></SvgArrow></button></Link>
                     <Link to={"/registerBook"} className="link"> Cadastrar Livro</Link>
                 </div>
             </div>
