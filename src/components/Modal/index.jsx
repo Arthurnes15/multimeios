@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import Axios from "axios";
 import './styles.css';
 
-export const Modal = ({ id_book, id_student, defaultNameStudent, defaultEmail, status, open, openEditStudent, close }) => {
+export const Modal = ({ id_book, status, open, close }) => {
     const [values, setValues] = useState();
     const [listStudents, setListStudents] = useState();
     
@@ -62,15 +62,14 @@ export const Modal = ({ id_book, id_student, defaultNameStudent, defaultEmail, s
                         onChange={handleChangeValues}
                     />
 
-
                     <Label text={"Aluno: "}></Label>
                     <Select name={"student"}
                         firstOption={"Escolha o aluno"}
                         onChange={handleChangeValues}
-                        render={typeof listStudents !== "undefined" && listStudents.map((valueStu) => {
+                        render={typeof listStudents !== "undefined" && listStudents.map((student) => {
                             return (
-                                <Option key={valueStu.id_aluno} value={valueStu.id_aluno}
-                                    text={valueStu.nome_aluno}
+                                <Option key={student.id_aluno} value={student.id_aluno}
+                                    text={student.nome_aluno}
                                 ></Option>
                             )
                         })}

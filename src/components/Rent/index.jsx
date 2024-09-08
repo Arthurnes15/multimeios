@@ -5,11 +5,13 @@ import { Option } from '../Option';
 import { SvgUpdate } from '../Icons/update';
 import { SvgTrash } from '../Icons/trash';
 import Axios from 'axios';  
-import { dateFormatter } from '../../utils';
 import { getDayDate } from '../../utils';
+import { ModalEditRent } from '../ModalEditRent';
+import { SvgClose } from '../Icons/close';
 
 export const Rent = ({ idRent, classRent, nameBook, nameStudent, imgRented, groupStudent, dateRent, dateReturn, statusRent, responsible }) => {
     const [values, setValues] = useState();
+    const [openModal, setOpenModal] = useState(false);
     const [listStatus, setListStatus] = useState([]);
     const date = new Date();
     const dayCurrent = date.getDate();
@@ -38,7 +40,6 @@ export const Rent = ({ idRent, classRent, nameBook, nameStudent, imgRented, grou
     };
 
     const handleUpdateStatus = () => {
-    
         Axios.put("http://localhost:3001/editStatus", {
             status_id: values.status,
             rent_id: idRent
@@ -53,41 +54,49 @@ export const Rent = ({ idRent, classRent, nameBook, nameStudent, imgRented, grou
         }
     }
 
+    
     return (
-        <div className={classRent}>
-                <div className="book-rented">
-                    <img src={imgRented} alt={nameBook} className="img-rent" />
-                </div>
-                <div className="details-rent">
-                    <div className="title-book">
-                        <h4>{nameBook}</h4>
+            <>
+                <ModalEditRent open={openModal}
+                close={() => setOpenModal(false)}
+                id_rent={ idRent }
+                date_return={ dateReturn }
+                />
+                        <div className={classRent}>
+                    <div className="book-rented">
+                        <img src={ imgRented } alt={nameBook} className="img-rent" />
                     </div>
-                    <div className="texts-rent">
-                        <p>Alugatório: { nameStudent }</p>
-                        <p>Turma: { groupStudent }</p>
-                        <p>Distribuição: { dateRent }</p>
-                        <p>Devolução: { dateReturn }</p>
-                        <p>Responsável: {responsible}</p>
-                    </div>
-                            
-                    <div className="status-renew">
-                        <div className="status-rent">
-                            <Select id={"select-status"} name={"status"} firstOption={"Status "} onChange={handleChangeValues} render={typeof listStatus !== "undefined" && listStatus.map(status => {
-                                return(
-                                    <Option key={status.id_status}
-                                    value={status.id_status}
-                                    text={status.tipo}
-                                    ></Option>
-                                )
-                            })}></Select>
-                            <SvgUpdate onClick={handleUpdateStatus}/>
-                            <SvgTrash onClick={handleDeleteRent}/>
+                    <div className="details-rent">
+                        <div className="title-book">
+                            <h4>{nameBook}</h4>
                         </div>
-                        <div className="renew-book">
-                            <span className="text-renew">Renovar livro</span>
+                        <div className="texts-rent">
+                            <p>Alugatório: { nameStudent }</p>
+                            <p>Turma: { groupStudent }</p>
+                            <p>Distribuição: { dateRent }</p>
+                            <p>Devolução: { dateReturn }</p>
+                            <p>Responsável: { responsible }</p>
+                        </div>
+                
+                        <div className="status-renew">
+                            <div className="status-rent">
+                                <Select id={"select-status"} name={"status"} firstOption={"Status "} onChange={handleChangeValues} render={typeof listStatus !== "undefined" && listStatus.map(status => {
+                                    return(
+                                        <Option key={status.id_status}
+                                        value={status.id_status}
+                                        text={status.tipo}
+                                        ></Option>
+                                    )
+                                })}></Select>
+                                <SvgUpdate onClick={handleUpdateStatus}/>
+                                <SvgTrash onClick={handleDeleteRent}/>
+                            </div>
+                            <div className="renew-book">
+                                <span className="text-renew" onClick={() => setOpenModal(true)}>Renovar livro</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-        </div>
+                    </div>
+            </>
     )
 }
