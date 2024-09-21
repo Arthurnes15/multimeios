@@ -1,119 +1,121 @@
-import React, { useState, useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.min';
+import { useState, useEffect } from 'react';
 import { Navbar } from '../../components/Navbar';
 import { Label } from '../../components/Label/index';
-import { Input }  from '../../components/Input/index';
 import { Button } from '../../components/Button/index';
-import Select from 'react-select';
-import { Option } from '../../components/Option';
 import { TextRegister } from '../../components/TextRegister';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
+import { string, number, object } from 'yup';
 import Axios from 'axios';
 import students from '../../assets/img/students.gif';
+import Select from 'react-select';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles.css';
 
 export function RegisterStudent() {
-  const [values, setValues] = useState();
+  const schema = object({
+    name_student: string().required("Campo obrigatório").max(255),
+    email : string().email("Inclua o @ no endereço de e-mail").required("Campo obrigatório"),
+    group: number().required("Campo obrigatório")
+  })
+  const { register, handleSubmit, control, formState: { errors } } = useForm({
+    resolver: yupResolver(schema),
+  });
   const [listGroups, setListGroups] = useState([]);
-  const [selectedGroup, setSelectedGroup] = useState([]);
 
   const groups = typeof listGroups !== "undefined" && listGroups.map((group) => ({
-      value: group.id_turma,
-      label: group.nome_turma
+    value: group.id_turma,
+    label: group.nome_turma
   }));
 
-  const handleChangeGroup = (e) => {
-    setSelectedGroup(e.value);
-  }
-
-  const selectedOptionGroup = groups.find(
-    (e) => e.value === selectedGroup
-  );
-
-  const handleChangeValues = (value) => {
-    setValues(prevValue => ({
-      ...prevValue,
-      [value.target.name] : value.target.value,
-    }))
-  };
-
-
-  const handleClickButton = () => {
+  const handleSubmitStudent = (data) => {
     const question = window.confirm("Você tem certeza que deseja cadastrar esse aluno?");
     if (question) {
-      Axios.post("http://localhost:3001/register-student", {
-        name : values.name_student,
-        email : values.email,
-        group : selectedGroup,
+      Axios.post("http://localhost:3001/registerStudent", {
+        name: data.name_student,
+        email: data.email,
+        group: data.group,
       })
       document.location.reload();
-    }; 
+    };
   };
 
   useEffect(() => {
     Axios.get("http://localhost:3001/getGroups")
-    .then((response) => {
-      setListGroups(response.data)}
-    )}, []);
+      .then((response) => {
+        setListGroups(response.data)
+      }
+      )
+  }, []);
 
   return (
     <>
-      <Navbar/>
+      <Navbar />
       <article className="container registerStudents">
-        <div className="formRegisterStudent">
+        <section className="formRegisterStudent">
           <h1>Cadastro de alunos</h1>
 
-          <div className="text-field">
-            <Label htmlFor={"book-name"}
-            text={"Nome do aluno:"}
-            />
-            <Input name={"name_student"}
-            placeholder={"Nome do aluno"}
-            onChange={handleChangeValues}
-            maxLength={150}
-            />
-          </div>
+          <form onSubmit={handleSubmit(handleSubmitStudent)}>
+            <div className="text-field">
+              <Label htmlFor={"book-name"}
+                text={"Nome do aluno:"}
+              />
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Nome do aluno"
+                {...register("name_student")}
+              />
+              <span className='text-danger'>{errors?.name_student?.message}</span>
+            </div>
+            <div className="text-field">
+              <Label htmlFor={"author-name"}
+                text={"E-mail:"}
+              />
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Email do aluno"
+                {...register("email")}
+              />
+              <span className='text-danger'>{errors?.email?.message}</span>
+            </div>
+            <div className="text-field">
+              <Label htmlFor={"group"}
+                text={"Turma:"}
+              />
+              <Controller
+                control={control}
+                name='group'
+                render={({
+                  field: { onChange }
+                }) => (
+                  <Select
+                    options={groups}
+                    onChange={(e) => {
+                      onChange(e.value);
+                    }}
+                    placeholder={"Selecione a turma"}
+                  ></Select>
+                )}
+              >
+              </Controller>
+              <span className='text-danger'>{errors?.group?.message}</span>
+            </div>
+            <div className='text-field'>
+              <TextRegister text={"Cadastrar turma"} />
+            </div>
 
-          <div className="text-field">
-            <Label htmlFor={"author-name"}
-            text={"E-mail:"}
-            />
-            <Input name={"email"}
-            type={"email"}
-            placeholder={"Email do aluno"}
-            onChange={handleChangeValues}
-            maxLength={150}
-            />
-          </div>
-
-          <div className="text-field">
-            <Label htmlFor={"group"}
-            text={"Turma:"}
-            />
-            
-            <Select options={groups}
-            value={selectedOptionGroup}
-            placeholder={"Selecione a turma"}
-            l
-            onChange={handleChangeGroup}
-            ></Select>
-          </div>
-
-          <div className='text-field'>
-            <TextRegister text={"Cadastrar turma"} />
-          </div>
-          
-          <div className="btn-registerStudent">
-            <Button text={"Cadastrar aluno"}
-            type={"button"}
-            onClick={() => {handleClickButton()}}
-            ></Button>
-          </div>
-        </div>
-
-
+            <div className="btn-registerStudent">
+              <Button text={"Cadastrar aluno"}
+                type={"submit"}
+              ></Button>
+            </div>
+          </form>
+        </section>
         <section className="students">
-          <img src={students} alt="students"/>
+          <img src={students} alt="students" />
         </section>
       </article>
     </>
