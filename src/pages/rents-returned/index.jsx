@@ -10,7 +10,7 @@ export const RentsReturned = () => {
     const [listRentsReturned, setListRentsReturned] = useState();
 
     useEffect(() => {
-        Axios.get("http://localhost:3001/rents-returned")
+        Axios.get("http://localhost:3001/rentsReturned")
         .then((response) => {
             setListRentsReturned(response.data)
         })

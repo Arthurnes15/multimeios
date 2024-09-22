@@ -102,14 +102,14 @@ export function RegisterBook() {
   }
 
   const handleClickButtonAut = () => {
-    Axios.post("http://localhost:3001/register-author", {
+    Axios.post("http://localhost:3001/registerAuthor", {
       reg_author: values.reg_author
     })
       .then(response => console.log(response))
   }
 
   const handleClickButtonPub = () => {
-    Axios.post("http://localhost:3001/register-publisher", {
+    Axios.post("http://localhost:3001/registerPublisher", {
       reg_pub: values.reg_pub
     })
       .then(response => console.log(response))

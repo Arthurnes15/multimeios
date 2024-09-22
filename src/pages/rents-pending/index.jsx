@@ -10,7 +10,7 @@ export const RentsPending = () => {
     const [listRentsPending, setListRentsPending] = useState();
 
     useEffect(() => {
-        Axios.get("http://localhost:3001/rents-pending")
+        Axios.get("http://localhost:3001/rentsPending")
         .then((response) => {
             setListRentsPending(response.data)
         })
