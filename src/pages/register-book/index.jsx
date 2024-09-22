@@ -1,25 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import Axios from 'axios';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../../vars/vars.css';
-import './styles.css';
+import { useState, useEffect } from 'react';
 import womanfloat from '../../assets/img/Bibliophile.gif';
 import { Navbar } from '../../components/Navbar';
 import { Footer } from '../../components/Footer';
 import { Label } from '../../components/Label';
 import { Input } from '../../components/Input';
-import Select from 'react-select'
+import { yupResolver } from '@hookform/resolvers/yup';
+import { number, object, string } from 'yup';
 import { TextRegister } from '../../components/TextRegister';
 import { Button } from '../../components/Button/index';
+import { useForm, Controller } from "react-hook-form";
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { storage } from '../../firebase';
+import Axios from 'axios';
+import Select from 'react-select'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../../vars/vars.css';
+import './styles.css';
 
 export function RegisterBook() {
+  const schema = object({
+    book: string().required("Campo obrigatório").max(255),
+    author: number().required("Campo obrigatório"),
+    gender: number().required("Campo obrigatório"),
+    publisher: number().required("Campo obrigatório"),
+    isbn: string().required("Campo obrigatório").min(10, "A quantidade mínima do ISBN é de 10 caracteres, sem traços").max(13, "O ISBN deve conter no máximo 13 caracteres, sem traços"),
+    amount: number().typeError("Deve ser um número").required("Campo obrigatório"),
+    volume: number().typeError("Deve ser um número"),
+    cdd: string().required("Campo obrigatório"),
+    publication: string().required("Campo obrigatório").max(4, "A data deve ter no máximo 4 caracteres"),
+  });
   const [values, setValues] = useState();
+  const { register, handleSubmit, control, formState: { errors } } = useForm({
+    resolver: yupResolver(schema),
+  });
   const [listAuthors, setListAuthors] = useState([]);
-  const [selectedAuthor, setSelectedAuthor] = useState(null);
-  const [selectedGender, setSelectedGender] = useState(null);
-  const [selectedPublisher, setSelectedPublisher] = useState(null);
   const [listGenders, setListGenders] = useState([]);
   const [listPublishers, setListPubli] = useState([]);
   const [regDivPubOpen, setPubOpen] = useState(false);
@@ -27,9 +41,9 @@ export function RegisterBook() {
   const [imgURL, setImgUpload] = useState("");
   const [progress, setProgress] = useState(0);
 
-  const handleUploadImg = (event) => {
-    event.preventDefault();
-    const file = event.target[0].files[0];
+  const handleUploadImg = (e) => {
+    e.preventDefault();
+    const file = e.target[0].files[0];
     if (!file) return;
 
     const storageRef = ref(storage, `images/${file.name}`);
@@ -68,19 +82,19 @@ export function RegisterBook() {
     }))
   }
 
-  const handleClickButton = () => {
-    const question = window.confirm("Você tem certeza que quer cadastrar esse livro?");
+  const handleSubmitRegister = (data) => {
+    const question = window.confirm("Você tem certeza que deseja cadastrar esse livro?");
     if (question) {
-      Axios.post("http://localhost:3001/register-book", {
-        book: values.book,
-        author_book: selectedAuthor,
-        gender: selectedGender,
-        publisher: selectedPublisher,
-        isbn_book: values.isbn,
-        amount: values.amount,
-        volume: values.volume,
-        cdd: values.cdd,
-        publication: values.publication,
+      Axios.post("http://localhost:3001/registerBook", {
+        book: data.book,
+        author_book: data.author,
+        gender: data.gender,
+        publisher: data.publisher,
+        isbn_book: data.isbn,
+        amount: data.amount,
+        volume: data.volume,
+        cdd: data.cdd,
+        publication: data.publication,
         image: imgURL,
       })
       document.location.reload();
@@ -88,14 +102,14 @@ export function RegisterBook() {
   }
 
   const handleClickButtonAut = () => {
-    Axios.post("http://localhost:3001/register-author", {
+    Axios.post("http://localhost:3001/registerAuthor", {
       reg_author: values.reg_author
     })
       .then(response => console.log(response))
   }
 
   const handleClickButtonPub = () => {
-    Axios.post("http://localhost:3001/register-publisher", {
+    Axios.post("http://localhost:3001/registerPublisher", {
       reg_pub: values.reg_pub
     })
       .then(response => console.log(response))
@@ -115,30 +129,6 @@ export function RegisterBook() {
     value: publisher.id_editora,
     label: publisher.editora,
   }));
-
-  const handleChangeAuthor = (e) => {
-    setSelectedAuthor(e.value);
-  }
-
-  const handleChangeGender = (e) => {
-    setSelectedGender(e.value);
-  }
-
-  const handleChangePublisher = (e) => {
-    setSelectedPublisher(e.value);
-  }
-
-  const selectedOptionAuthor = authors.find(
-    (e) => e.value === selectedAuthor
-  );
-
-  const selectedOptionGender = genders.find(
-    (e) => e.value === selectedGender
-  );
-
-  const selectedOptionPublisher = publishers.find(
-    (e) => e.value === selectedPublisher
-  );
 
   useEffect(() => {
     Axios.get("http://localhost:3001/getAuthors")
@@ -168,134 +158,11 @@ export function RegisterBook() {
         <section className="left-register">
           <img src={womanfloat} className="img-register" alt="" />
         </section>
+
         <section className="formRegister">
+
           <h1>Cadastro de livros</h1>
-          <Input name={imgURL} type={"hidden"}
-            onChange={handleChangeValues}
-          />
-          <div className="text-field">
-            <Label htmlFor={"name_book"}
-              text={'Livro'} />
-            <Input name={"book"}
-              type={"text"}
-              placeholder={"Nome do livro"}
-              onChange={handleChangeValues}
-              maxLength={150}
-            />
-          </div>
-          <div className="row">
-            <div className="col-sm">
-              <Label htmlFor={"name_author"}
-                text={'Autor'} />
-              <Select options={authors}
-                value={selectedOptionAuthor}
-                onChange={handleChangeAuthor}
-                placeholder={"Selecione o autor"}
-              ></Select>
 
-              <TextRegister text={'Autor não listado'}
-                onClick={() => handleRegisterAut()} />
-              <div id="register-author" style={{ display: regDivAutOpen ? "flex" : "none" }}>
-                <div className="col">
-                  <Label htmlFor={"new-author"} text={"Novo autor: "}></Label>
-                  <Input name={"reg_author"}
-                    type={"text"}
-                    placeholder={"Nome do novo autor"}
-                    onChange={handleChangeValues}
-                  ></Input>
-                </div>
-                <div className="container-button">
-                  <Button type={"button"} onClick={() => handleClickButtonAut()} text={"Cadastrar"}></Button>
-                </div>
-              </div>
-            </div>
-
-            <div className="col-sm">
-              <Label htmlFor={"gender"} text={"Gênero:"}></Label>
-              <Select options={genders}
-                value={selectedOptionGender}
-                onChange={handleChangeGender}
-                placeholder={"Selecione o gênero"}
-              ></Select>
-
-            </div>
-            <div className="col-sm">
-              <Label htmlFor={"publisher"} text={"Editora:"}></Label>
-              <Select options={publishers}
-                value={selectedOptionPublisher}
-                onChange={handleChangePublisher}
-                placeholder={"Selecione a editora"}
-              ></Select>
-
-              <TextRegister text={'Editora não listada'} onClick={() => handleRegisterPub()}></TextRegister>
-              <div id="register-pub" style={{ display: regDivPubOpen ? "flex" : "none" }}>
-                <div className="col">
-                  <Label htmlFor={"new-publisher"} text={"Cadastrar Editora:"} />
-                  <Input name={"reg_pub"}
-                    type={"text"}
-                    placeholder={"Nome da nova editora"}
-                    onChange={handleChangeValues}
-                  ></Input>
-                </div>
-                <div className="container-button">
-                  <Button type={"button"} onClick={() => handleClickButtonPub()} text={"Cadastrar"}></Button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="text-field">
-            <Label htmlFor={"isbn"} text={"ISBN:"} />
-            <Input name={"isbn"}
-              type={"text"}
-              placeholder={"ISBN"}
-              onChange={handleChangeValues}
-              maxLength={13}
-              minLength={10}
-            />
-          </div>
-          <div className="text-field">
-            <Label htmlFor={"amount"} text={"Nº de Exemplares:"} />
-            <Input
-              name={"amount"}
-              type={"number"}
-              placeholder={"Número de exemplares"}
-              onChange={handleChangeValues}
-              min={0}
-            />
-          </div>
-
-          <div className="row">
-            <div className="col-sm text-field">
-              <Label htmlFor={"volume"} text={"Volume:"} />
-              <Input name={"volume"}
-                type={"number"}
-                placeholder={"Volume do livro"}
-                onChange={handleChangeValues}
-                min={0}
-              />
-            </div>
-            <div className="col-sm text-field">
-              <Label htmlFor={"cdd"} text={"Código: "} />
-              <Input name={"cdd"}
-                type={"text"}
-                placeholder={"CDD"}
-                onChange={handleChangeValues}
-                maxLength={7}
-              />
-            </div>
-            <div className="col-sm text-field">
-              <Label htmlFor={"date"} text={"Data: "} />
-              <Input name={"publication"}
-                type={"text"}
-                placeholder={"Ano da publicação"}
-                onChange={handleChangeValues}
-                maxLength={4}
-                min={0}
-
-              />
-            </div>
-
-          </div>
           <div className="text-field">
             <Label htmlFor={"image_book"} text={"Imagem do livro"}></Label>
             <form onSubmit={handleUploadImg}>
@@ -313,14 +180,177 @@ export function RegisterBook() {
               </div>}
             </form>
           </div>
-          <div className="btn-registerBook">
-            <Button type={"button"}
-              onClick={() => handleClickButton()}
-              text={"Cadastrar"}
-            />
-          </div>
-        </section>
 
+          <form onSubmit={handleSubmit(handleSubmitRegister)}>
+            <Input type={"hidden"}
+              name={imgURL}
+              onChange={handleChangeValues}
+            />
+            <div className="text-field">
+              <Label htmlFor={"name_book"}
+                text={'Livro'} />
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Nome do Livro"
+                {...register("book")}
+              />
+              <span className='text-danger'>{errors?.book?.message}</span>
+            </div>
+            <div className="row">
+              <div className="col-sm">
+                <Label htmlFor={"name_author"}
+                  text={'Autor'} />
+
+                <Controller
+                  control={control}
+                  name='author'
+                  render={({
+                    field: { onChange }
+                  }) => (
+                    <Select
+                      options={authors}
+                      onChange={(e) => {
+                        onChange(e.value);
+                      }}
+                      placeholder={"Selecione o autor"}
+                    ></Select>
+                  )}
+                >
+                </Controller>
+                <span className='text-danger'>{errors?.author?.message}</span>
+
+                <TextRegister text={'Autor não listado'}
+                  onClick={() => handleRegisterAut()} />
+                <div id="register-author" style={{ display: regDivAutOpen ? "flex" : "none" }}>
+                  <div className="col">
+                    <Label htmlFor={"new-author"} text={"Novo autor: "}></Label>
+                    <Input name={"reg_author"}
+                      type={"text"}
+                      placeholder={"Nome do novo autor"}
+                      onChange={handleChangeValues}
+                    ></Input>
+                  </div>
+                  <div className="container-button">
+                    <Button type={"button"} onClick={() => handleClickButtonAut()} text={"Cadastrar"}></Button>
+                  </div>
+                </div>
+              </div>
+              <div className="col-sm">
+                <Label htmlFor={"gender"} text={"Gênero:"}></Label>
+
+                <Controller
+                  control={control}
+                  name='gender'
+                  render={({
+                    field: { onChange }
+                  }) => (
+                    <Select
+                      options={genders}
+                      onChange={(e) => {
+                        onChange(e.value);
+                      }}
+                      placeholder={"Selecione o gênero"}
+                    ></Select>
+                  )}
+                >
+                </Controller>
+                <span className='text-danger'>{errors?.gender?.message}</span>
+              </div>
+              <div className="col-sm">
+                <Label htmlFor={"publisher"} text={"Editora:"}></Label>
+
+                <Controller
+                  control={control}
+                  name='publisher'
+                  render={({
+                    field: { onChange }
+                  }) => (
+                    <Select
+                      options={publishers}
+                      onChange={(e) => {
+                        onChange(e.value);
+                      }}
+                      placeholder={"Selecione a editora"}
+                    ></Select>
+                  )}
+                >
+                </Controller>
+                <span className='text-danger'>{errors?.publisher?.message}</span>
+
+                <TextRegister text={'Editora não listada'} onClick={() => handleRegisterPub()}></TextRegister>
+                <div id="register-pub" style={{ display: regDivPubOpen ? "flex" : "none" }}>
+                  <div className="col">
+                    <Label htmlFor={"new-publisher"} text={"Cadastrar Editora:"} />
+                    <Input name={"reg_pub"}
+                      type={"text"}
+                      placeholder={"Nome da nova editora"}
+                      onChange={handleChangeValues}
+                    ></Input>
+                  </div>
+                  <div className="container-button">
+                    <Button type={"button"} onClick={() => handleClickButtonPub()} text={"Cadastrar"}></Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="text-field">
+              <Label htmlFor={"isbn"} text={"ISBN:"} />
+              <input type="text"
+                className="form-control"
+                placeholder="Nome do livro"
+                onChange={handleChangeValues}
+                {...register("isbn")} />
+              <span className='text-danger'>{errors?.isbn?.message}</span>
+            </div>
+            <div className="text-field">
+              <Label htmlFor={"amount"} text={"Nº de Exemplares:"} />
+              <input type="number"
+                className="form-control"
+                placeholder="Nº de Exemplares"
+                onChange={handleChangeValues}
+                {...register("amount")}
+              />
+              <span className='text-danger'>{errors?.amount?.message}</span>
+            </div>
+            <div className="row">
+              <div className="col-sm text-field">
+                <Label htmlFor={"volume"} text={"Volume:"} />
+                <input type="text"
+                  className="form-control"
+                  placeholder="Volume do livro"
+                  onChange={handleChangeValues}
+                  {...register("volume")}
+                />
+              </div>
+              <div className="col-sm text-field">
+                <Label htmlFor={"cdd"} text={"Código: "} />
+                <input type="text"
+                  className="form-control"
+                  placeholder="Código do livro"
+                  onChange={handleChangeValues}
+                  {...register("cdd")}
+                />
+                <span className='text-danger'>{errors?.cdd?.message}</span>
+              </div>
+              <div className="col-sm text-field">
+                <Label htmlFor={"date"} text={"Data: "} />
+                <input type="text"
+                  className="form-control"
+                  placeholder="Ano do livro"
+                  onChange={handleChangeValues}
+                  {...register("publication")}
+                />
+                <span className='text-danger'>{errors?.publication?.message}</span>
+              </div>
+            </div>
+            <div className="btn-registerBook">
+              <Button type={"submit"}
+                text={"Cadastrar"}
+              />
+            </div>
+          </form>
+        </section>
       </article>
       <Footer />
     </>
