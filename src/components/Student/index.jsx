@@ -2,9 +2,11 @@ import { useState } from "react";
 import { SvgTrash } from "../Icons/trash";
 import { SvgEdit } from "../Icons/edit";
 import { ModalStudent } from "../ModalEditStudent";
+import { SvgStudent } from "../Icons/student";
 import Axios from 'axios';
+import './styles.css'
 
-export const Student = ({id_student, nameStudent, email, group }) => {
+export const Student = ({id_student, nameStudent, email, group, idGroup}) => {
     const [openModalStudent, setOpenModalStudent] = useState(false);
 
     const handleDeleteStudent = () => {
@@ -23,16 +25,18 @@ export const Student = ({id_student, nameStudent, email, group }) => {
                 close={() => setOpenModalStudent(false)}
                 id_student={ id_student }
                 defaultNameStudent={ nameStudent }
-                defaultEmail={ email }                
+                defaultEmail={ email }
+                defaultGroup={ idGroup }          
                 />
-                <tr>
-                    <th scope="row">{ id_student }</th>
-                    <td>{ nameStudent }</td>
-                    <td>{ email }</td>
-                    <td>{ group }</td>
-                    <td><SvgEdit onClick={() => setOpenModalStudent(true)}></SvgEdit></td>
-                    <td><SvgTrash onClick={() => {handleDeleteStudent()}}></SvgTrash></td>
-                </tr>
+                
+                <div className={`student ${group}`}>
+                    <h4><SvgStudent/>{ nameStudent }</h4>
+                    <p className="group-student">{ group }</p>
+                    <div className="icons-students">
+                        <SvgEdit onClick={() => setOpenModalStudent(true)}></SvgEdit>
+                        <SvgTrash onClick={() => {handleDeleteStudent()}}></SvgTrash>
+                    </div>
+                </div>
             </>
     );
 }

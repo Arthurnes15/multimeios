@@ -114,7 +114,7 @@ export function RegisterStudent() {
             </div>
           </form>
         </section>
-        <section className="students">
+        <section className="students-image">
           <img src={students} alt="students" />
         </section>
       </article>

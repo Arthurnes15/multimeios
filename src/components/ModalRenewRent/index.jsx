@@ -6,7 +6,7 @@ import { SvgClose } from "../Icons/close";
 import Axios from "axios";
 import './styles.css'
 
-export const ModalEditRent = ({ id_rent, open, close }) => {
+export const ModalRenewRent = ({ id_rent, open, close }) => {
     const [values, setValues] = useState();
 
     const handleChangeValues = (value) => {

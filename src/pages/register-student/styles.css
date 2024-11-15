@@ -10,7 +10,7 @@
     width: 50%;
 }
 
-.students {
+.students-image {
     width: 50%;
 }
 
@@ -22,9 +22,14 @@
     margin-bottom: 20px;
 }
 
+.btn-registerStudent {
+    display: flex;
+    justify-content: center;
+}
+
 .btn-registerStudent > button {
     background-color: var(--light-purple);
-    width: 100%;
+    width: 70%;
     font-size: 18px;
     font-weight: 800;
     color: white;

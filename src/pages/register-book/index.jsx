@@ -160,7 +160,6 @@ export function RegisterBook() {
         </section>
 
         <section className="formRegister">
-
           <h1>Cadastro de livros</h1>
 
           <div className="text-field">
@@ -276,7 +275,7 @@ export function RegisterBook() {
                   )}
                 >
                 </Controller>
-                <span className='text-danger'>{errors?.publisher?.message}</span>
+                <span className='text-danger'>{errors?.publisher?.message}</span> 
 
                 <TextRegister text={'Editora não listada'} onClick={() => handleRegisterPub()}></TextRegister>
                 <div id="register-pub" style={{ display: regDivPubOpen ? "flex" : "none" }}>

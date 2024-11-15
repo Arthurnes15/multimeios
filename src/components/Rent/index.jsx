@@ -6,8 +6,7 @@ import { SvgUpdate } from '../Icons/update';
 import { SvgTrash } from '../Icons/trash';
 import Axios from 'axios';  
 import { getDayDate } from '../../utils';
-import { ModalEditRent } from '../ModalEditRent';
-import { SvgClose } from '../Icons/close';
+import { ModalRenewRent } from '../ModalRenewRent';
 
 export const Rent = ({ idRent, classRent, nameBook, nameStudent, imgRented, groupStudent, dateRent, dateReturn, statusRent, responsible }) => {
     const [values, setValues] = useState();
@@ -15,7 +14,7 @@ export const Rent = ({ idRent, classRent, nameBook, nameStudent, imgRented, grou
     const [listStatus, setListStatus] = useState([]);
     const date = new Date();
     const dayCurrent = date.getDate();
-    
+
     useEffect(() => {
         Axios.get("http://localhost:3001/getStatus")
         .then((response) => {
@@ -57,7 +56,7 @@ export const Rent = ({ idRent, classRent, nameBook, nameStudent, imgRented, grou
     
     return (
             <>
-                <ModalEditRent open={openModal}
+                <ModalRenewRent open={openModal}
                 close={() => setOpenModal(false)}
                 id_rent={ idRent }
                 date_return={ dateReturn }

@@ -1,20 +1,24 @@
 import { useState, useEffect } from "react";
 import { SvgClose } from "../Icons/close";
-import { Input } from "../Input";
 import { Label } from "../Label";
-import { Select } from "../Select";
-import { Option } from "../Option";
 import { Button } from "../Button";
+import Select from "react-select";
 import Axios from "axios";
 import './styles.css';
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { number, object, string } from "yup";
 
-export const ModalStudent = ({ openEditStudent, id_student, defaultNameStudent, defaultEmail, close }) => {
-
-    const [editStudentValues, setEditStudentValues] = useState({
-        id_student: id_student,
-        nameStudent: defaultNameStudent,
-        email: defaultEmail,
-    });
+export const ModalStudent = ({ openEditStudent, id_student, defaultNameStudent, defaultEmail, defaultGroup, close }) => {
+    const schema = object({
+        id_student: number(),
+        new_name: string(),
+        new_email: string().email("Inclua o @ no endereço de email"),
+        new_group: string()
+    })
+    const {register, handleSubmit, control, formState: { errors }} = useForm({
+        resolver: yupResolver(schema)
+    })
     const [listStudents, setListStudents] = useState();
     const [listGroups, setListGroups] = useState();
 
@@ -31,22 +35,20 @@ export const ModalStudent = ({ openEditStudent, id_student, defaultNameStudent, 
         },
     []);
 
-    const handleChangeStudentValues = (value) => {
-        setEditStudentValues((prevValue) => ({
-            ...prevValue,
-            [value.target.id]: value.target.value
-        }));
-    }
-
-    const handleClickEditStudent = () => {
+    const handleSubmitEditStudent = (data) => {
         Axios.put("http://localhost:3001/editStudent", {
-            student_id: id_student,
-            name_student: editStudentValues.nameStudent,
-            email_student: editStudentValues.email,
-            group: editStudentValues.new_group,
+            id: data.id_student,
+            name: data.new_name,
+            email: data.new_email,
+            group: data.new_group,
         });
         document.location.reload();
     }
+
+    const groups = typeof listGroups !== "undefined" && listGroups.map((group) => ({
+        value: group.id_turma,
+        label: group.nome_turma
+      }));  
 
     if (openEditStudent) {
         return (
@@ -56,41 +58,55 @@ export const ModalStudent = ({ openEditStudent, id_student, defaultNameStudent, 
                         <h2>Editar Aluno: </h2>
                         <SvgClose onClick={close} />
                     </div>
-                    <span className="modal-alert text-danger">Atenção: Nas opções para escolher, não esqueça de selecionar o dado atual caso não for alterá-lo.</span><br />
-                    <Input id={id_student}
-                        type={"hidden"}
-                        onChange={handleChangeStudentValues}
-                    />
+                    
+                    <form onSubmit={handleSubmit(handleSubmitEditStudent)}>
+                        <input defaultValue={id_student}
+                            type={"hidden"}
+                            {...register("id_student")}
+                        />
+                        <Label text={"Novo nome do aluno: "}></Label>
+                        <input type="text"
+                            className="form-control"
+                            defaultValue={defaultNameStudent}
+                            {...register("new_name")}
+                        />
+                        <span className='text-danger'>{errors?.new_name?.message}</span>
 
-                    <Label text={"Novo nome do aluno: "}></Label>
-                    <Input id={"nameStudent"}
-                        defaultValue={defaultNameStudent}
-                        onChange={handleChangeStudentValues}
-                    />
+                        <Label text={"Novo email do aluno:"} />
+                        <input type={"email"}
+                            className="form-control"
+                            defaultValue={defaultEmail}
+                            {...register("new_email")}
+                        
+                        />
+                        <span className='text-danger'>{errors?.new_email?.message}</span>
 
-                    <Label text={"Novo email do aluno:"} />
-                    <Input id={"email"}
-                        type={"email"}
-                        defaultValue={defaultEmail}
-                        onChange={handleChangeStudentValues}
-                    />
-                    <Label text={"Nova turma do aluno:"} />
-                    <Select id={"new_group"}
-                        firstOption={"Escolha a nova ou a atual turma do aluno:"}
-                        onChange={handleChangeStudentValues}
-                        render={typeof listGroups !== "undefined" && listGroups.map((valueGen) => {
-                            return (
-                                <Option key={valueGen.id_turma} value={valueGen.id_turma}
-                                    text={valueGen.nome_turma}
-                                ></Option>
-                            )
-                        })}
-                    ></Select>
+                        <Label text={"Nova turma do aluno:"} />
+                        <Controller 
+                            control={control}
+                            defaultValue={defaultGroup}
+                            name="new_group"
+                            render={({
+                                field: {onChange}
+                            }) => (
+                                <Select options={groups}
+                                defaultValue={groups[defaultGroup - 1]}
+                                onChange={(e) => {
+                                    onChange(e.value);
+                                }}
+                                placeholder={"Selecione a nova turma"}
+                                ></Select>
+                            )}
+                        >
+                        </Controller>
+                        <span className='text-danger'>{errors?.new_group?.message}</span>
 
-                    <br />
-                    <Button text={"Editar"}
-                        className={"btn btn-info text-white"}
-                        onClick={() => handleClickEditStudent()}></Button>
+                        <br />
+                        <Button type={"submit"}
+                            text={"Editar"}
+                            className={"btn btn-info text-white"}
+                        />
+                    </form>
                 </div>
             </div>
         )

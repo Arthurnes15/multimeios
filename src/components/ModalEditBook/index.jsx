@@ -1,25 +1,48 @@
 import { useState, useEffect } from "react";
 import { SvgClose } from "../Icons/close";
-import { Input } from "../Input";
 import { Label } from "../Label";
-import { Select } from "../Select";
-import { Option } from "../Option";
 import { Button } from "../Button";
+import Select from "react-select";
 import Axios from 'axios';
+import { number, object, string } from "yup";
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import './styles.css'
 
-export const ModalEdit = ({ openEdit, id_book, defaultName, defaultAmount, defaultISBN, defaultCDD, close }) => {
-    const [editValues, setEditValues] = useState({
-        id: id_book,
-        nameBook: defaultName,
-        amount: defaultAmount,
-        isbn: defaultISBN,
-        cdd: defaultCDD
+export const ModalEdit = ({ openEdit, id_book, defaultName, defaultAuthor, defaultPublisher, defaultGender, defaultAmount, defaultISBN, defaultCDD, defaultVolume, close }) => {
+    const schema = object({
+        id_book: number(),
+        new_book: string().max(255, "Você atingiu o número máximo de caracteres"),
+        new_author: number(),
+        new_publisher: number(),
+        new_gender: number(),
+        new_isbn: string().min(10, "A quantidade mínima do ISBN é de 10 caracteres, sem traços").max(13, "O ISBN deve conter no máximo 13 caracteres, sem traços"),
+        new_amount: number().typeError("Deve ser um número"),
+        new_cdd: string(),
+        new_volume: number().typeError("Deve ser um número"),
+    })
+    const{ register, handleSubmit, control, formState: { errors } } = useForm({
+        resolver: yupResolver(schema)
     });
     const [listAuthors, setListAuthors] = useState();
     const [listGenders, setListGenders] = useState();
     const [listPublishers, setListPubli] = useState();
 
+    const authors = typeof listAuthors !== "undefined" && listAuthors.map((author) => ({
+        value: author.id_autor,
+        label: author.nome_autor
+    }));
+
+    const publishers = typeof listPublishers !== "undefined" && listPublishers.map((publisher) => ({
+        value: publisher.id_editora,
+        label: publisher.editora
+    }))
+
+    const genders = typeof listGenders !== "undefined" && listGenders.map((gender) => ({
+        value: gender.id_genero,
+        label: gender.genero
+    }))
+    
     useEffect(() => {
         Axios.get("http://localhost:3001/getAuthors")
             .then((response) => {
@@ -37,27 +60,22 @@ export const ModalEdit = ({ openEdit, id_book, defaultName, defaultAmount, defau
             });
         },
     []);
-
-    const handleChangeEditValues = (value) => {
-        setEditValues((prevValue) => ({
-            ...prevValue,
-            [value.target.id]: value.target.value
-        }));
-    }
-    const handleClickEdit = () => {
+    
+    const handleSubmitEdit = (data) => {
         Axios.put("http://localhost:3001/edit", {
-            book_id: id_book,
-            name_book: editValues.nameBook,
-            name_author: editValues.new_author,
-            publisher_book: editValues.new_publisher,
-            gender_book: editValues.new_gender,
-            isbn_book: editValues.isbn,
-            amount_book: editValues.amount,
-            cdd_book: editValues.cdd,
+            id: data.id_book,
+            book: data.new_book,
+            author: data.new_author,
+            publisher: data.new_publisher,
+            gender: data.new_gender,
+            isbn: data.new_isbn,
+            amount: data.new_amount,
+            cdd: data.new_cdd,
+            volume: data.new_volume
         });
         document.location.reload();
     };
-
+    
     if (openEdit) {
         return (
             <div className="background-edit" >
@@ -66,79 +84,123 @@ export const ModalEdit = ({ openEdit, id_book, defaultName, defaultAmount, defau
                         <h2>Edição do Livro</h2>
                         <SvgClose onClick={close} />
                     </div>
-                    <span className="modal-alert text-danger">Atenção: Nas opções para escolher, não esqueça de selecionar o dado atual caso não for alterá-lo.</span>
     
-                    <Input id={id_book}
-                        type={"hidden"}
-                        onChange={handleChangeEditValues}
-                    />
-    
-                    <Label text={"Novo nome do Livro:"}></Label>
-                    <Input id={"nameBook"}
-                        defaultValue={defaultName}
-                        onChange={handleChangeEditValues}
-                        maxLength={150}
-                    />
-    
-                    <Label text={"Novo autor:"} />
-                    <Select id={"new_author"}
-                        firstOption={"Escolha o novo autor ou o atual:"}
-                        onChange={handleChangeEditValues}
-                        render={typeof listAuthors !== "undefined" && listAuthors.map((valueAut) => {
-                            return (
-                                <Option key={valueAut.id_autor} value={valueAut.id_autor}
-                                    text={valueAut.nome_autor}
-                                ></Option>
-                            )
-                        })}
-                    ></Select>
-    
-                    <Label text={"Nova editora:"} />
-                    <Select id={"new_publisher"}
-                        firstOption={"Escolha a nova editora ou o atual:"}
-                        onChange={handleChangeEditValues}
-                        render={typeof listPublishers !== "undefined" && listPublishers.map((valuePub) => {
-                            return (
-                                <Option key={valuePub.id_editora} value={valuePub.id_editora}
-                                    text={valuePub.editora}
-                                ></Option>
-                            )
-                        })}
-                    ></Select>
-    
-                    <Label text={"Novo gênero:"} />
-                    <Select id={"new_gender"}
-                        firstOption={"Escolha o novo do gênero ou o atual:"}
-                        onChange={handleChangeEditValues}
-                        render={typeof listGenders !== "undefined" && listGenders.map((valueGen) => {
-                            return (
-                                <Option key={valueGen.id_genero} value={valueGen.id_genero}
-                                    text={valueGen.genero}
-                                ></Option>
-                            )
-                        })}
-                    ></Select>
-                    <Label text={"Novo ISBN:"} />
-                    <Input id={"isbn"}
-                        defaultValue={defaultISBN}
-                        onChange={handleChangeEditValues}
-                    ></Input>
-    
-                    <Label text={"Novo numero de exemplares:"} />
-                    <Input id={"amount"}
-                        defaultValue={defaultAmount}
-                        onChange={handleChangeEditValues}
-                    ></Input>
-    
-                    <Label text={"Novo código do livro:"} />
-                    <Input id={"cdd"}
-                        defaultValue={defaultCDD}
-                        onChange={handleChangeEditValues}
-                    ></Input>
-                    <br />
-                    <Button text={"Editar"}
-                        className={"btn btn-info text-white"}
-                        onClick={() => handleClickEdit()} />
+                    <form onSubmit={handleSubmit(handleSubmitEdit)}>
+                        <input type="hidden" 
+                            defaultValue={id_book}
+                            className="form-control"
+                            {...register("id_book")}
+                        />
+                        <Label text={"Novo nome do Livro:"}></Label>
+                        <input 
+                            type="text"
+                            className="form-control"
+                            defaultValue={defaultName}
+                            {...register("new_book")}
+                        />
+                        <span className='text-danger'>{errors?.new_book?.message}</span>
+                        <div className="row">
+                            <div className="col-sm">
+                                <Label text={"Novo autor:"} />
+                                <Controller
+                                    control={control}
+                                    name="new_author"
+                                    defaultValue={defaultAuthor}
+                                    render={({
+                                        field: { onChange }
+                                    }) => (
+                                        <Select options={authors}
+                                        defaultValue={authors[defaultAuthor - 1]}
+                                        onChange={(e) => {
+                                            onChange(e.value);
+                                        }}
+                                        placeholder={"Selecione o novo autor"}
+                                        ></Select>
+                                    )}>
+                                </Controller>
+                                <span className='text-danger'>{errors?.new_author?.message}</span>
+                            </div>
+
+                            <div className="col-sm">
+                                <Label text={"Nova editora:"} />
+                                <Controller
+                                    control={control}
+                                    name="new_publisher"
+                                    defaultValue={defaultPublisher}
+                                    render={({
+                                        field: { onChange }
+                                    }) => (
+                                        <Select options={publishers}
+                                        defaultValue={publishers[defaultPublisher - 1]}
+                                        onChange={(e) => {
+                                            onChange(e.value);
+                                        }}
+                                        placeholder={"Selecione a nova editora: "}
+                                        ></Select>
+                                    )}>
+                                </Controller>
+                                <span className='text-danger'>{errors?.new_publisher?.message}</span>
+                            </div>
+                        </div>
+                        
+                        <Label text={"Novo gênero:"} />
+                        <Controller
+                            control={control}
+                            name="new_gender"
+                            defaultValue={defaultGender}
+                            render={({
+                                field: { onChange }
+                            }) => (
+                                <Select options={genders}
+                                defaultValue={genders[defaultGender - 1]}
+                                onChange={(e) => {
+                                    onChange(e.value);
+                                }}
+                                placeholder={"Selecione o novo gênero: "}
+                                ></Select>
+                            )}>
+                        </Controller>
+                        <span className='text-danger'>{errors?.new_gender?.message}</span>
+                        
+                        <Label text={"Novo ISBN:"} />
+                        <input
+                            type="text"
+                            className="form-control"
+                            defaultValue={defaultISBN}
+                            {...register("new_isbn")}
+                        />
+                        <span className='text-danger'>{errors?.new_isbn?.message}</span>
+                        <Label text={"Novo numero de exemplares:"} />
+                        <input 
+                            type="number"
+                            className="form-control"
+                            defaultValue={defaultAmount}
+                            {...register("new_amount")}
+                        />
+                        <span className='text-danger'>{errors?.new_amount?.message}</span>
+                        <Label text={"Novo código do livro:"} />
+                        <input 
+                            type="text"
+                            className="form-control"
+                            defaultValue={defaultCDD}
+                            {...register("new_cdd")}
+                        />
+                        <span className='text-danger'>{errors?.new_cdd?.message}</span>
+                        
+                        <Label text={"Novo volume"}></Label>
+                        <input type="number"
+                            defaultValue={defaultVolume}
+                            className="form-control"
+                            {...register("new_volume")}
+                        />
+                        <span className='text-danger'>{errors?.new_volume?.message}</span>
+
+                        <br />
+                        <Button type={"submit"}
+                            text={"Editar"}
+                            className={"btn btn-info text-white"}
+                        />
+                    </form>
                 </div>
             </div>
         )

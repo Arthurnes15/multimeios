@@ -16,9 +16,12 @@ export const Books = ({ books = [] }) => {
                     setListBook={setListBooks}
                     nameBook={book.nome_livro}
                     nameAuthor={book.nome_autor}
+                    idAuthor={book.id_autor}
                     publisher={book.editora}
+                    idPublisher={book.id_editora}
                     publication={book.data_publicacao}
                     gender={book.genero}
+                    idGender={book.id_genero}
                     isbn={book.ISBN}
                     cdd={book.CDD}
                     amount={book.n_exemplares}
