@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react"
 import { Group } from "../Group";
-import Axios from "axios";
 import "./styles.css";
+import axiosClient from "../../config/axiosClient";
 
 export const Groups = () => {
     const [listGroups, setListGroups] = useState([]);
 
     useEffect(() => {
-        Axios.get("http://localhost:3001/getGroups")
+        axiosClient.get("getGroupsOrderName")
             .then((response) => {
                 setListGroups(response.data)
             })

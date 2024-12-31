@@ -3,10 +3,10 @@ import { SvgClose } from "../Icons/close";
 import { Label } from "../Label";
 import { Button } from "../Button";
 import Select from "react-select";
-import Axios from 'axios';
 import { number, object, string } from "yup";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import axiosClient from "../../config/axiosClient";
 import './styles.css'
 
 export const ModalEdit = ({ openEdit, id_book, defaultName, defaultAuthor, defaultPublisher, defaultGender, defaultAmount, defaultISBN, defaultCDD, defaultVolume, close }) => {
@@ -44,17 +44,17 @@ export const ModalEdit = ({ openEdit, id_book, defaultName, defaultAuthor, defau
     }))
     
     useEffect(() => {
-        Axios.get("http://localhost:3001/getAuthors")
+        axiosClient.get("getAuthors")
             .then((response) => {
                 setListAuthors(response.data)
             });
 
-        Axios.get("http://localhost:3001/getGenders")
+        axiosClient.get("getGenders")
             .then((response) => {
                 setListGenders(response.data)
             });
 
-        Axios.get("http://localhost:3001/getPublishers")
+        axiosClient.get("getPublishers")
             .then((response) => {
                 setListPubli(response.data)
             });
@@ -62,7 +62,7 @@ export const ModalEdit = ({ openEdit, id_book, defaultName, defaultAuthor, defau
     []);
     
     const handleSubmitEdit = (data) => {
-        Axios.put("http://localhost:3001/edit", {
+        axiosClient.put("editBook", {
             id: data.id_book,
             book: data.new_book,
             author: data.new_author,

@@ -1,21 +1,31 @@
 import { useState, useEffect } from "react";
 import { Navbar } from "../../components/Navbar"
 import { Input } from "../../components/Input";
-import Axios from "axios";
-import './styles.css';
 import { AllBooks } from "../../components/AllBooks";
 import { Footer } from "../../components/Footer";
+import axiosClient from "../../config/axiosClient";
+import './styles.css';
+import validateToken from "../../utils/validateToken";
+import { useNavigate } from "react-router-dom";
 
 export const BooksCatalog = () => {
+    const [auth, setAuth] = useState(false);
     const [listBooks, setListBooks] = useState([]);
     const [searchValue, setSearchValue] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
-        Axios.get("http://localhost:3001/getAllBooks")
-        .then((response) => {
-            setListBooks(response.data)
-        })
-    }, []);
+        if (auth) {
+            axiosClient.get("getAllBooks")
+                .then((res) => {
+                    setListBooks(res.data);
+                });
+        } else {
+            validateToken()
+                .then(() => setAuth(true))
+                .catch(() => navigate("/"))
+        };
+    }, [auth, navigate]);
 
     const filteredBooks = !!searchValue ? listBooks.filter(book => {
         return book.nome_livro.toLowerCase().includes(searchValue.toLowerCase())

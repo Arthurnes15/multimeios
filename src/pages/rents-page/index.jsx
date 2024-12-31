@@ -1,25 +1,39 @@
-import Axios  from "axios";
 import { useEffect, useState } from "react";
 import { Navbar } from "../../components/Navbar";
 import { Rent } from "../../components/Rent";
 import { Footer } from "../../components/Footer";
 import { dateFormatter } from "../../utils";
 import book_placeholder from '../../assets/img/book-placeholder.png';
-import './styles.css'
+import axiosClient from "../../config/axiosClient";
+import validateToken from "../../utils/validateToken";
+import { useNavigate } from "react-router-dom";
+import { Spinner } from "../../components/Spinner";
+import './styles.css';
 
 export const Rents = () => {
+    const [auth, setAuth] = useState(false);
     const [listRents, setListRents] = useState();
+    const navigate = useNavigate();
 
     useEffect(() => {
-        Axios.get("http://localhost:3001/rents")
-        .then((response) => {
-            setListRents(response.data)
-        })
-    }, []);
+        if (auth) {
+            axiosClient.get("getRents")
+                .then((res) => {
+                    setListRents(res.data);
+                });
+        } else {
+            validateToken()
+                .then(() => setAuth(true))
+                .catch(() => navigate("/"))
+        };
+    }, [auth, navigate]);
 
     return(
         <>
             <Navbar />
+
+            {!auth && <Spinner/>}
+
             <article className="container rents">
                 {typeof listRents !== "undefined" && 
                     listRents.map((value) => {

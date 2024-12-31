@@ -5,9 +5,9 @@ import { SvgBook } from '../Icons/book';
 import { SvgRent } from '../Icons/rent';
 import { Modal } from '../Modal';
 import { ModalEdit } from '../ModalEditBook';
-import  Axios  from 'axios';
 import '../../vars/vars.css';
 import './styles.css';
+import axiosClient from '../../config/axiosClient';
 
 export const Book = ({ id, nameBook, idAuthor, nameAuthor, idPublisher, publisher, img, alt,idGender, gender, isbn, amount, cdd, publication, volume }) => {
     const [openModal, setOpenModal] = useState(false);
@@ -17,7 +17,7 @@ export const Book = ({ id, nameBook, idAuthor, nameAuthor, idPublisher, publishe
     const handleDeleteBook = () => {
         const question = window.confirm("Você tem certeza que deseja apagar esse livro?");
         if(question === true) {
-            Axios.delete(`http://localhost:3001/delete/${id}`)
+            axiosClient.delete(`/delete/${id}`)
             .then(() => {
                 document.location.reload();
             });    

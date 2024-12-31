@@ -3,7 +3,7 @@ import { Label } from "../Label";
 import { Input } from "../Input";
 import { Button } from "../Button";
 import { SvgClose } from "../Icons/close";
-import Axios from "axios";
+import axiosClient from "../../config/axiosClient";
 import './styles.css'
 
 export const ModalRenewRent = ({ id_rent, open, close }) => {
@@ -17,7 +17,7 @@ export const ModalRenewRent = ({ id_rent, open, close }) => {
     };
 
     const handleUpdateDateReturn = () => {
-        Axios.put("http://localhost:3001/editRent", {
+        axiosClient.put("editDateRent", {
             rent_id: id_rent,
             date_return: values.date_return
         })
@@ -43,7 +43,7 @@ export const ModalRenewRent = ({ id_rent, open, close }) => {
                         onChange={handleChangeValues}
                     />
                     <br />
-                    <Button text={"Editar"}
+                    <Button text={"Renovar"}
                         className={"btn btn-info text-white"}
                         onClick={() => handleUpdateDateReturn()}></Button>
                 </div>

@@ -1,20 +1,25 @@
-import { useState } from "react"
-import { SvgEdit } from "../Icons/edit"
-import { SvgTrash } from "../Icons/trash"
-import { ModalGroup } from "../ModalEditGroup"
-import Axios from "axios"
+import { useEffect, useState } from "react";
+import { SvgEdit } from "../Icons/edit";
+import { ModalGroup } from "../ModalEditGroup";
+import axiosClient from "../../config/axiosClient";
+import { useNavigate } from "react-router-dom";
+import { Spinner } from "../Spinner";
+import validateToken from "../../utils/validateToken";
 
 export const Group = ({id_group, nameGroup}) => {
+    const [auth, setAuth] = useState(false);
     const [openModalGroup, setOpenModalGroup] = useState(false);
-    const handleDeleteGroup = () => {
-        const question = window.confirm("Você tem certeza que deseja apagar essa turma?");
-        if (question === true) {
-            Axios.delete(`http://localhost:3001/deleteGroup/${id_group}`)
-                .then(() => {
-                    document.location.reload();
-                });
-        }
-    }
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (auth) {
+            axiosClient.get("getGroups")
+        } else {
+            validateToken()
+                .then(() => setAuth(true))
+                .catch(() => navigate("/"))
+        };
+    }, [auth, navigate]);
 
     return (
         <>
@@ -23,11 +28,13 @@ export const Group = ({id_group, nameGroup}) => {
             id_group={id_group}
             defaultGroup={nameGroup}
             />
+
+            {!auth && <Spinner/>}
+
             <div className={`group ${nameGroup}`}>
                 <h4>{nameGroup}</h4>
                 <div className="icons-groups">
                     <SvgEdit onClick={() => setOpenModalGroup(true)}></SvgEdit>
-                    <SvgTrash onClick={() => {handleDeleteGroup()}}></SvgTrash>
                 </div>
             </div>
         </>

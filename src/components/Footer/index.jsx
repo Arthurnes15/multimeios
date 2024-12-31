@@ -12,7 +12,7 @@ export const Footer = () => {
             </div>
             <div className="icons">
                 <span><SvgInstagram></SvgInstagram></span>
-                <a href="https://www.instagram.com/multimeiosmg/" target="_blank" className='link-footer'><p>multimeiosmg</p></a>
+                <a href="https://www.instagram.com/multimeiosmg/" target="_blank" rel="noreferrer" className='link-footer'><p>multimeiosmg</p></a>
             </div>
         </div>
     )

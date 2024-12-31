@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
-import Axios from 'axios';
+import { useState, useEffect, useRef } from 'react';
 import { Navbar } from '../../components/Navbar/index';
 import { Container } from '../../components/Container';
 import { Footer } from '../../components/Footer';
@@ -7,20 +6,31 @@ import { Input } from '../../components/Input';
 import leftArrow from '../../assets/img/left-arrow.png';
 import { Books } from '../../components/Books';
 import { Button } from '../../components/Button';
+import { Link, useNavigate } from 'react-router-dom';
+import validateToken from '../../utils/validateToken';
+import axiosClient from '../../config/axiosClient';
 import './styles.css';
-import { Link } from 'react-router-dom';
+import { Spinner } from '../../components/Spinner';
 
 export const Home = () => {
+    const [auth, setAuth] = useState(false);
     const [listBooks, setListBooks] = useState([]);
     const [searchValue, setSearchValue] = useState('');
     const carousel = useRef();
+    const navigate = useNavigate();
 
     useEffect(() => {
-        Axios.get("http://localhost:3001/getBooks")
-        .then((response) => {
-            setListBooks(response.data)
-        })
-    }, []);
+        if (auth) {
+            axiosClient.get("getBooks")
+                .then((res) => {
+                    setListBooks(res.data);
+                });
+        } else {
+            validateToken()
+                .then(() => setAuth(true))
+                .catch(() => navigate("/"))
+        };
+    }, [auth, navigate]);
 
     const handleLeftClick = (e) => {
         e.preventDefault();
@@ -45,7 +55,7 @@ export const Home = () => {
         <>
             <Navbar />
             <Container />
-            
+            {!auth && <Spinner/>}
             <header className="header-carousel">
                 <div className="title">
                     <Link to={"/books"}>
@@ -56,19 +66,19 @@ export const Home = () => {
                 <div className="search-buttons">
                     <div className="input-search">
                         <Input placeholder={"Buscar um livro"}
-                        type={"search"}
-                        value={searchValue}
-                        onChange={handleChangeSearch}
+                            type={"search"}
+                            value={searchValue}
+                            onChange={handleChangeSearch}
                         />
                     </div>
 
                     <div className="buttons">
                         <div>
                             <Button className={"left-arrow"} onClick={handleLeftClick}
-                            text={<img src={leftArrow} alt="left-arrow" />}
+                                text={<img src={leftArrow} alt="left-arrow" />}
                             />
                             <Button className={"right-arrow"} onClick={handleRightClick}
-                            text={<img src={leftArrow} alt="right-arrow" />}
+                                text={<img src={leftArrow} alt="right-arrow" />}
                             />
                         </div>
                     </div>
@@ -77,7 +87,7 @@ export const Home = () => {
 
             <section className="books" ref={carousel}>
                 {filteredBooks.length > 0 && <Books books={filteredBooks}></Books>}
-            </section>  
+            </section>
             <Footer />
         </>
     )

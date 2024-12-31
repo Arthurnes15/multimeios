@@ -1,10 +1,10 @@
 import { SvgClose } from "../Icons/close"
 import { Label } from "../Label";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "../Button";
-import Axios from "axios";
 import { number, object, string } from "yup";
+import axiosClient from "../../config/axiosClient";
 
 export const ModalGroup = ({ openEditGroup, close, id_group, defaultGroup }) => {
     const schema = object({
@@ -15,7 +15,7 @@ export const ModalGroup = ({ openEditGroup, close, id_group, defaultGroup }) => 
         resolver: yupResolver(schema)
     });
     const handleSubmitEditGroup = (data) => {
-        Axios.put("http://localhost:3001/editGroup", {
+        axiosClient.put("editGroup", {
             id: data.id_group,
             group: data.new_group,        
         });

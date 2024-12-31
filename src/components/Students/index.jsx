@@ -1,8 +1,5 @@
 import { useState } from "react";
 import { Student } from "../Student";
-import { SvgPC } from "../Icons/computer";
-import { SvgCamera } from "../Icons/cam";
-import { SvgCalculator } from "../Icons/cal";
 import './styles.css';
 
 export const Students = ({ students = [] }) => {

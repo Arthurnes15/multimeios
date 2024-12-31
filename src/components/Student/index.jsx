@@ -3,16 +3,16 @@ import { SvgTrash } from "../Icons/trash";
 import { SvgEdit } from "../Icons/edit";
 import { ModalStudent } from "../ModalEditStudent";
 import { SvgStudent } from "../Icons/student";
-import Axios from 'axios';
+import axiosClient from "../../config/axiosClient";
 import './styles.css'
 
 export const Student = ({id_student, nameStudent, email, group, idGroup}) => {
     const [openModalStudent, setOpenModalStudent] = useState(false);
 
     const handleDeleteStudent = () => {
-        const question = window.confirm("Você tem certeza que deseja apagar esse livro?");
+        const question = window.confirm("Você tem certeza que deseja apagar esse aluno?");
         if(question === true) {
-            Axios.delete(`http://localhost:3001/deleteStudent/${id_student}`)
+            axiosClient.delete(`deleteStudent/${id_student}`)
             .then(() => {
                 document.location.reload();
             });    

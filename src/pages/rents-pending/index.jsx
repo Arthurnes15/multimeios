@@ -4,27 +4,42 @@ import { Rent } from '../../components/Rent';
 import { Footer } from '../../components/Footer';
 import { dateFormatter } from '../../utils';
 import book_placeholder from '../../assets/img/book-placeholder.png';
+import axiosClient from '../../config/axiosClient';
 import './styles.css';
-import Axios from 'axios';
+import validateToken from '../../utils/validateToken';
+import { useNavigate } from 'react-router-dom';
+import { Spinner } from '../../components/Spinner';
 
 export const RentsPending = () => {
-    const [listRentsPending, setListRentsPending] = useState();
+    const [auth, setAuth] = useState(false);
+    const [listRentsPending, setListRentsPending] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        Axios.get("http://localhost:3001/rentsPending")
-        .then((response) => {
-            setListRentsPending(response.data)
-        })
-    }, []);
+        if (auth) {
+            axiosClient.get("getRentsPending")
+                .then((res) => {
+                    setListRentsPending(res.data)
+                })
+        }
+        else {
+            validateToken()
+                .then(() => setAuth(true))
+                .catch(() => navigate("/"))
+        }
+    }, [auth, navigate]);
 
-    return(
+
+
+    return (
         <>
             <Navbar />
+            {!auth && <Spinner/>}
             <article className="container rents">
-                {typeof listRentsPending !== "undefined" && 
+                {typeof listRentsPending !== "undefined" &&
                     listRentsPending.map((value) => {
-                        return(
-                                <Rent key={value.id_aluguel}
+                        return (
+                            <Rent key={value.id_aluguel}
                                 idRent={value.id_aluguel}
                                 classRent={"rent-late"}
                                 imgRented={value.url_imagem || book_placeholder}
@@ -33,7 +48,7 @@ export const RentsPending = () => {
                                 groupStudent={value.nome_turma}
                                 dateRent={dateFormatter(value.data_aluguel)}
                                 dateReturn={dateFormatter(value.data_devolucao)}
-                                />
+                            />
                         )
                     })
                 }

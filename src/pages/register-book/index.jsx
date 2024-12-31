@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import womanfloat from '../../assets/img/Bibliophile.gif';
 import { Navbar } from '../../components/Navbar';
 import { Footer } from '../../components/Footer';
@@ -8,14 +9,18 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { number, object, string } from 'yup';
 import { TextRegister } from '../../components/TextRegister';
 import { Button } from '../../components/Button/index';
+import { ModalPublisher } from '../../components/ModalRegisterPublisher';
 import { useForm, Controller } from "react-hook-form";
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { storage } from '../../firebase';
-import Axios from 'axios';
+import validateToken from '../../utils/validateToken';
+import axiosClient from '../../config/axiosClient';
 import Select from 'react-select'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../vars/vars.css';
 import './styles.css';
+import { ModalAuthor } from '../../components/ModalRegisterAuthor';
+import { Spinner } from '../../components/Spinner';
 
 export function RegisterBook() {
   const schema = object({
@@ -26,20 +31,21 @@ export function RegisterBook() {
     isbn: string().required("Campo obrigatório").min(10, "A quantidade mínima do ISBN é de 10 caracteres, sem traços").max(13, "O ISBN deve conter no máximo 13 caracteres, sem traços"),
     amount: number().typeError("Deve ser um número").required("Campo obrigatório"),
     volume: number().typeError("Deve ser um número"),
-    cdd: string().required("Campo obrigatório"),
+    cdd: string(),
     publication: string().required("Campo obrigatório").max(4, "A data deve ter no máximo 4 caracteres"),
   });
-  const [values, setValues] = useState();
+  const [auth, setAuth] = useState(false);
   const { register, handleSubmit, control, formState: { errors } } = useForm({
     resolver: yupResolver(schema),
   });
   const [listAuthors, setListAuthors] = useState([]);
   const [listGenders, setListGenders] = useState([]);
   const [listPublishers, setListPubli] = useState([]);
-  const [regDivPubOpen, setPubOpen] = useState(false);
-  const [regDivAutOpen, setAutOpen] = useState(false);
+  const [openPublisher, setOpenPublisher] = useState(false);
+  const [openAuthor, setOpenAuthor] = useState(false);
   const [imgURL, setImgUpload] = useState("");
   const [progress, setProgress] = useState(0);
+  const navigate = useNavigate();
 
   const handleUploadImg = (e) => {
     e.preventDefault();
@@ -67,52 +73,26 @@ export function RegisterBook() {
     )
   }
 
-  const handleRegisterPub = () => {
-    setPubOpen(true);
-  }
-
-  const handleRegisterAut = () => {
-    setAutOpen(true);
-  }
-
-  const handleChangeValues = (value) => {
-    setValues(prevValue => ({
-      ...prevValue,
-      [value.target.name]: value.target.value,
-    }))
-  }
-
   const handleSubmitRegister = (data) => {
     const question = window.confirm("Você tem certeza que deseja cadastrar esse livro?");
     if (question) {
-      Axios.post("http://localhost:3001/registerBook", {
+      axiosClient.post("registerBook", {
         book: data.book,
-        author_book: data.author,
+        author: data.author,
         gender: data.gender,
         publisher: data.publisher,
-        isbn_book: data.isbn,
+        isbn: data.isbn,
         amount: data.amount,
         volume: data.volume,
         cdd: data.cdd,
         publication: data.publication,
         image: imgURL,
       })
-      document.location.reload();
+      .then(() => {
+        document.location.reload();
+      })
+      .catch(() => alert("Algo deu errado"));
     }
-  }
-
-  const handleClickButtonAut = () => {
-    Axios.post("http://localhost:3001/registerAuthor", {
-      reg_author: values.reg_author
-    })
-      .then(response => console.log(response))
-  }
-
-  const handleClickButtonPub = () => {
-    Axios.post("http://localhost:3001/registerPublisher", {
-      reg_pub: values.reg_pub
-    })
-      .then(response => console.log(response))
   }
 
   const authors = typeof listAuthors !== "undefined" && listAuthors.map((author) => ({
@@ -131,27 +111,45 @@ export function RegisterBook() {
   }));
 
   useEffect(() => {
-    Axios.get("http://localhost:3001/getAuthors")
+    axiosClient.get("getAuthors")
       .then((response) => {
         setListAuthors(response.data)
       }
       );
 
-    Axios.get("http://localhost:3001/getGenders")
+    axiosClient.get("getGenders")
       .then((response) => {
         setListGenders(response.data)
       }
       );
 
-    Axios.get("http://localhost:3001/getPublishers")
+    axiosClient.get("getPublishers")
       .then((response) => {
         setListPubli(response.data)
       }
       );
   }, []);
 
+  useEffect(() => {
+    validateToken()
+      .then(() => setAuth(true))
+      .catch(() => navigate('/'))
+  }, [auth, navigate]);
+
   return (
     <>
+      {!auth && <Spinner />}
+
+      <ModalPublisher open={openPublisher}
+        close={() => setOpenPublisher(false)}
+
+      />
+
+      <ModalAuthor open={openAuthor}
+        close={() => setOpenAuthor(false)}
+
+      />
+
       <Navbar />
 
       <article className="container-registerBook">
@@ -183,7 +181,7 @@ export function RegisterBook() {
           <form onSubmit={handleSubmit(handleSubmitRegister)}>
             <Input type={"hidden"}
               name={imgURL}
-              onChange={handleChangeValues}
+
             />
             <div className="text-field">
               <Label htmlFor={"name_book"}
@@ -220,20 +218,7 @@ export function RegisterBook() {
                 <span className='text-danger'>{errors?.author?.message}</span>
 
                 <TextRegister text={'Autor não listado'}
-                  onClick={() => handleRegisterAut()} />
-                <div id="register-author" style={{ display: regDivAutOpen ? "flex" : "none" }}>
-                  <div className="col">
-                    <Label htmlFor={"new-author"} text={"Novo autor: "}></Label>
-                    <Input name={"reg_author"}
-                      type={"text"}
-                      placeholder={"Nome do novo autor"}
-                      onChange={handleChangeValues}
-                    ></Input>
-                  </div>
-                  <div className="container-button">
-                    <Button type={"button"} onClick={() => handleClickButtonAut()} text={"Cadastrar"}></Button>
-                  </div>
-                </div>
+                  onClick={() => setOpenAuthor(true)} />
               </div>
               <div className="col-sm">
                 <Label htmlFor={"gender"} text={"Gênero:"}></Label>
@@ -275,22 +260,9 @@ export function RegisterBook() {
                   )}
                 >
                 </Controller>
-                <span className='text-danger'>{errors?.publisher?.message}</span> 
+                <span className='text-danger'>{errors?.publisher?.message}</span>
 
-                <TextRegister text={'Editora não listada'} onClick={() => handleRegisterPub()}></TextRegister>
-                <div id="register-pub" style={{ display: regDivPubOpen ? "flex" : "none" }}>
-                  <div className="col">
-                    <Label htmlFor={"new-publisher"} text={"Cadastrar Editora:"} />
-                    <Input name={"reg_pub"}
-                      type={"text"}
-                      placeholder={"Nome da nova editora"}
-                      onChange={handleChangeValues}
-                    ></Input>
-                  </div>
-                  <div className="container-button">
-                    <Button type={"button"} onClick={() => handleClickButtonPub()} text={"Cadastrar"}></Button>
-                  </div>
-                </div>
+                <TextRegister text={'Editora não listada'} onClick={() => setOpenPublisher(true)}></TextRegister>
               </div>
             </div>
             <div className="text-field">
@@ -298,7 +270,6 @@ export function RegisterBook() {
               <input type="text"
                 className="form-control"
                 placeholder="Nome do livro"
-                onChange={handleChangeValues}
                 {...register("isbn")} />
               <span className='text-danger'>{errors?.isbn?.message}</span>
             </div>
@@ -307,7 +278,6 @@ export function RegisterBook() {
               <input type="number"
                 className="form-control"
                 placeholder="Nº de Exemplares"
-                onChange={handleChangeValues}
                 {...register("amount")}
               />
               <span className='text-danger'>{errors?.amount?.message}</span>
@@ -318,7 +288,6 @@ export function RegisterBook() {
                 <input type="text"
                   className="form-control"
                   placeholder="Volume do livro"
-                  onChange={handleChangeValues}
                   {...register("volume")}
                 />
               </div>
@@ -327,7 +296,6 @@ export function RegisterBook() {
                 <input type="text"
                   className="form-control"
                   placeholder="Código do livro"
-                  onChange={handleChangeValues}
                   {...register("cdd")}
                 />
                 <span className='text-danger'>{errors?.cdd?.message}</span>
@@ -337,7 +305,6 @@ export function RegisterBook() {
                 <input type="text"
                   className="form-control"
                   placeholder="Ano do livro"
-                  onChange={handleChangeValues}
                   {...register("publication")}
                 />
                 <span className='text-danger'>{errors?.publication?.message}</span>

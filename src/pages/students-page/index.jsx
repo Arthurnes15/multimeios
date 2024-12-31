@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Navbar } from "../../components/Navbar";
 import { Students } from "../../components/Students";
 import { Input } from "../../components/Input";
-import Axios from "axios";
+import axiosClient from "../../config/axiosClient";
 import './styles.css';
 
 export const StudentsPage = () => {
@@ -10,7 +10,7 @@ export const StudentsPage = () => {
     const [searchValue, setSearchValue] = useState('');
 
     useEffect(() => {
-        Axios.get("http://localhost:3001/getStudents")
+        axiosClient.get("getStudents")
         .then((response) => {
             setListStudents(response.data)}
         )
@@ -24,7 +24,7 @@ export const StudentsPage = () => {
         const { value } = e.target;
         setSearchValue(value);
     }
-
+    
     return (
         <>
             <Navbar/>

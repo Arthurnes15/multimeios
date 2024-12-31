@@ -5,20 +5,20 @@ import { Option } from "../Option";
 import { Button } from "../Button";
 import { SvgClose } from "../Icons/close";
 import { useEffect, useState } from "react";
-import Axios from "axios";
+import axiosClient from "../../config/axiosClient";
 import './styles.css';
 
 export const Modal = ({ id_book, status, open, close }) => {
     const [values, setValues] = useState();
     const [listStudents, setListStudents] = useState();
-    
+
     useEffect(() => {
-        Axios.get("http://localhost:3001/getStudents")
+        axiosClient.get("getStudents")
             .then((response) => {
                 setListStudents(response.data);
             });
-        },
-    []);
+    },
+        []);
 
     const handleChangeValues = (value) => {
         setValues((prevValue) => ({
@@ -28,14 +28,17 @@ export const Modal = ({ id_book, status, open, close }) => {
     };
 
     const handleClickRent = () => {
-        Axios.post("http://localhost:3001/rent", {
+        axiosClient.post("rent", {
             book_id: id_book,
-            responsible_rent: values.responsible,
+            responsible: values.responsible,
             student: values.student,
-            status_rent: status,
+            status: status,
             date_return: values.date_return
         })
-        document.location.reload();
+        .then(() => {
+            document.location.reload();
+        })
+        .catch(() => alert("Algo deu errado"));
     };
 
     if (open) {

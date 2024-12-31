@@ -1,27 +1,31 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Navbar } from '../../components/Navbar';
 import { Label } from '../../components/Label/index';
 import { Button } from '../../components/Button/index';
-import { TextRegister } from '../../components/TextRegister';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
 import { string, number, object } from 'yup';
-import Axios from 'axios';
+import axiosClient from '../../config/axiosClient';
 import students from '../../assets/img/students.gif';
 import Select from 'react-select';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles.css';
+import validateToken from '../../utils/validateToken.js';
+import { Spinner } from '../../components/Spinner/index.jsx';
 
 export function RegisterStudent() {
   const schema = object({
     name_student: string().required("Campo obrigatório").max(255),
-    email : string().email("Inclua o @ no endereço de e-mail").required("Campo obrigatório"),
+    email: string().email("Inclua o @ no endereço de e-mail").required("Campo obrigatório"),
     group: number().required("Campo obrigatório")
   })
   const { register, handleSubmit, control, formState: { errors } } = useForm({
     resolver: yupResolver(schema),
   });
+  const [auth, setAuth] = useState(false);
+  const navigate = useNavigate();
   const [listGroups, setListGroups] = useState([]);
 
   const groups = typeof listGroups !== "undefined" && listGroups.map((group) => ({
@@ -32,33 +36,44 @@ export function RegisterStudent() {
   const handleSubmitStudent = (data) => {
     const question = window.confirm("Você tem certeza que deseja cadastrar esse aluno?");
     if (question) {
-      Axios.post("http://localhost:3001/registerStudent", {
+      axiosClient.post("registerStudent", {
         name: data.name_student,
         email: data.email,
         group: data.group,
       })
-      document.location.reload();
+      .then(() => {
+        document.location.reload();
+      })
+      .catch(() => alert("Algo deu errado"));
     };
   };
 
   useEffect(() => {
-    Axios.get("http://localhost:3001/getGroups")
+    axiosClient.get("getGroups")
       .then((response) => {
+        console.log(response.data)
         setListGroups(response.data)
-      }
-      )
+      })
   }, []);
+
+  useEffect(() => {
+    validateToken()
+      .then(() => setAuth(true))
+      .catch(() => navigate('/'))
+  }, [auth, navigate]);
 
   return (
     <>
+      {!auth && <Spinner/>}
+
       <Navbar />
       <article className="container registerStudents">
         <section className="formRegisterStudent">
           <h1>Cadastro de alunos</h1>
 
           <form onSubmit={handleSubmit(handleSubmitStudent)}>
-            <div className="text-field">
-              <Label htmlFor={"book-name"}
+            <div className="text-fieldGroup">
+              <Label htmlFor={"student-name"}
                 text={"Nome do aluno:"}
               />
               <input
@@ -69,8 +84,8 @@ export function RegisterStudent() {
               />
               <span className='text-danger'>{errors?.name_student?.message}</span>
             </div>
-            <div className="text-field">
-              <Label htmlFor={"author-name"}
+            <div className="text-fieldGroup">
+              <Label htmlFor={"email"}
                 text={"E-mail:"}
               />
               <input
@@ -81,7 +96,7 @@ export function RegisterStudent() {
               />
               <span className='text-danger'>{errors?.email?.message}</span>
             </div>
-            <div className="text-field">
+            <div className="text-fieldGroup">
               <Label htmlFor={"group"}
                 text={"Turma:"}
               />
@@ -103,10 +118,7 @@ export function RegisterStudent() {
               </Controller>
               <span className='text-danger'>{errors?.group?.message}</span>
             </div>
-            <div className='text-field'>
-              <TextRegister text={"Cadastrar turma"} />
-            </div>
-
+            <br />
             <div className="btn-registerStudent">
               <Button text={"Cadastrar aluno"}
                 type={"submit"}

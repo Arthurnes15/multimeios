@@ -1,70 +1,74 @@
 import './styles.css';
-import {Formik, Form, Field, ErrorMessage} from "formik";
-import * as yup from "yup";
-import Axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { string, object } from 'yup';
 import imgwomen from '../../assets/img/woman-reading-bro.png';
 import logo from '../../assets/img/Multimeios-Logo.png'
+import axiosClient from '../../config/axiosClient';
+import { Button } from '../../components/Button';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 export const Login = () => {
-    const navigate = useNavigate();
-
-    const handleClickLogin = (values) => {
-        Axios.post("http://localhost:3001/login", {
-            name: values.name,
-            email: values.email,
-            password: values.password,
-        }).then(() => {
-            navigate("home");
-        }).catch(() => {
-            alert("Você não tem permissão para acessar a página");
-        });
-    }
-
-    const validationLogin = yup.object().shape({
-        name: yup.string().required("Esse campo é obrigatório"),
-        email: yup.string().email("Não é um e-mail").required("Esse campo é obrigatório"),
-        password: yup.string().min(8).required("Esse campo é obrigatório"),
+    const schema = object({
+        username: string().required("Campo obrigatório").max(50),   
+        password: string().required("Campo obrigatório")
     });
 
-    return(
+    const {register, handleSubmit, formState: {errors} } = useForm({
+        resolver: yupResolver(schema)
+    })
+
+    const navigate = useNavigate();
+
+    const handleSubmitLogin = (data) => {
+        axiosClient.post("auth/login", {
+            username: data.username,
+            password: data.password,
+        })
+        .then((res) => {
+            localStorage.setItem('token', res.data.token);
+            localStorage.setItem('username', res.data.name);
+            navigate("home");
+        })
+        .catch(() => alert("Você não tem permissão para acessar a página"))
+    }   
+
+    return (
         <div className="container-login">
-        <div className="left">
-            <img src={imgwomen} alt="Illustration" className="illustration" />
-        </div>
-        <div className="right">
-            <div className="form-container">
-                <img src={logo} alt="Logo" className="logo" />
-                <h1>Login</h1>
-                <Formik
-                    initialValues={{}}
-                    validationSchema={validationLogin}
-                    onSubmit={handleClickLogin}
-                >
-                    <Form className="login-form">
+            <div className="left">
+                <img src={imgwomen} alt="Illustration" className="illustration" />
+            </div>
+            <div className="right">
+                <div className="form-container">
+                    <img src={logo} alt="Logo" className="logo" />
+                    <h1>Login</h1>
+
+                    <form onSubmit={handleSubmit(handleSubmitLogin)}>
                         <div className="login-form-group">
                             <label htmlFor="name">Nome de usuário</label>
-                            <Field name="name" className="form-control" placeholder="Nome" />
-                            <ErrorMessage component="span" name="name" className="form-error" />
+                            <input type="text"
+                            className="form-control"
+                            placeholder="Nome" 
+                            {...register("username")}
+                            />
+                            <span className='text-danger'>{errors?.username?.message}</span>
                         </div>
-
-                        <div className="login-form-group">
-                            <label htmlFor="email">Email</label>
-                            <Field name="email" className="form-control" placeholder="Em@il" />
-                            <ErrorMessage component="span" name="email" className="form-error" />
-                        </div>
-
                         <div className="login-form-group">
                             <label htmlFor="password">Senha:</label>
-                            <Field name="password" type="password" className="form-control" placeholder="Senha" />
-                            <ErrorMessage component="span" name="password" className="form-error" />
+                            <input type="password"
+                            className="form-control"
+                            placeholder="Senha" 
+                            {...register("password")}
+                            />
+                            <span className='text-danger'>{errors?.password?.message}</span>
                         </div>
-
-                        <button type="submit" className="btn btn-primary">Entrar</button>
-                    </Form>
-                </Formik>
+                        <Button type={"submit"}
+                        text={"Entrar"}
+                        className={"btn btn-primary"}
+                        />
+                    </form>
+                </div>
             </div>
-        </div>
-    </div>
+        </div >
     )
 } 

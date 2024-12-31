@@ -22,6 +22,14 @@
     margin-bottom: 20px;
 }
 
+.text-fieldGroup > input {
+    width: 90%;
+}
+
+.text-fieldGroup > .css-b62m3t-container >  .css-13cymwt-control, .css-t3ipsp-control, div.css-1nmdiq5-menu {
+    width: 90%;
+}
+
 .btn-registerStudent {
     display: flex;
     justify-content: center;

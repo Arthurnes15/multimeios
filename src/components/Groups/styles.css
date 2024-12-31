@@ -1,3 +1,7 @@
+.container.allGroups {
+    margin-bottom: 20px;
+}
+
 .container.allGroups > h1 {
     font-family: "Dm Serif";
     margin-top: 20px;

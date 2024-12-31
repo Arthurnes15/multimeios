@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Login } from './pages/login';
-import { Home } from './pages/home/home';
+import { Home } from './pages/home/index';
 import { Rents } from './pages/rents-page';
 import { RegisterBook } from './pages/register-book';
 import { RegisterStudent } from './pages/register-student';
@@ -11,14 +11,19 @@ import { Error } from './pages/not-found';
 import { RentsPending } from './pages/rents-pending';
 import { RentsReturned } from './pages/rents-returned';
 import { BooksCatalog } from './pages/books-catalog';
-import './index.css';
 import { Credits } from './pages/credits';
 import { GroupsPage } from './pages/groups-page';
+import { RegisterUser } from './pages/register-user';
+import './index.css';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Login/>
+  },
+  {
+    path: "/register",
+    element: <RegisterUser />
   },
   {
     path: "/home",
