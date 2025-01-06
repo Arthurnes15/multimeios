@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 import './styles.css';
 
-export const Member = ({ color, photo, name, job, insta, url }) => {
+export const Member = ({ color, backgroundPhoto, photo, name, job, insta, url }) => {
     return(
         <div className="member" style={{backgroundColor: color}}>
-            <div className="photo">
+            <div className="photo" style={{ backgroundColor: backgroundPhoto }}>
                 <img src={photo} alt={name} />
             </div>
             <div className="info">

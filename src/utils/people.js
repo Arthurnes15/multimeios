@@ -1,38 +1,40 @@
 // Team photos
 import kaua from '../assets/img/team/kaua.png';
-import andre from '../assets/img/team/andre.jpg';
-import amanda from '../assets/img/team/amanda.jpg';
-import italo from '../assets/img/team/italo.jpg';
+import andre from '../assets/img/team/andre.png';
+import amanda from '../assets/img/team/amanda.png';
+import italo from '../assets/img/team/italo.png';
 import joaovictor from '../assets/img/team/joaovictor.png';
-import arthur from '../assets/img/team/arthur.jpg';
+import arthur from '../assets/img/team/arthur.png';
 
 // Collaborators photos
 import geisane from '../assets/img/collaborators/geisane.png';
-import davi from '../assets/img/collaborators/davi.jpg';
-import pedro from '../assets/img/collaborators/pedro.jpg';
-import joao from '../assets/img/collaborators/joaopaulo.jpg';
-import leticia from '../assets/img/collaborators/leticia.jpg';
-import rony from '../assets/img/collaborators/rony.jpg';
+import davi from '../assets/img/collaborators/davi.png';
+import pedro from '../assets/img/collaborators/pedro.png';
+import joao from '../assets/img/collaborators/joaopaulo.png';
+import leticia from '../assets/img/collaborators/leticia.png';
+import rony from '../assets/img/collaborators/rony.png';
 import gabriela from '../assets/img/collaborators/gabriela.png';
-import lynka from '../assets/img/collaborators/lynka.jpg';
-import gisele from '../assets/img/collaborators/gisele.jpg';
-import dhiego from '../assets/img/collaborators/dhiego.jpeg';
-import djislane from '../assets/img/collaborators/djislane.jpg';
-import fernando from '../assets/img/collaborators/fernando.jpg';
-import pedroricardo from '../assets/img/collaborators/pedroricardo.jpg';
-import guilherme from '../assets/img/collaborators/guilherme.jpg';
-import joaoalberto from '../assets/img/collaborators/alberto.jpg';
-import camily from '../assets/img/collaborators/camily.jpg';
-import rafael from '../assets/img/collaborators/rafael.jpg';
+import lynka from '../assets/img/collaborators/lynka.png';
+import gisele from '../assets/img/collaborators/gisele.png';
+import dhiego from '../assets/img/collaborators/dhiego.png';
+import djislane from '../assets/img/collaborators/djislane.png';
+import fernando from '../assets/img/collaborators/fernando.png';
+import pedroricardo from '../assets/img/collaborators/pedroricardo.png';
+import guilherme from '../assets/img/collaborators/guilherme.png';
+import joaoalberto from '../assets/img/collaborators/alberto.png';
+import camily from '../assets/img/collaborators/camily.png';
+import rafael from '../assets/img/collaborators/rafael.png';
+import ulisses from '../assets/img/collaborators/ulisses.png'
 
 export const members = [
   {
     id: 1,
     name: "Kauã Silva de Jesus",
     job: "Gerente da Equipe",
-    insta: "@tk.s__._",
+    insta: "@kauaslv.bjj",
     photo: kaua,
     color: "#64A6DC",
+    backgroundPhoto: "#3398b296",
     url: "https://www.instagram.com/tk.s__._/"
   },
   {
@@ -42,6 +44,7 @@ export const members = [
     insta: "@andrelz0",
     photo: andre,
     color: "#64A6DC",
+    backgroundPhoto: "#3398b296",
     url: "https://www.instagram.com/andrelz0/"
   },
   {
@@ -51,6 +54,7 @@ export const members = [
     insta: "@amanda_araujo84",
     photo: amanda,
     color: "#64A6DC",
+    backgroundPhoto: "#3398b296",
     url: "https://www.instagram.com/amanda_araujo84/"
   },
   {
@@ -60,6 +64,7 @@ export const members = [
     insta: "@rpzzh9",
     photo: italo,
     color: "#64A6DC",
+    backgroundPhoto: "#3398b296",
     url: "https://www.instagram.com/rpzzh9/"
   },
   {
@@ -69,6 +74,7 @@ export const members = [
     insta: "@victorguedes__",
     photo: joaovictor,
     color: "#64A6DC",
+    backgroundPhoto: "#3398b296",
     url: "https://www.instagram.com/victorguedes__/"
   },
   {
@@ -78,6 +84,7 @@ export const members = [
     insta: "@arthurlk__",
     photo: arthur,
     color: "#64A6DC",
+    backgroundPhoto: "#3398b296",
     url: "https://www.instagram.com/arthurlk__/"
   }
 ];
@@ -90,6 +97,7 @@ export const collaborators = [
     insta: "@geibelle",
     photo: geisane,
     color: "#8265EA",
+    backgroundPhoto: "#9295f093",
     url: "https://www.instagram.com/geibelle/"
   },
   {
@@ -99,6 +107,7 @@ export const collaborators = [
     insta: "@dav.lima4653",
     photo: davi,
     color: "#8265EA",
+    backgroundPhoto: "#9295f093",
     url: "https://www.instagram.com/dav.lima4653/"
   },
   {
@@ -108,6 +117,7 @@ export const collaborators = [
     insta: "@Pedro.guilherme85",
     photo: pedro,
     color: "#8265EA",
+    backgroundPhoto: "#9295f093",
     url: "https://www.instagram.com/Pedro.guilherme85/"
   },
   {
@@ -117,16 +127,18 @@ export const collaborators = [
     insta: "@jp.bsk",
     photo: joao,
     color: "#8265EA",
+    backgroundPhoto: "#9295f093",
     url: "https://www.instagram.com/jp.bsk/"
   },
   {
     id: 5,
     name: "Letícia Freitas",
     job: "Desenvolvedora Front-End da Rentex",
-    insta: "@le_lepizza",
+    insta: "@le_leticia.freitas",
     photo: leticia,
     color: "#8265EA",
-    url: "https://www.instagram.com/le_lepizza/"
+    backgroundPhoto: "#9295f093",
+    url: "https://www.instagram.com/le_leticia.freitas/"
   },
   {
     id: 6,
@@ -135,6 +147,7 @@ export const collaborators = [
     insta: "@rony.e_7",
     photo: rony,
     color: "#8265EA",
+    backgroundPhoto: "#9295f093",
     url: "https://www.instagram.com/rony.e_7/"
   },
   {
@@ -144,6 +157,7 @@ export const collaborators = [
     insta: "@gabyy.cst",
     photo: gabriela,
     color: "#8265EA",
+    backgroundPhoto: "#9295f093",
     url: "https://www.instagram.com/gabyy.cst/"
   },
   {
@@ -153,6 +167,7 @@ export const collaborators = [
     insta: "@gi.who.lee",
     photo: gisele,
     color: "#8265EA",
+    backgroundPhoto: "#9295f093",
     url: "https://www.instagram.com/gi.who.lee/"
   },
   {
@@ -162,6 +177,7 @@ export const collaborators = [
     insta: "@lynkaaaa_aa",
     photo: lynka,
     color: "#8265EA",
+    backgroundPhoto: "#9295f093",
     url: "https://www.instagram.com/lynkaaaa_aa/"
   },
   {
@@ -171,6 +187,7 @@ export const collaborators = [
     insta: "@djislane.oliveira",
     photo: djislane,
     color: "#8265EA",
+    backgroundPhoto: "#9295f093",
     url: "https://www.instagram.com/djislane.oliveira/"
   },
   {
@@ -180,6 +197,7 @@ export const collaborators = [
     insta: "@dhiego_v",
     photo: dhiego,
     color: "#8265EA",
+    backgroundPhoto: "#9295f093",
     url: "https://www.instagram.com/dhiego_v/"
   },
   {
@@ -189,6 +207,7 @@ export const collaborators = [
     insta: "@jnaando_",
     photo: fernando,
     color: "#8265EA",
+    backgroundPhoto: "#9295f093",
     url: "https://www.instagram.com/jnaando_/"
   },
   {
@@ -198,6 +217,7 @@ export const collaborators = [
     insta: "@assig.alves",
     photo: pedroricardo,
     color: "#8265EA",
+    backgroundPhoto: "#9295f093",
     url: "https://www.instagram.com/assig.alves/"
   },
   {
@@ -207,6 +227,7 @@ export const collaborators = [
     insta: "@guizin_no",
     photo: guilherme,
     color: "#8265EA",
+    backgroundPhoto: "#9295f093",
     url: "https://www.instagram.com/guizin_no/"
   },
   {
@@ -216,6 +237,7 @@ export const collaborators = [
     insta: "@beto31r",
     photo: joaoalberto,
     color: "#8265EA",
+    backgroundPhoto: "#9295f093",
     url: "https://www.instagram.com/beto31r/"
   },
   {
@@ -225,16 +247,28 @@ export const collaborators = [
     insta: "@gabyycstro",
     photo: camily,
     color: "#8265EA",
+    backgroundPhoto: "#9295f093",
     url: "https://www.instagram.com/gabyycstro/"
   },
   {
     id: 17,
     name: "Rafael Gomes",
     job: "Analista do Banco de Questões",
-    insta: "@faelz085",
+    insta: "@fael.gmss_",
     photo: rafael,
     color: "#8265EA",
-    url: "https://www.instagram.com/faelz085/"
+    backgroundPhoto: "#9295f093",
+    url: "https://www.instagram.com/fael.gmss_/"
+  },
+  {
+    id: 18,
+    name: "Ulisses Ferreira",
+    job: "Desenvolvedor Front-End do Planejamento 2.0",
+    insta: "@ulisses.rfk_",
+    photo: ulisses,
+    color: "#8265EA",
+    backgroundPhoto: "#9295f093",
+    url: "https://www.instagram.com/ulisses.rfk_/"
   }
 ];
 

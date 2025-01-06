@@ -18,8 +18,9 @@ export const ModalGroup = ({ openEditGroup, close, id_group, defaultGroup }) => 
         axiosClient.put("editGroup", {
             id: data.id_group,
             group: data.new_group,        
-        });
-        document.location.reload();
+        })
+        .then(() => document.location.reload())
+        .catch(() => alert("Falha ao alterar turma"))
     }
     if(openEditGroup) {
         return(

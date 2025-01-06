@@ -55,6 +55,11 @@
 }
 
 .description-info > p {
+    text-align: justify;
+    font-size: 20px;
+}
+
+.description-info > p, .description-info > h2 {
     color: white;
     
 }
@@ -64,10 +69,35 @@
     cursor: auto;
 }
 
+.description-info > p > a {
+    color: var(--light-purple);
+}
+
 .photo-info {
     margin-bottom: 20px;
 }
 
 .photo-info > img {
     border-radius: 10px;
+}
+
+@media only screen and (max-width: 540px) {
+    .info3 > .description-info {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .description-info > p {
+        font-size: 16px;
+    }
+
+    .photo-info {
+        width: 100%;
+    }
+
+    .photo-info > img {
+        width: 100%;
+        height: auto;
+    }
+
 }

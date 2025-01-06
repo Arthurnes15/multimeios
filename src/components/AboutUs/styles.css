@@ -34,3 +34,14 @@
     cursor: auto;
     text-decoration: none;
 }
+
+@media only screen and (max-width: 540px) {
+    .team-photo {
+        display: none;
+    }
+    
+    .aboutUs {
+        width: 90%;
+        padding: 20px;
+    }
+}

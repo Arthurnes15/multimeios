@@ -21,7 +21,8 @@ export const ModalRenewRent = ({ id_rent, open, close }) => {
             rent_id: id_rent,
             date_return: values.date_return
         })
-        document.location.reload();
+        .then(() => document.location.reload())
+        .catch(() => alert("Falha ao alterar data do aluguel"))
     };
 
     if (open) {

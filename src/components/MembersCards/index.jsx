@@ -11,6 +11,7 @@ export const MembersCards = ({ members = [] }) => {
                 insta={member.insta}
                 url={member.url}
                 color={member.color}
+                backgroundPhoto={member.backgroundPhoto}
                 />
             ))}
         </section>

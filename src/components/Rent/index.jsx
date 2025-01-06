@@ -39,8 +39,9 @@ export const Rent = ({ idRent, classRent, nameBook, nameStudent, imgRented, grou
         axiosClient.put("editStatus", {
             status_id: values.status,
             rent_id: idRent
-        });
-        document.location.reload();
+        })
+        .then(() => document.location.reload())
+        .catch(() => alert("Falha ao alterar status do aluguel."))
     };
 
     const handleDeleteRent = () => {
