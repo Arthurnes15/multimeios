@@ -6,3 +6,8 @@
     margin-top: 50px;
 }
 
+@media only screen and (max-width: 430px) {
+    .students {
+        grid-template-columns: 1fr 1fr;
+    }
+}

@@ -44,14 +44,13 @@ export function RegisterStudent() {
       .then(() => {
         document.location.reload();
       })
-      .catch(() => alert("Algo deu errado"));
+      .catch(() => alert("Erro ao cadastrar estudante"));
     };
   };
 
   useEffect(() => {
     axiosClient.get("getGroups")
       .then((response) => {
-        console.log(response.data)
         setListGroups(response.data)
       })
   }, []);
@@ -118,7 +117,7 @@ export function RegisterStudent() {
               </Controller>
               <span className='text-danger'>{errors?.group?.message}</span>
             </div>
-            <br />
+            
             <div className="btn-registerStudent">
               <Button text={"Cadastrar aluno"}
                 type={"submit"}

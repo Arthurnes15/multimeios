@@ -27,7 +27,6 @@ export const Login = () => {
         })
         .then((res) => {
             localStorage.setItem('token', res.data.token);
-            localStorage.setItem('username', res.data.name);
             navigate("home");
         })
         .catch(() => alert("Você não tem permissão para acessar a página"))

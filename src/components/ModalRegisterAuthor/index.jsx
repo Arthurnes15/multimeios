@@ -23,7 +23,7 @@ export const ModalAuthor = ({ open, close }) => {
         .then(() => {
             document.location.reload();
         })
-        .catch(() => alert("Algo deu errado"));
+        .catch(() => alert("Erro ao registrar autor"));
     }
 
     if (open) {

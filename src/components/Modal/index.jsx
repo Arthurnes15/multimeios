@@ -38,7 +38,7 @@ export const Modal = ({ id_book, status, open, close }) => {
         .then(() => {
             document.location.reload();
         })
-        .catch(() => alert("Algo deu errado"));
+        .catch(() => alert("Erro ao alugar livro"));
     };
 
     if (open) {

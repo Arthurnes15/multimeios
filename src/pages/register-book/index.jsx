@@ -91,7 +91,7 @@ export function RegisterBook() {
       .then(() => {
         document.location.reload();
       })
-      .catch(() => alert("Algo deu errado"));
+      .catch(() => alert("Erro ao cadastrar livro"));
     }
   }
 

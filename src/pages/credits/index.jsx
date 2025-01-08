@@ -153,6 +153,8 @@ export const Credits = () => {
                         agradecer as pessoas que fizeram parte da INFO, não tinham pessoas
                         melhores para está lá. Acredito que nós nos juntamos com algum
                         objetivo e intuito que não poderá ser desfeito jamais.</p>
+                        <br />
+                        <p>- Ulisses Ribeiro Ferreira</p>
                 </div>
                 <div className="photo-info">
                     <img src={info} alt="informática 3" />
