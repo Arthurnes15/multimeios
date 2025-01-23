@@ -26,6 +26,10 @@
     margin-top: 20px;
 }
 
+.icons-students > svg {
+    margin-right: 5px;
+}
+
 .group-student {
     color: black;
 }

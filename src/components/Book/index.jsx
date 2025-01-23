@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { SvgEdit } from '../../components/Icons/edit';
-import { SvgTrash } from '../../components/Icons/trash';
-import { SvgBook } from '../Icons/book';
-import { SvgRent } from '../Icons/rent';
+import { BsPencilSquare } from 'react-icons/bs';
+import { BsTrash3 } from 'react-icons/bs';
+import { BsBook } from 'react-icons/bs';
+import { BsBagPlusFill } from 'react-icons/bs';
+
 import { Modal } from '../Modal';
 import { ModalEdit } from '../ModalEditBook';
+import axiosClient from '../../config/axiosClient';
 import '../../vars/vars.css';
 import './styles.css';
-import axiosClient from '../../config/axiosClient';
 
 export const Book = ({ id, nameBook, idAuthor, nameAuthor, idPublisher, publisher, img, alt,idGender, gender, isbn, amount, cdd, publication, volume }) => {
     const [openModal, setOpenModal] = useState(false);
@@ -51,7 +52,7 @@ export const Book = ({ id, nameBook, idAuthor, nameAuthor, idPublisher, publishe
             <div className="book" onMouseEnter={() => setShowInfoBook(true)} onMouseLeave={() => setShowInfoBook(false)}>
                         {showInfoBook && <div className="over-book">
                             <div className="book-details">
-                                <p className="name_book"><SvgBook></SvgBook><strong>{ nameBook }</strong></p>
+                                <p className="name_book"><BsBook size={24} /><strong>{ nameBook }</strong></p>
                                 <p className="name_author">{ nameAuthor }</p>
                                 <br />
                                 <p className="publisher"><strong>Editora:</strong> { publisher }</p>
@@ -66,9 +67,9 @@ export const Book = ({ id, nameBook, idAuthor, nameAuthor, idPublisher, publishe
                                 <p className="d-none id">Nº do editora: <strong>{idPublisher}</strong></p>
                                 <p className="d-none id">Nº do gênero: <strong>{idGender}</strong></p>
                                 <div className="events-svg">
-                                    <SvgEdit onClick={() => setOpenModalEdit(true)}></SvgEdit>
-                                    <SvgTrash onClick={() => {handleDeleteBook()}}></SvgTrash>
-                                    <SvgRent onClick={() => setOpenModal(true)}></SvgRent>
+                                    <BsPencilSquare size={24} className="text-info" onClick={() => setOpenModalEdit(true)} />
+                                    <BsTrash3 size={24} className="text-danger" onClick={() => {handleDeleteBook()}} />
+                                    <BsBagPlusFill size={24} className="text-warning" onClick={() => setOpenModal(true)} />
                                 </div>                          
                             </div>
                         </div>}

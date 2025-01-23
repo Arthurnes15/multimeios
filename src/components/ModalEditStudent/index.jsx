@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { SvgClose } from "../Icons/close";
+import { BsXCircle } from "react-icons/bs";
 import { Label } from "../Label";
 import { Button } from "../Button";
 import Select from "react-select";
@@ -51,7 +51,7 @@ export const ModalStudent = ({ openEditStudent, id_student, defaultNameStudent, 
                 <div id="modal-student">
                     <div className="header-student">
                         <h2>Editar Aluno: </h2>
-                        <SvgClose onClick={close} />
+                        <BsXCircle size={40} className="text-danger" onClick={close} />
                     </div>
                     
                     <form onSubmit={handleSubmit(handleSubmitEditStudent)}>

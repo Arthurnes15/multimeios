@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { SvgTrash } from "../Icons/trash";
-import { SvgEdit } from "../Icons/edit";
+import { BsTrash3 } from "react-icons/bs";
+import { BsPencilSquare } from "react-icons/bs";
 import { ModalStudent } from "../ModalEditStudent";
-import { SvgStudent } from "../Icons/student";
+import { BsPerson } from "react-icons/bs";
+
 import axiosClient from "../../config/axiosClient";
 import './styles.css'
 
@@ -30,11 +31,11 @@ export const Student = ({id_student, nameStudent, email, group, idGroup}) => {
                 />
                 
                 <div className={`student ${group}`}>
-                    <h4><SvgStudent/>{ nameStudent }</h4>
+                    <h4><BsPerson size={30}/>{ nameStudent }</h4>
                     <p className="group-student">{ group }</p>
                     <div className="icons-students">
-                        <SvgEdit onClick={() => setOpenModalStudent(true)}></SvgEdit>
-                        <SvgTrash onClick={() => {handleDeleteStudent()}}></SvgTrash>
+                        <BsPencilSquare size={24} className="text-info" onClick={() => setOpenModalStudent(true)} />
+                        <BsTrash3 size={24} className="text-danger" onClick={() => {handleDeleteStudent()}} />
                     </div>
                 </div>
             </>

@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { SvgEdit } from "../Icons/edit";
+import { BsPencilSquare } from "react-icons/bs";
 import { ModalGroup } from "../ModalEditGroup";
-import axiosClient from "../../config/axiosClient";
 import { useNavigate } from "react-router-dom";
 import { Spinner } from "../Spinner";
+
+import axiosClient from "../../config/axiosClient";
 import validateToken from "../../utils/validateToken";
 
 export const Group = ({id_group, nameGroup}) => {
@@ -34,7 +35,7 @@ export const Group = ({id_group, nameGroup}) => {
             <div className={`group ${nameGroup}`}>
                 <h4>{nameGroup}</h4>
                 <div className="icons-groups">
-                    <SvgEdit onClick={() => setOpenModalGroup(true)}></SvgEdit>
+                    <BsPencilSquare size={24} className="text-info" onClick={() => setOpenModalGroup(true)} />
                 </div>
             </div>
         </>

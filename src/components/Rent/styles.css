@@ -46,6 +46,10 @@
     justify-content: center;
 }
 
+.status-rent > svg {
+    margin-right: 5px;
+}
+
 .renew-book .text-renew {
     padding: 10px 0 5px 0;
     font-weight: 700;

@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-import { SvgClose } from "../Icons/close";
+import { BsXCircle } from "react-icons/bs";
 import { Label } from "../Label";
 import { Button } from "../Button";
-import Select from "react-select";
 import { number, object, string } from "yup";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import Select from "react-select";
+
 import axiosClient from "../../config/axiosClient";
 import './styles.css'
 
@@ -82,7 +83,7 @@ export const ModalEdit = ({ openEdit, id_book, defaultName, defaultAuthor, defau
                 <div id="modal-edit">
                     <div className="header-edit">
                         <h2>Edição do Livro</h2>
-                        <SvgClose onClick={close} />
+                        <BsXCircle size={40} className="text-danger" onClick={close} />
                     </div>
     
                     <form onSubmit={handleSubmit(handleSubmitEdit)}>

@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { SvgHome } from '../Icons/home';
-import { SvgRented } from '../Icons/rented';
 import { Link } from 'react-router-dom';
-import { SvgUser } from '../Icons/user';
-import { SvgCredit } from '../Icons/credits';
-import { SvgNotebook } from '../Icons/notebook';
-import { SvgLogout } from '../Icons/logout';
+import { BsHouse } from 'react-icons/bs';
+import { BsBagCheck } from 'react-icons/bs';
+import { BsPersonFill } from 'react-icons/bs';
+import { BsJournals } from 'react-icons/bs';
+import { BsListStars } from 'react-icons/bs';
+import { BsBoxArrowRight } from 'react-icons/bs';
+
 import axiosClient from '../../config/axiosClient';
 import logo from '../../assets/img/Multimeios-Logo.png';
 import validateToken from '../../utils/validateToken';
@@ -42,12 +43,12 @@ export const Navbar = () => {
                 <div className="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <Link to={"/home"} className="nav-link"><SvgHome></SvgHome>
+                            <Link to={"/home"} className="nav-link"><BsHouse size={24}/>
                             Tela Inicial</Link>
                         </li>
                         <li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="/">
-                                <SvgRented />Aluguéis
+                                <BsBagCheck size={24} />Aluguéis
                             </a>
                             <ul className="dropdown-menu">
                                 <li><Link to={"/rents"} className="dropdown-item text-info bg-white">Alugados</Link></li>
@@ -57,7 +58,7 @@ export const Navbar = () => {
                         </li>
                         <li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="/">
-                                <SvgNotebook />Escola
+                                <BsJournals size={24} />Escola
                             </a>
                             <ul className="dropdown-menu">
                                 <li><Link to={"/students"} className="dropdown-item text-info bg-white ">Alunos</Link></li>
@@ -69,18 +70,18 @@ export const Navbar = () => {
                         </li>
                         <li className="nav-item">
                             <Link to={"/credits"} className="nav-link">
-                            <SvgCredit /> Créditos</Link>
+                            <BsListStars size={24} /> Créditos</Link>
                         </li>
                     </ul>
                     <span className="user">
                         <span className="icon-user">
-                            <SvgUser />
+                            <BsPersonFill size={24} />
                         </span>
                         <span className="username">
                             {name}
                         </span>
                         <span className="icon-logout">
-                            <SvgLogout onClick={() => { handleLogout() }}/>
+                            <BsBoxArrowRight size={24} className="text-danger" onClick={() => { handleLogout() }}/>
                         </span>
                     </span>
                 </div>

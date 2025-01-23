@@ -2,8 +2,8 @@ import './styles.css';
 import { Select } from '../Select';
 import { useEffect, useState } from 'react';
 import { Option } from '../Option';
-import { SvgUpdate } from '../Icons/update';
-import { SvgTrash } from '../Icons/trash';
+import { BsArrowClockwise } from 'react-icons/bs';
+import { BsTrash3 } from 'react-icons/bs';
 import { ModalRenewRent } from '../ModalRenewRent';  
 import axiosClient from '../../config/axiosClient';
 
@@ -85,8 +85,8 @@ export const Rent = ({ idRent, classRent, nameBook, nameStudent, imgRented, grou
                                         ></Option>
                                     )
                                 })}></Select>
-                                <SvgUpdate onClick={handleUpdateStatus}/>
-                                <SvgTrash onClick={handleDeleteRent}/>
+                                <BsArrowClockwise size={24} className="text-dark-info" onClick={handleUpdateStatus}/>
+                                <BsTrash3 size={24} className="text-danger" onClick={handleDeleteRent} />
                             </div>
                             <div className="renew-book">
                                 <span className="text-renew" onClick={() => setOpenModal(true)}>Renovar livro</span>

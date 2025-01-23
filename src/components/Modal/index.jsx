@@ -1,10 +1,11 @@
+import { useEffect, useState } from "react";
 import { Label } from "../Label";
 import { Input } from "../Input";
 import { Select } from "../Select";
 import { Option } from "../Option";
 import { Button } from "../Button";
-import { SvgClose } from "../Icons/close";
-import { useEffect, useState } from "react";
+import { BsXCircle } from "react-icons/bs";
+
 import axiosClient from "../../config/axiosClient";
 import './styles.css';
 
@@ -47,7 +48,7 @@ export const Modal = ({ id_book, status, open, close }) => {
                 <div id="modal">
                     <div className="header">
                         <h2>Aluguel de Livros</h2>
-                        <SvgClose onClick={close} />
+                        <BsXCircle size={40} className="text-danger" onClick={close} />
                     </div>
                     <Input name={id_book}
                         type={"hidden"}

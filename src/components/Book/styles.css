@@ -19,6 +19,10 @@
     padding-top: 10px;
 }
 
+.events-svg > svg {
+    margin-right: 5px;
+}
+
 .book__img-title {
     width: 100%;
     height: 100%;
@@ -45,6 +49,10 @@
 
 .name_book {
     text-transform: uppercase;
+}
+
+.name_book > svg {
+    margin-right: 5px;
 }
 
 .book-details > p {

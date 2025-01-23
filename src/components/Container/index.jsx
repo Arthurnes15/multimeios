@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { SvgBookHome } from "../Icons/homebook";
-import { SvgArrow } from "../Icons/arrow";
+
+import { BsArrowRightCircleFill } from "react-icons/bs";
+import book_icon from '../../assets/img/book-icon-clipart.png';
+
 import validateToken from "../../utils/validateToken";
 import './styles.css';
 
@@ -20,13 +22,13 @@ export const Container = () => {
                 <h1 className="title">Olá, {name}</h1>
                 <p className="paragraph">O que você deseja fazer hoje?</p>
                 <div className="buttons-actions">
-                    <Link to={"/registerStudent"}><button className={"btn-register"}>Cadastrar Aluno <SvgArrow></SvgArrow></button></Link>
+                    <Link to={"/registerStudent"}><button type="button" className="btn-register">Cadastrar Aluno <BsArrowRightCircleFill size={30} /></button></Link>
                     <Link to={"/registerBook"} className="link"> Cadastrar Livro</Link>
                 </div>
             </div>
 
             <div className="icon-book">
-                <SvgBookHome/>
+                <img src={book_icon} alt="book_icon" />
             </div>
         </div>
     )

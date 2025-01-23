@@ -5,7 +5,6 @@
     background-color: var(--light-cian);
     margin-top: 2px;
     padding: 50px;
-    box-shadow: 0px -3px 10px #00000042;
 }
 
 .text-copyright:hover {
@@ -21,4 +20,9 @@
 .link-footer {
     text-decoration: none;
     color: var(--middle-purple);
+}
+
+.instagram > svg {
+    color: var(--light-purple);
+    margin-right: 2px;
 }

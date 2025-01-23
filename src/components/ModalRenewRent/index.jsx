@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Label } from "../Label";
 import { Input } from "../Input";
 import { Button } from "../Button";
-import { SvgClose } from "../Icons/close";
+import { BsXCircle } from "react-icons/bs";
 import axiosClient from "../../config/axiosClient";
 import './styles.css'
 
@@ -31,7 +31,7 @@ export const ModalRenewRent = ({ id_rent, open, close }) => {
                 <div id="modal-edit">
                     <div className="header-edit">
                         <h2>Renovar livro</h2>
-                        <SvgClose onClick={close} />
+                        <BsXCircle size={40} className="text-danger" onClick={close} />
                     </div>
                     <Input name={id_rent}
                         type={"hidden"}

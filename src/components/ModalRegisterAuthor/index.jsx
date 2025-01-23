@@ -1,7 +1,8 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { object, string } from 'yup';
-import { SvgClose } from '../Icons/close';
+
+import { BsXCircle } from 'react-icons/bs';
 import { Label } from '../Label';
 import { Button } from '../Button';
 import axiosClient from '../../config/axiosClient';
@@ -32,7 +33,7 @@ export const ModalAuthor = ({ open, close }) => {
                 <div id="modal-author">
                     <div className="header-author">
                         <h2>Cadastrar Autor</h2>
-                        <SvgClose onClick={close} />
+                        <BsXCircle size={40} className="text-danger" onClick={close} />
                     </div>
 
                     <form onSubmit={handleSubmit(handleRegisterAuthor)}>

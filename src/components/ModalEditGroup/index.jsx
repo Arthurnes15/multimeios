@@ -1,4 +1,4 @@
-import { SvgClose } from "../Icons/close"
+import { BsXCircle } from "react-icons/bs";
 import { Label } from "../Label";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -28,7 +28,7 @@ export const ModalGroup = ({ openEditGroup, close, id_group, defaultGroup }) => 
                 <div id="modal-edit">
                     <div className="header-edit">
                         <h2>Renovar livro</h2>
-                        <SvgClose onClick={close} />
+                        <BsXCircle size={40} className="text-danger" onClick={close} />
                     </div>
                     <form onSubmit={handleSubmit(handleSubmitEditGroup)}>
                         <input 

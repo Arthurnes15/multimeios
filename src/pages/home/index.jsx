@@ -1,16 +1,17 @@
 import { useState, useEffect, useRef } from 'react';
+
 import { Navbar } from '../../components/Navbar/index';
 import { Container } from '../../components/Container';
 import { Footer } from '../../components/Footer';
 import { Input } from '../../components/Input';
-import leftArrow from '../../assets/img/left-arrow.png';
 import { Books } from '../../components/Books';
 import { Button } from '../../components/Button';
 import { Link, useNavigate } from 'react-router-dom';
+import { Spinner } from '../../components/Spinner';
+import leftArrow from '../../assets/img/left-arrow.png';
 import validateToken from '../../utils/validateToken';
 import axiosClient from '../../config/axiosClient';
 import './styles.css';
-import { Spinner } from '../../components/Spinner';
 
 export const Home = () => {
     const [auth, setAuth] = useState(false);
@@ -74,10 +75,10 @@ export const Home = () => {
 
                     <div className="buttons">
                         <div>
-                            <Button className={"left-arrow"} onClick={handleLeftClick}
+                            <Button type={"button"} className={"left-arrow"} onClick={handleLeftClick}
                                 text={<img src={leftArrow} alt="left-arrow" />}
                             />
-                            <Button className={"right-arrow"} onClick={handleRightClick}
+                            <Button type={"button"} className={"right-arrow"} onClick={handleRightClick}
                                 text={<img src={leftArrow} alt="right-arrow" />}
                             />
                         </div>

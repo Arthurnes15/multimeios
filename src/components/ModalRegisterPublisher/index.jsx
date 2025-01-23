@@ -1,11 +1,12 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { object, string } from 'yup';
-import './styles.css';
-import { SvgClose } from '../Icons/close';
+
+import { BsXCircle } from 'react-icons/bs';
 import { Label } from '../Label';
 import { Button } from '../Button';
 import axiosClient from '../../config/axiosClient';
+import './styles.css';
 
 export const ModalPublisher = ({ open, close }) => {
     const schema = object({
@@ -32,7 +33,7 @@ export const ModalPublisher = ({ open, close }) => {
                     <div id="modal-publisher">
                         <div className="header-publisher">
                             <h2>Cadastrar Editora</h2>
-                            <SvgClose onClick={close} />
+                            <BsXCircle size={40} className="text-danger"  onClick={close} />
                         </div>
 
                         <form onSubmit={handleSubmit(handleRegisterPublisher)}>
