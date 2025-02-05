@@ -7,9 +7,11 @@ import { Button } from "../Button";
 import { BsXCircle } from "react-icons/bs";
 
 import axiosClient from "../../config/axiosClient";
+import validateToken from "../../utils/validateToken";
 import './styles.css';
 
 export const Modal = ({ id_book, status, open, close }) => {
+    const [responsible, setResponsible] = useState('');
     const [values, setValues] = useState();
     const [listStudents, setListStudents] = useState();
 
@@ -18,8 +20,13 @@ export const Modal = ({ id_book, status, open, close }) => {
             .then((response) => {
                 setListStudents(response.data);
             });
-    },
-        []);
+    }, []);
+
+    useEffect(() => {
+        validateToken()
+        .then((res) => setResponsible(res.data.username))
+        .catch(err => console.log(err))
+    })
 
     const handleChangeValues = (value) => {
         setValues((prevValue) => ({
@@ -31,15 +38,15 @@ export const Modal = ({ id_book, status, open, close }) => {
     const handleClickRent = () => {
         axiosClient.post("rent", {
             book_id: id_book,
-            responsible: values.responsible,
+            responsible: responsible,
             student: values.student,
             status: status,
             date_return: values.date_return
         })
-        .then(() => {
-            document.location.reload();
-        })
-        .catch(() => alert("Erro ao alugar livro"));
+            .then(() => {
+                document.location.reload();
+            })
+            .catch(() => alert("Erro ao alugar livro"));
     };
 
     if (open) {
@@ -52,11 +59,6 @@ export const Modal = ({ id_book, status, open, close }) => {
                     </div>
                     <Input name={id_book}
                         type={"hidden"}
-                        onChange={handleChangeValues}
-                    />
-
-                    <Label text={"Responsável pelo aluguel: "}></Label>
-                    <Input name={"responsible"}
                         onChange={handleChangeValues}
                     />
 

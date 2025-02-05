@@ -73,8 +73,10 @@ export const ModalEdit = ({ openEdit, id_book, defaultName, defaultAuthor, defau
             amount: data.new_amount,
             cdd: data.new_cdd,
             volume: data.new_volume
-        });
-        document.location.reload();
+        })
+        .then(() => document.location.reload())
+        .catch(() => alert("Falha ao alterar livro"))
+        
     };
     
     if (openEdit) {

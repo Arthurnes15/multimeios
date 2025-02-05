@@ -62,8 +62,6 @@ export const Navbar = () => {
                             </a>
                             <ul className="dropdown-menu">
                                 <li><Link to={"/students"} className="dropdown-item text-info bg-white ">Alunos</Link></li>
-                                <li><Link to={"/groups"} className="dropdown-item text-info bg-white">Turmas</Link>
-                                </li>
                                 <li><Link to={"/registerUser"} className="dropdown-item text-info bg-white">Criar Usuário</Link>
                                 </li>
                             </ul>

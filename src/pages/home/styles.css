@@ -47,6 +47,10 @@
     justify-content: right;
 }
 
+.buttons > div > button {
+    background: none;
+}
+
 @media only screen and (max-width: 1300px ){
     .search-buttons {
         width: 40vw;

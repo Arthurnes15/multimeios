@@ -37,7 +37,7 @@ export const ModalStudent = ({ openEditStudent, id_student, defaultNameStudent, 
             group: data.new_group,
         })
         .then(() => document.location.reload())
-        .catch(() => alert("Falha ao alterar aluno"))
+        .catch(() => alert("Falha ao alterar aluno"));
     }
 
     const groups = typeof listGroups !== "undefined" && listGroups.map((group) => ({

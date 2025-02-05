@@ -21,9 +21,7 @@ export const ModalAuthor = ({ open, close }) => {
         axiosClient.post("registerAuthor", {
             new_author: data.new_author
         })
-        .then(() => {
-            document.location.reload();
-        })
+        .then(() => document.location.reload())
         .catch(() => alert("Erro ao registrar autor"));
     }
 

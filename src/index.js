@@ -12,7 +12,6 @@ import { RentsPending } from './pages/rents-pending';
 import { RentsReturned } from './pages/rents-returned';
 import { BooksCatalog } from './pages/books-catalog';
 import { Credits } from './pages/credits';
-import { GroupsPage } from './pages/groups-page';
 import { RegisterUser } from './pages/register-user';
 import './index.css';
 
@@ -52,10 +51,6 @@ const router = createBrowserRouter([
   {
     path: "/registerStudent",
     element: <RegisterStudent/>
-  },
-  {
-    path: "/groups",
-    element: <GroupsPage/>
   },
   {
     path: "/students",

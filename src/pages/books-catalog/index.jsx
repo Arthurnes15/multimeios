@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { Navbar } from "../../components/Navbar"
 import { Input } from "../../components/Input";
 import { AllBooks } from "../../components/AllBooks";
 import { Footer } from "../../components/Footer";
 import axiosClient from "../../config/axiosClient";
-import './styles.css';
 import validateToken from "../../utils/validateToken";
-import { useNavigate } from "react-router-dom";
+import './styles.css';
 
 export const BooksCatalog = () => {
     const [auth, setAuth] = useState(false);
@@ -31,7 +32,7 @@ export const BooksCatalog = () => {
         return book.nome_livro.toLowerCase().includes(searchValue.toLowerCase())
     }) : listBooks;
 
-    const handleChangeSearch = (e) => { 
+    const handleChangeSearch = (e) => {
         const { value } = e.target;
         setSearchValue(value);
     }
@@ -42,14 +43,17 @@ export const BooksCatalog = () => {
             <header className="container header-allBooks">
                 <h1>Todo o acervo: </h1>
                 <div className="input-search-book">
-                    <Input placeholder={"Procure um livro:"}
-                    type={"search"}
-                    value={searchValue}
-                    onChange={handleChangeSearch}
+                    <Input
+                        placeholder={"Procure um livro:"}
+                        type={"search"}
+                        value={searchValue}
+                        onChange={handleChangeSearch}
                     />
                 </div>
             </header>
-            <AllBooks books={filteredBooks}></AllBooks>
+
+            <AllBooks books={filteredBooks} />
+
             <Footer />
         </>
     )
