@@ -14,6 +14,7 @@ export const Students = ({ students = [] }) => {
                     email={student.email_aluno}
                     idGroup={student.id_turma}
                     group={student.nome_turma}
+                    phoneNumber={student.telefone_aluno}
                     listStudents={listStudents}
                     setListStudents={setListStudents}
                     />

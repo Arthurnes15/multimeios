@@ -1,22 +1,24 @@
 import { useState, useEffect } from "react";
 import { BsXCircle } from "react-icons/bs";
+import { useForm, Controller } from "react-hook-form";
+import { number, object, string } from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import Select from "react-select";
+
 import { Label } from "../Label";
 import { Button } from "../Button";
-import Select from "react-select";
-import { useForm, Controller } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { number, object, string } from "yup";
 import axiosClient from "../../config/axiosClient";
 import './styles.css';
 
-export const ModalStudent = ({ openEditStudent, id_student, defaultNameStudent, defaultEmail, defaultGroup, close }) => {
+export const ModalStudent = ({ openEditStudent, id_student, defaultNameStudent, defaultEmail, defaultPhoneNumber, defaultGroup, close }) => {
     const schema = object({
         id_student: number(),
         new_name: string(),
         new_email: string().email("Inclua o @ no endereço de email"),
-        new_group: number()
+        new_phone_number: string().max(15, "Deve conter no máximo 15 números"),
+        new_group: number(),
     })
-    const {register, handleSubmit, control, formState: { errors }} = useForm({
+    const { register, handleSubmit, control, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
     })
     const [listGroups, setListGroups] = useState();
@@ -34,6 +36,7 @@ export const ModalStudent = ({ openEditStudent, id_student, defaultNameStudent, 
             id: data.id_student,
             name: data.new_name,
             email: data.new_email,
+            phone_number: data.new_phone_number,
             group: data.new_group,
         })
         .then(() => document.location.reload())
@@ -75,6 +78,15 @@ export const ModalStudent = ({ openEditStudent, id_student, defaultNameStudent, 
                         
                         />
                         <span className='text-danger'>{errors?.new_email?.message}</span>
+
+                        <Label text={"Novo telefone do aluno:"} />
+                        <input type={"tel"}
+                            className="form-control"
+                            defaultValue={defaultPhoneNumber}
+                            {...register("new_phone_number")}
+                        
+                        />
+                        <span className='text-danger'>{errors?.new_phone_number?.message}</span>
 
                         <div className="text-fieldEditStudent">
                             <Label text={"Nova turma do aluno:"} />

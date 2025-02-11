@@ -17,8 +17,9 @@ import { Spinner } from '../../components/Spinner/index.jsx';
 
 export function RegisterStudent() {
   const schema = object({
-    name_student: string().required("Campo obrigatório").max(255),
-    email: string().email("Inclua o @ no endereço de e-mail").required("Campo obrigatório"),
+    name_student: string().required("Campo obrigatório").max(50),
+    email: string().email("Inclua o @ no endereço de e-mail").nullable(),
+    phone: string().max(15, "Deve conter no máximo 15 números").nullable(),
     group: number().required("Campo obrigatório")
   })
   const { register, handleSubmit, control, formState: { errors } } = useForm({
@@ -40,11 +41,12 @@ export function RegisterStudent() {
         name: data.name_student,
         email: data.email,
         group: data.group,
+        phone_number: data.phone,
       })
-      .then(() => {
-        document.location.reload();
-      })
-      .catch(() => alert("Erro ao cadastrar estudante"));
+        .then(() => {
+          document.location.reload();
+        })
+        .catch(() => alert("Erro ao cadastrar estudante"));
     };
   };
 
@@ -63,7 +65,7 @@ export function RegisterStudent() {
 
   return (
     <>
-      {!auth && <Spinner/>}
+      {!auth && <Spinner />}
 
       <Navbar />
       <article className="container registerStudents">
@@ -83,6 +85,7 @@ export function RegisterStudent() {
               />
               <span className='text-danger'>{errors?.name_student?.message}</span>
             </div>
+
             <div className="text-fieldGroup">
               <Label htmlFor={"email"}
                 text={"E-mail:"}
@@ -95,6 +98,20 @@ export function RegisterStudent() {
               />
               <span className='text-danger'>{errors?.email?.message}</span>
             </div>
+
+            <div className="text-fieldGroup">
+              <Label htmlFor={"phone"}
+                text={"Telefone:"}
+              />
+              <input
+                type="tel"
+                className="form-control"
+                placeholder="Telefone do aluno"
+                {...register("phone")}
+              />
+              <span className='text-danger'>{errors?.phone?.message}</span>
+            </div>
+
             <div className="text-fieldGroup">
               <Label htmlFor={"group"}
                 text={"Turma:"}
@@ -117,7 +134,7 @@ export function RegisterStudent() {
               </Controller>
               <span className='text-danger'>{errors?.group?.message}</span>
             </div>
-            
+
             <div className="btn-registerStudent">
               <Button text={"Cadastrar aluno"}
                 type={"submit"}
