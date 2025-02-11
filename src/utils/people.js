@@ -35,7 +35,7 @@ export const members = [
     photo: kaua,
     color: "#64A6DC",
     backgroundPhoto: "#3398b296",
-    url: "https://www.instagram.com/tk.s__._/"
+    url: "https://www.instagram.com/kauaslv.bjj"
   },
   {
     id: 2,
@@ -104,11 +104,11 @@ export const collaborators = [
     id: 2,
     name: "Davi Cavalcante",
     job: "Desenvolvedor Back-End da Rentex",
-    insta: "@dav.lima4653",
+    insta: "@davilima.ca",
     photo: davi,
     color: "#8265EA",
     backgroundPhoto: "#9295f093",
-    url: "https://www.instagram.com/dav.lima4653/"
+    url: "https://www.instagram.com/davilima.ca/"
   },
   {
     id: 3,

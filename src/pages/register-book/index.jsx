@@ -1,26 +1,27 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { number, object, string } from 'yup';
+import { useForm, Controller } from "react-hook-form";
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { storage } from '../../firebase';
+
 import womanfloat from '../../assets/img/Bibliophile.gif';
+import { ModalAuthor } from '../../components/ModalRegisterAuthor';
+import { Spinner } from '../../components/Spinner';
 import { Navbar } from '../../components/Navbar';
 import { Footer } from '../../components/Footer';
 import { Label } from '../../components/Label';
 import { Input } from '../../components/Input';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { number, object, string } from 'yup';
 import { TextRegister } from '../../components/TextRegister';
 import { Button } from '../../components/Button/index';
 import { ModalPublisher } from '../../components/ModalRegisterPublisher';
-import { useForm, Controller } from "react-hook-form";
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { storage } from '../../firebase';
 import validateToken from '../../utils/validateToken';
 import axiosClient from '../../config/axiosClient';
 import Select from 'react-select'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../vars/vars.css';
 import './styles.css';
-import { ModalAuthor } from '../../components/ModalRegisterAuthor';
-import { Spinner } from '../../components/Spinner';
 
 export function RegisterBook() {
   const schema = object({

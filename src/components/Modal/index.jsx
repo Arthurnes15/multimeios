@@ -1,20 +1,48 @@
 import { useEffect, useState } from "react";
-import { Label } from "../Label";
-import { Input } from "../Input";
-import { Select } from "../Select";
-import { Option } from "../Option";
-import { Button } from "../Button";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { number, object, string } from "yup";
+import { useForm, Controller } from "react-hook-form";
+import Select from "react-select";
 import { BsXCircle } from "react-icons/bs";
 
+import { Label } from "../Label";
+import { Button } from "../Button";
 import axiosClient from "../../config/axiosClient";
 import validateToken from "../../utils/validateToken";
 import './styles.css';
 
 export const Modal = ({ id_book, status, open, close }) => {
+    const schema = object({
+        id: number(),
+        student: number().required("Campo obrigatório"),
+        status: number(),
+        date_return: string().required(),
+    });
+    const { register, handleSubmit, control, formState: { errors } } = useForm({
+        resolver: yupResolver(schema),
+    });
     const [responsible, setResponsible] = useState('');
-    const [values, setValues] = useState();
     const [listStudents, setListStudents] = useState();
 
+    const students = typeof listStudents !== "undefined" && listStudents.map((student) => ({
+        value: student.id_aluno,
+        label: student.nome_aluno,
+    }));
+
+    const handleSubmitRent = (data) => {
+        axiosClient.post("rent", {
+            book_id: data.id,
+            student: data.student,
+            status: data.status,
+            date_return: data.date_return,
+            responsible: responsible,
+        })
+        .then(() => {
+            document.location.reload();
+        })
+        .catch(() => alert("Erro ao alugar livro"));
+    };
+    
     useEffect(() => {
         axiosClient.get("getStudents")
             .then((response) => {
@@ -24,30 +52,9 @@ export const Modal = ({ id_book, status, open, close }) => {
 
     useEffect(() => {
         validateToken()
-        .then((res) => setResponsible(res.data.username))
-        .catch(err => console.log(err))
-    })
-
-    const handleChangeValues = (value) => {
-        setValues((prevValue) => ({
-            ...prevValue,
-            [value.target.name]: value.target.value,
-        }));
-    };
-
-    const handleClickRent = () => {
-        axiosClient.post("rent", {
-            book_id: id_book,
-            responsible: responsible,
-            student: values.student,
-            status: status,
-            date_return: values.date_return
-        })
-            .then(() => {
-                document.location.reload();
-            })
-            .catch(() => alert("Erro ao alugar livro"));
-    };
+            .then((res) => setResponsible(res.data.username))
+            .catch(err => console.log(err))
+    });
 
     if (open) {
         return (
@@ -57,39 +64,59 @@ export const Modal = ({ id_book, status, open, close }) => {
                         <h2>Aluguel de Livros</h2>
                         <BsXCircle size={40} className="text-danger" onClick={close} />
                     </div>
-                    <Input name={id_book}
-                        type={"hidden"}
-                        onChange={handleChangeValues}
-                    />
 
-                    <Label text={"Data de devolução:"} />
-                    <Input name={"date_return"}
-                        type={"date"}
-                        onChange={handleChangeValues}
-                    />
+                    <form onSubmit={handleSubmit(handleSubmitRent)}>
+                        <input
+                            type="hidden"
+                            className="form-control"
+                            defaultValue={id_book}
+                            {...register("id")}
+                        />
+                        <div>
+                            <Label text={"Data de devolução:"} />
+                            <input
+                                type={"date"}
+                                className="form-control"
+                                {...register("date_return")}
+                            />
+                            <span className="text-danger">{errors?.date_return?.message}</span>
+                        </div>
 
-                    <Label text={"Aluno: "}></Label>
-                    <Select name={"student"}
-                        firstOption={"Escolha o aluno"}
-                        onChange={handleChangeValues}
-                        render={typeof listStudents !== "undefined" && listStudents.map((student) => {
-                            return (
-                                <Option key={student.id_aluno} value={student.id_aluno}
-                                    text={student.nome_aluno}
-                                ></Option>
-                            )
-                        })}
-                    ></Select>
+                        <div>
+                            <Label text={"Aluno: "}></Label>
+                            <Controller
+                                control={control}
+                                name="student"
+                                render={({
+                                    field: { onChange }
+                                }) => (
+                                    <Select
+                                        options={students}
+                                        onChange={(e) => {
+                                            onChange(e.value);
+                                        }}
+                                        placeholder={"Selecione o aluno"}
+                                    ></Select>
+                                )}
+                            />
+                            <span className='text-danger'>{errors?.student?.message}</span>
+                        </div>
 
-                    <Input name={status}
-                        type={"hidden"}
-                        onChange={handleChangeValues}
-                    />
-
-                    <br />
-                    <Button text={"Alugar"}
-                        className={"btn btn-warning"}
-                        onClick={() => handleClickRent()}></Button>
+                        <input
+                            type={"hidden"}
+                            className="form-control"
+                            defaultValue={status}
+                            {...register("status")}
+                        />
+                        <br />
+                        <div>
+                            <Button
+                                type={"submit"}
+                                text={"Alugar"}
+                                className={"btn btn-warning"}
+                            />
+                        </div>
+                    </form>
                 </div>
             </div>
         )
