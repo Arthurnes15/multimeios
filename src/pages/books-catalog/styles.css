@@ -22,3 +22,18 @@
     letter-spacing: 1px;
 }
 
+.loadMoreBooks {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loadMoreBooks > button {
+    width: 15%;
+    background-color: var(--light-purple);
+    font-size: 18px;
+    color: white;
+    padding: 6px;
+    margin: 15px 0;
+    border-radius: 5px;
+}

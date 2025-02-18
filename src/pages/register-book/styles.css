@@ -40,6 +40,19 @@
     border-radius: 5px;
 }
 
+.col-sm.new_author > div, .col-sm.new_publisher > div {
+    display: flex;
+    align-items: center;
+}
+
+.btn-registerAuthor > button, .btn-registerPublisher > button {
+    background-color: var(--light-purple);
+    color: white;
+    padding: 5px;
+    margin-left: 10px;
+    border-radius: 50%;
+}
+
 .progress-bar {
     background-color: var(--light-purple);
 }

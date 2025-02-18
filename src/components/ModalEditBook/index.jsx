@@ -37,7 +37,9 @@ export const ModalEdit = ({ openEdit, id_book, defaultName, defaultAuthor, defau
     const publishers = typeof listPublishers !== "undefined" && listPublishers.map((publisher) => ({
         value: publisher.id_editora,
         label: publisher.editora
-    }))
+    }));
+
+    console.log(publishers);
 
     const genders = typeof listGenders !== "undefined" && listGenders.map((gender) => ({
         value: gender.id_genero,
@@ -76,7 +78,6 @@ export const ModalEdit = ({ openEdit, id_book, defaultName, defaultAuthor, defau
         })
         .then(() => document.location.reload())
         .catch(() => alert("Falha ao alterar livro"))
-        
     };
     
     if (openEdit) {

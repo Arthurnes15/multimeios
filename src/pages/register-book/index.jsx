@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { BsPlusLg } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { number, object, string } from 'yup';
@@ -7,7 +8,6 @@ import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { storage } from '../../firebase';
 
 import womanfloat from '../../assets/img/Bibliophile.gif';
-import { ModalAuthor } from '../../components/ModalRegisterAuthor';
 import { Spinner } from '../../components/Spinner';
 import { Navbar } from '../../components/Navbar';
 import { Footer } from '../../components/Footer';
@@ -15,7 +15,6 @@ import { Label } from '../../components/Label';
 import { Input } from '../../components/Input';
 import { TextRegister } from '../../components/TextRegister';
 import { Button } from '../../components/Button/index';
-import { ModalPublisher } from '../../components/ModalRegisterPublisher';
 import validateToken from '../../utils/validateToken';
 import axiosClient from '../../config/axiosClient';
 import Select from 'react-select'
@@ -41,11 +40,16 @@ export function RegisterBook() {
   });
   const [listAuthors, setListAuthors] = useState([]);
   const [listGenders, setListGenders] = useState([]);
-  const [listPublishers, setListPubli] = useState([]);
+  const [listPublishers, setListPublishers] = useState([]);
+
   const [openPublisher, setOpenPublisher] = useState(false);
   const [openAuthor, setOpenAuthor] = useState(false);
+
   const [imgURL, setImgUpload] = useState("");
   const [progress, setProgress] = useState(0);
+
+  const [newAuthor, setNewAuthor] = useState('');
+  const [newPublisher, setNewPublisher] = useState('');
   const navigate = useNavigate();
 
   const handleUploadImg = (e) => {
@@ -89,10 +93,10 @@ export function RegisterBook() {
         publication: data.publication,
         image: imgURL,
       })
-      .then(() => {
-        document.location.reload();
-      })
-      .catch(() => alert("Erro ao cadastrar livro"));
+        .then(() => {
+          document.location.reload();
+        })
+        .catch(() => alert("Erro ao cadastrar livro"));
     }
   }
 
@@ -100,6 +104,21 @@ export function RegisterBook() {
     value: author.id_autor,
     label: author.nome_autor,
   }));
+
+  async function handleRegisterAuthor() {
+    try {
+      await axiosClient.post("registerAuthor", {
+        new_author: newAuthor,
+      });
+
+      const response = await axiosClient.get("getAuthors");
+      setListAuthors(response.data);
+      setOpenAuthor(false);
+    }
+    catch (error) {
+      console.error('Error: ', error)
+    }
+  }
 
   const genders = typeof listGenders !== "undefined" && listGenders.map((gender) => ({
     value: gender.id_genero,
@@ -110,6 +129,21 @@ export function RegisterBook() {
     value: publisher.id_editora,
     label: publisher.editora,
   }));
+
+  async function handleRegisterPublisher() {
+    try {
+      await axiosClient.post("registerPublisher", {
+        new_publisher: newPublisher,
+      });
+
+      const response = await axiosClient.get("getPublishers");
+      setListPublishers(response.data);
+      setOpenPublisher(false);
+    }
+    catch (error) {
+      console.error('Error: ', error)
+    }
+  }
 
   useEffect(() => {
     axiosClient.get("getAuthors")
@@ -126,7 +160,7 @@ export function RegisterBook() {
 
     axiosClient.get("getPublishers")
       .then((response) => {
-        setListPubli(response.data)
+        setListPublishers(response.data)
       }
       );
   }, []);
@@ -140,16 +174,6 @@ export function RegisterBook() {
   return (
     <>
       {!auth && <Spinner />}
-
-      <ModalPublisher open={openPublisher}
-        close={() => setOpenPublisher(false)}
-
-      />
-
-      <ModalAuthor open={openAuthor}
-        close={() => setOpenAuthor(false)}
-
-      />
 
       <Navbar />
 
@@ -196,7 +220,7 @@ export function RegisterBook() {
               <span className='text-danger'>{errors?.book?.message}</span>
             </div>
             <div className="row">
-              <div className="col-sm">
+              <div className="col-sm" style={{ display: openAuthor ? "none" : "block" }}>
                 <Label htmlFor={"name_author"}
                   text={'Autor'} />
 
@@ -219,8 +243,30 @@ export function RegisterBook() {
                 <span className='text-danger'>{errors?.author?.message}</span>
 
                 <TextRegister text={'Autor não listado'}
-                  onClick={() => setOpenAuthor(true)} />
+                  onClick={() => setOpenAuthor(!openAuthor)} />
               </div>
+
+              <div className="col-sm new_author" style={{ display: openAuthor ? "block" : "none" }}>
+                <Label text={"Novo autor:"} />
+                <div>
+                  <input type="text"
+                    className="form-control"
+                    placeholder="Autor"
+                    onChange={(e) => setNewAuthor(e.target.value)}
+                  />
+
+                  <div className="btn-registerAuthor">
+                    <Button
+                      type="button"
+                      text={<BsPlusLg size={24} />}
+                      onClick={handleRegisterAuthor}
+                    />
+                  </div>
+                </div>
+                <TextRegister text={'Autor listado'}
+                  onClick={() => setOpenAuthor(!openAuthor)} />
+              </div>
+
               <div className="col-sm">
                 <Label htmlFor={"gender"} text={"Gênero:"}></Label>
 
@@ -242,7 +288,7 @@ export function RegisterBook() {
                 </Controller>
                 <span className='text-danger'>{errors?.gender?.message}</span>
               </div>
-              <div className="col-sm">
+              <div className="col-sm" style={{ display: openPublisher ? "none" : "block" }}>
                 <Label htmlFor={"publisher"} text={"Editora:"}></Label>
 
                 <Controller
@@ -263,7 +309,27 @@ export function RegisterBook() {
                 </Controller>
                 <span className='text-danger'>{errors?.publisher?.message}</span>
 
-                <TextRegister text={'Editora não listada'} onClick={() => setOpenPublisher(true)}></TextRegister>
+                <TextRegister text={'Editora não listada'} onClick={() => setOpenPublisher(!openPublisher)}></TextRegister>
+              </div>
+
+              <div className="col-sm new_publisher" style={{ display: openPublisher ? "block" : "none" }}>
+                <Label text={"Nova editora:"} />
+                <div>
+                  <input type="text"
+                    className="form-control"
+                    placeholder="Editora"
+                    onChange={(e) => setNewPublisher(e.target.value)}
+                  />
+                  <div className="btn-registerPublisher">
+                    <Button
+                      type="button"
+                      text={<BsPlusLg size={24} />}
+                      onClick={handleRegisterPublisher}
+                    />
+                  </div>
+                </div>
+                <TextRegister text={'Editora listada'}
+                  onClick={() => setOpenPublisher(!openPublisher)} />
               </div>
             </div>
             <div className="text-field">
