@@ -39,8 +39,6 @@ export const ModalEdit = ({ openEdit, id_book, defaultName, defaultAuthor, defau
         label: publisher.editora
     }));
 
-    console.log(publishers);
-
     const genders = typeof listGenders !== "undefined" && listGenders.map((gender) => ({
         value: gender.id_genero,
         label: gender.genero

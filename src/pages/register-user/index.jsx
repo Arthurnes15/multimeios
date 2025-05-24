@@ -66,6 +66,7 @@ export const RegisterUser = () => {
                             <Label text={"Nome de Usuário: "}></Label>
                             <input type="text"
                                 className="form-control"
+                                placeholder="Nome do Usuário"
                                 {...register("username")}
                             />
                             <span className='text-danger'>{errors?.username?.message}</span>
@@ -74,6 +75,7 @@ export const RegisterUser = () => {
                             <Label text={"Senha: "}></Label>
                             <input type="password"
                                 className="form-control"
+                                placeholder="Senha do Usuário"
                                 {...register("password")}
                             />
                             <span className='text-danger'>{errors?.password?.message}</span>

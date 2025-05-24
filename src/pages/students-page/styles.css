@@ -3,12 +3,8 @@
     src: url(../../assets/fonts/DMSerif/DMSerifText-Regular.ttf);
 }
 
-.container.table {
-    margin-top: 40px;
-}
-
-.table > thead > tr > th {
-    color: var(--light-purple);
+.container {
+    margin-bottom: 30px;
 }
 
 .header-students{
